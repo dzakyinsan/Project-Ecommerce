@@ -1,0 +1,258 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "1234",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "dobleh",
+      "password": "qwe",
+      "role": "user"
+    }
+  ],
+  "catalogs1": [
+    {
+      "productname": "HEALFIE - WHITE",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-5.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-3.jpg",
+      "harga": "70.000",
+      "id": 1
+    },
+    {
+      "productname": "ARSAC - GREEN",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/ARSAC-GREEN-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/ARSAC-GREEN-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/ARSAC-GREEN-5.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/ARSAC-GREEN-3.jpg",
+      "harga": "70.000",
+      "id": 2
+    },
+    {
+      "productname": "LEAVER – BLUE",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/LEAVER-BLUE-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/LEAVER-BLUE-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/LEAVER-BLUE-4.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/LEAVER-BLUE-3.jpg",
+      "harga": "70.000",
+      "id": 3
+    },
+    {
+      "productname": "ARCTROPOL – RED",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/10/ARCTROPOL-RED-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/10/ARCTROPOL-RED-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/10/ARCTROPOL-RED-4.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/10/ARCTROPOL-RED-3.jpg",
+      "harga": "70.000",
+      "id": 4
+    },
+    {
+      "productname": "LURAN – RED",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/10/LURAN-RED-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/10/LURAN-RED-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/10/LURAN-RED-4.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/10/LURAN-RED-3.jpg",
+      "harga": "70.000",
+      "id": 5
+    },
+    {
+      "productname": "LINUBLE – NAVY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/LINUBLE-NAVY-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/LINUBLE-NAVY-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/LINUBLE-NAVY-4.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/LINUBLE-NAVY-3.jpg",
+      "harga": "120.000",
+      "id": 6
+    },
+    {
+      "productname": "CANYON – GREY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/10/CANYON-GREY-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/10/CANYON-GREY-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/10/CANYON-GREY-6.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/10/CANYON-GREY-3.jpg",
+      "harga": "190.000",
+      "id": 7
+    },
+    {
+      "productname": "BARN – CAMO",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/05/BARN-CAMO-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/05/BARN-CAMO-2-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/05/BARN-CAMO-3-1.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/05/BARN-CAMO-4-1.jpg",
+      "harga": "190.000",
+      "id": 8
+    }
+  ],
+  "catalogs2": [
+    {
+      "productname": "JEDIE – BLACK",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-BLACK-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-BLACK-6.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-BLACK-3-1.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-BLACK-2-1.jpg",
+      "harga": "206.000",
+      "id": 1
+    },
+    {
+      "productname": "JEDIE – L. GREY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-L.-GREY-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-L.-GREY-4-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-L.-GREY-5.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-L.-GREY-4.jpg",
+      "harga": "206.000",
+      "id": 2
+    },
+    {
+      "productname": "JEDIE – D. GREY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-D.-GREY-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-D.-GREY-3-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-D.-GREY-4.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/JEDIE-D.-GREY-7.jpg",
+      "harga": "206.000",
+      "id": 3
+    },
+    {
+      "productname": "GLAVIER – BLUE",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/05/GLAVIER-BLUE.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/05/GLAVIER-BLUE-4-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/05/GLAVIER-BLUE-3-1.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/05/GLAVIER-BLUE-5-1.jpg",
+      "harga": "175.000",
+      "id": 4
+    },
+    {
+      "productname": "BROCANTS – BLUE",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/07/BROCANTS-BLUE.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/07/BROCANTS-BLUE-5.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/07/BROCANTS-BLUE-6.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/07/BROCANTS-BLUE-7.jpg",
+      "harga": "198.000",
+      "id": 5
+    },
+    {
+      "productname": "ROUAT – D. GREY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/05/ROUAT-D.-GREY.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/05/ROUAT-D.GREY-2-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/05/ROUAT-D.GREY-6-1.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/05/ROUAT-D.GREY-7-1.jpg",
+      "harga": "198.000",
+      "id": 6
+    },
+    {
+      "productname": "RODSEN – BLACK",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/07/RODSEN-BLACK.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/07/RODSEN-BLACK-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/07/RODSEN-BLACK-6.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/07/RODSEN-BLACK-7.jpg",
+      "harga": "198.000",
+      "id": 7
+    },
+    {
+      "productname": "CRAIG – KHAKI",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/CRAIG-KHAKI-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/CRAIG-KHAKI-3-1.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/CRAIG-KHAKI-2-1.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/CRAIG-KHAKI-4.jpg",
+      "harga": "170.000",
+      "id": 8
+    }
+  ],
+  "catalogs3": [
+    {
+      "productname": "BARREL – BLACK BROWN",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/BARREL-BLACK-BROWN-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/BARREL-BLACK-BROWN-5.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/BARREL-BLACK-BROWN-2.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/BARREL-BLACK-BROWN-8.jpg",
+      "harga": "270.000",
+      "id": 1
+    },
+    {
+      "productname": "BARREL – YELLOW NAVY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/11/BARREL-YELLOW-NAVY-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/11/BARREL-YELLOW-NAVY-5.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/BARREL-YELLOW-NAVY-3.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/11/BARREL-YELLOW-NAVY-8.jpg",
+      "harga": "270.000",
+      "id": 2
+    },
+    {
+      "productname": "QUARTOR – NAVY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/10/QUARTOR-NAVY-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/10/QUARTOR-NAVY-5.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/11/BARREL-YELLOW-NAVY-8.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/10/QUARTOR-NAVY-3.jpg",
+      "harga": "270.000",
+      "id": 3
+    },
+    {
+      "productname": "QUARTOR – BLACK",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/09/QUARTOR-BLACK-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/09/QUARTOR-BLACK-3.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/09/QUARTOR-BLACK-5.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/09/QUARTOR-BLACK-2.jpg",
+      "harga": "270.000",
+      "id": 4
+    },
+    {
+      "productname": "CLASHER – BLUE SAND",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/07/CLASHER-BLUE-SAND-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/07/CLASHER-BLUE-SAND-2.jpg",
+      "image3":"https://www.reclays.id/wp-content/uploads/2019/07/CLASHER-BLUE-SAND-3.jpg",
+      "image4":"https://www.reclays.id/wp-content/uploads/2019/07/CLASHER-BLUE-SAND-4.jpg",
+      "harga": "270.000",
+      "id": 5
+    },
+    {
+      "productname": "ELSTARTON – YELLOW",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/03/Elstarton-Yellow-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/03/Elstarton-Yellow-3.jpg",
+      "image3":"",
+      "image4":"",
+      "harga": "270.000",
+      "id": 6
+    },
+    {
+      "productname": "DESCOOTS – BLACK",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/05/DESCOOTS-BLACK-1-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/05/DESCOOTS-BLACK-2-1.jpg",
+      "image3":"",
+      "image4":"",
+      "harga": "270.000",
+      "id": 7
+    },
+    {
+      "productname": "PIAGION – NAVY",
+      "image": "https://www.reclays.id/wp-content/uploads/2019/03/Piagion-Navy-1.jpg",
+      "image2": "https://www.reclays.id/wp-content/uploads/2019/03/Piagion-Navy-2.jpg",
+      "image3":"",
+      "image4":"",
+      "harga": "270.000",
+      "id": 8
+    }
+  ],
+  "homeimage": [
+    {
+      "id": 1,
+      "url": "https://mediaslide-europe.storage.googleapis.com/tfm/news_pictures/2019/03/large-1552399134-3460f175d199ebbdd6a47699f7441258.jpg",
+      "title": "SHIRT",
+      "width": "33.3%"
+    },
+    {
+      "id": 2,
+      "url": "https://mediaslide-europe.storage.googleapis.com/tfm/news_pictures/2019/03/large-1552399134-3460f175d199ebbdd6a47699f7441258.jpg",
+      "title": "PANTS",
+      "width": "33.3%"
+    },
+    {
+      "id": 3,
+      "url": "https://mediaslide-europe.storage.googleapis.com/tfm/news_pictures/2019/03/large-1552399134-3460f175d199ebbdd6a47699f7441258.jpg",
+      "title": "OUTERWEAR",
+      "width": "33.3%"
+    }
+  ]
+}
