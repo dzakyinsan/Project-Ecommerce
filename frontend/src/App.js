@@ -3,7 +3,7 @@ import "./App.css";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Switch, Route } from "react-router-dom";
 import Header from './components/header'
-import Header2 from './components/header2'
+// import Header2 from './components/header2'
 import Home from './pages/home'
 import Catalogs1 from './pages/catalogs1'
 import Catalogs2 from './pages/catalogs2'

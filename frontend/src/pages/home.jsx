@@ -3,7 +3,7 @@ import PilihanHome from './../components/pilihanHome'
 import Carousel from './../components/carousel'
 import Header from './../components/header'
 import PilihanHome2 from './../components/pilihanHome2'
-import Header2 from './../components/header2'
+// import Header2 from './../components/header2'
 import CarouselGambar from './../components/carousel-gambar'
 import CarouselIklan from './../components/carousel-iklanbaris'
 import 'react-animated-slider/build/vertical.css';

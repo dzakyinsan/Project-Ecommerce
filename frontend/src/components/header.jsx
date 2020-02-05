@@ -10,7 +10,7 @@ import { Tooltip, Zoom } from "@material-ui/core";
 import { Dropdown } from "semantic-ui-react";
 import { MDBBtn, MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
-import { onUserRegister } from "./../redux/Actions";
+import { onUserRegister, onUserlogin } from "./../redux/Actions";
 
 const LightTooltip = withStyles(theme => ({
   tooltip: {
@@ -28,46 +28,63 @@ const LightTooltip = withStyles(theme => ({
 // );
 const Header = props => {
   const registerRedux = useSelector(state => state.auth.register);
-  const loadingRedux = useSelector(state => state.auth.loading);
   const errorRedux = useSelector(state => state.auth.error);
+  const errorLoginRedux = useSelector(state => state.auth.errorlogin);
+  const statusRedux = useSelector(state => state.auth.status);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isModal, setModalOpen] = useState(false);
-  const [dataUser, setDataUser] = useState({
-    username: "",
-    password: "",
-    email: ""
-  });
 
   const togglemodal = () => setModalOpen(!isModal);
   const toggle = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
 
-  //handle input
+  const [dataLogin, setDataLogin] = useState({
+    usernameLogin: "",
+    passwordLogin: ""
+  });
+  const [dataUser, setDataUser] = useState({
+    username: "",
+    password: "",
+    email: "",
+    confirmpass:""
+  });
+
+  //handle input login
+  const loginHandle = e => {
+    const { name, value } = e.target;
+    setDataLogin({ ...dataLogin, [name]: value });
+  };
+
+  //handle input regis
   const registerHandle = e => {
     const { name, value } = e.target;
     setDataUser({ ...dataUser, [name]: value });
   };
 
-  const renderError = () => {
+  const renderNotifRegis = () => {
     if (errorRedux.length > 0) {
       return <p className="alert alert-danger">{errorRedux}</p>;
-    }else if(registerRedux){
-      return <p className="alert alert-success">Register Success, Please Login!!</p>;      
+    } else if (registerRedux) {
+      return <p className="alert alert-success">Register Success, Please Login!!</p>;
+    }
+  };
+  const renderNotifLogin = () => {
+    if (errorLoginRedux.length > 0) {
+      return <p className="alert alert-danger">{errorLoginRedux}</p>;
+    } else if (statusRedux.length > 0) {
+      return <p className="alert alert-success">{statusRedux}</p>;
     }
   };
 
-  //register click
-
-  // const registeClick = () => {
-  //   var username=dataUser.username
-  //   var email=dataUser.email
-  //   var password=dataUser.password
-  //   dispatch(onUserRegister({ username, email, password }))
-  //   console.log(dataUser);
-  // };
-
-  var { username, password, email } = dataUser;
+  //ini var yg dikirim ke redux
+  var { username, password, confirmpass,email } = dataUser;
+  var { usernameLogin, passwordLogin } = dataLogin;
+  
+  // console.log('error',errorRedux);
+  // console.log('status',statusRedux);
+  console.log("user", usernameLogin);
+  console.log("pass", passwordLogin);
 
   return (
     <div>
@@ -79,29 +96,34 @@ const Header = props => {
               <MDBRow>
                 {/* =========================== modal login ========================== */}
                 <MDBCol md="5">
-                  <form>
+                  <div>
+                    {/* nanti divnya ganti jadi form biar waktu click langsung refresh */}
                     <p className="h4 text-center mb-4">LOGIN</p>
-                    <label htmlFor="defaultFormLoginEmailEx" className="black-text">
-                      Your email*
+                    <label htmlFor="username" className="black-text">
+                      Username*
                     </label>
-                    <input type="email" name="defaultFormLoginEmailEx" className="form-control" />
+                    <input type="text" name="usernameLogin" className="form-control" onChange={loginHandle} />
                     <br />
-                    <label htmlFor="defaultFormLoginPasswordEx" className="black-text">
+                    <label htmlFor="password" className="black-text">
                       Password*
                     </label>
-                    <input type="email" name="defaultFormLoginPasswordEx" className="form-control" />
+                    <input type="password" name="passwordLogin" className="form-control" onChange={loginHandle} />
                     <p className="font-small black-text d-flex justify-content-start mt-3">
                       Forgot
                       <a href="#!" className="dark-grey-text font-weight-bold ml-1">
                         Password?
                       </a>
                     </p>
+                    <div className="mt-3">{renderNotifLogin()}</div>
                     <div className="text-center" style={{ marginTop: "150px" }}>
-                      <MDBBtn color="unique" type="submit">
+                      <button className="btn btn-primary" onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
                         Login
-                      </MDBBtn>
+                      </button>
+                      {/* <MDBBtn color="unique" type="submit">
+                        Login
+                      </MDBBtn> */}
                     </div>
-                  </form>
+                  </div>
                 </MDBCol>
                 <MDBCol md="2">
                   <div className="devider" style={{ height: "400px", width: "1.5px", background: "#606060", margin: "auto" }} />
@@ -129,10 +151,10 @@ const Header = props => {
                     <label htmlFor="confirmpass" className="black-text">
                       Confirm Password*
                     </label>
-                    <input type="password" name="confirmpass" className="form-control" />
-                    <div className='mt-3'>{renderError()}</div>
+                    <input type="password" name="confirmpass" className="form-control" onChange={registerHandle}/>
+                    <div className="mt-3">{renderNotifRegis()}</div>
                     <div className="text-center mt-4">
-                      <button className="btn btn-primary" onClick={() => dispatch(onUserRegister(username, email, password))}>
+                      <button className="btn btn-primary" onClick={() => dispatch(onUserRegister(username, email, confirmpass, password))}>
                         Register
                       </button>
                     </div>
