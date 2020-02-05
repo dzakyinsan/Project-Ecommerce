@@ -15,11 +15,11 @@ module.exports = {
       }
       // console.log('results',results);
       // console.log('results[0].username',results[0].username);
-      
 
-      if (results[0]) {//pake [0] karena bentuk datanya array
+      if (results[0]) {
+        //pake [0] karena bentuk datanya array
         console.log("username ada");
-        
+
         return res.status(200).send({ status: "error", message: "username has been taken" });
       } else {
         var hashpassword = cryptogenerate(password);
@@ -28,7 +28,7 @@ module.exports = {
           password: hashpassword,
           email,
           usia: 20,
-          roleId:2,
+          roleId: 2,
           status: "unverified",
           lastlogin: new Date()
         };
@@ -59,17 +59,21 @@ module.exports = {
     });
   },
   login: (req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.query;
+    console.log('password', password);
+    
     var hashpassword = cryptogenerate(password);
+    console.log('hash', hashpassword);
+    // let hashpassword = password
     var sql = `select * from users where username='${username}' and password='${hashpassword}'`;
     mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send({ status: "error", err });
       if (result.length === 0) {
-        return res.status(200).send({ status: "error", error: "username or password incorect!" });
+        return res.status(200).send({ status: "notmatch", error: "username or password incorect!" });
       }
       const token = createJWTToken({ userid: result[0].id, username: result[0].username });
       console.log(token);
-      return res.send({ username, email: result[0].email, status: "success", token });
+      return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
     });
   }
-};
+}

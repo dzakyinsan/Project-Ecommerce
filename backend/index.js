@@ -10,13 +10,18 @@ app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  return res.status(200).send("<h1>Selamat datang di kontoru mekdonaru </h1>");
+
+
+
+
+});
+
 const { AuthRouter } = require("./routers");
 
 app.use("/auth", AuthRouter);
 // app.use('/user',userRouters)
 
-app.get("/", (req, res) => {
-  return res.status(200).send("<h1>Selamat datang di kontoru mekdonaru </h1>");
-});
 
 app.listen(PORT, () => console.log(`aktif di port ${PORT}`));
