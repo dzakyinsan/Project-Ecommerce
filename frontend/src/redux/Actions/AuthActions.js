@@ -72,3 +72,10 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
     }
   };
 };
+export const onUserloginRepeat = ( resdata ) => {
+  return dispatch=>{
+    localStorage.setItem("token", resdata.token);
+    localStorage.setItem("userId", resdata.id);
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: resdata });
+  }
+}

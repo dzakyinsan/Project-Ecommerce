@@ -60,14 +60,27 @@ module.exports = {
   },
   login: (req, res) => {
     const { username, password } = req.query;
-    console.log('password', password);
+    const {id} =req.params
+    // console.log('password', password);
     
-    var hashpassword = cryptogenerate(password);
-    console.log('hash', hashpassword);
+    // console.log('hash', hashpassword);
     // let hashpassword = password
-    var sql = `select * from users where username='${username}' and password='${hashpassword}'`;
-    mysqldb.query(sql, (err, result) => {
-      if (err) res.status(500).send({ status: "error", err });
+    if(id){
+      var sql = `select * from users where id=${id}`;
+      mysqldb.query(sql, (err, result) => {
+        if (err) res.status(500).send({ status: "error", err });
+        if (result.length === 0) {
+          return res.status(200).send({ status: "notmatch", error: "username or password incorect!" });
+        }
+        const token = createJWTToken({ userid: result[0].id, username: result[0].username });
+        console.log(token);
+        return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
+      });
+    }else{
+      var hashpassword = cryptogenerate(password);
+      var sql = `select * from users where username='${username}' and password='${hashpassword}'`;
+      mysqldb.query(sql, (err, result) => {
+        if (err) res.status(500).send({ status: "error", err });
       if (result.length === 0) {
         return res.status(200).send({ status: "notmatch", error: "username or password incorect!" });
       }
@@ -75,5 +88,6 @@ module.exports = {
       console.log(token);
       return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
     });
+    }
   }
 }

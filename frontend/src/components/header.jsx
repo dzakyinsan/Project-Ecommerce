@@ -31,6 +31,7 @@ const Header = props => {
   const errorRedux = useSelector(state => state.auth.error);
   const errorLoginRedux = useSelector(state => state.auth.errorlogin);
   const statusRedux = useSelector(state => state.auth.status);
+  const loginOk=useSelector(state=>state.auth.login)
 
   const [isOpen, setIsOpen] = useState(false);
   const [isModal, setModalOpen] = useState(false);
@@ -246,6 +247,7 @@ const Header = props => {
             <NavItem>
               <div className="deviderlogo mt-2 mr-3" style={{ height: "25px", width: "1px", background: "#606060", margin: "auto" }} />
             </NavItem>
+            {loginOk===true?
             <NavItem className="mr-3">
               <Link to={"/#"}>
                 <LightTooltip title="CART" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
@@ -254,7 +256,8 @@ const Header = props => {
                   </Badge>
                 </LightTooltip>
               </Link>
-            </NavItem>
+            </NavItem>:null
+            }
             <NavItem>
               <div className="deviderlogo mt-2 mr-3" style={{ height: "25px", width: "1px", background: "#606060", margin: "auto" }} />
             </NavItem>
