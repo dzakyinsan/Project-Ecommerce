@@ -59,13 +59,13 @@ module.exports = {
     });
   },
   login: (req, res) => {
-    const { username, password } = req.query;
+    const { username, password } = req.query; //kalo get = .query kalo post =.body
     const {id} =req.params
     // console.log('password', password);
     
     // console.log('hash', hashpassword);
     // let hashpassword = password
-    if(id){
+    if(id){//ini buat keep login setelah sekali login
       var sql = `select * from users where id=${id}`;
       mysqldb.query(sql, (err, result) => {
         if (err) res.status(500).send({ status: "error", err });
@@ -76,7 +76,7 @@ module.exports = {
         console.log(token);
         return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
       });
-    }else{
+    }else{//ini ketika pertama login
       var hashpassword = cryptogenerate(password);
       var sql = `select * from users where username='${username}' and password='${hashpassword}'`;
       mysqldb.query(sql, (err, result) => {

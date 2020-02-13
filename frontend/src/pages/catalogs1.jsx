@@ -9,17 +9,13 @@ import { APIURL } from "./../helper/ApiUrl";
 
 class Catalogs extends Component {
   state = {
-    dataTops: [],
-    dataShorts:[],
-    dataTousers:[]
+    dataTops: []
   };
 
   componentDidMount() {
     Axios.get(`${APIURL}product/getproduct`)
       .then(res => {
         this.setState({ dataTops: res.data.dataTops });
-        this.setState({dataShorts:res.data.dataShorts})
-        this.setState({dataTousers:res.data.dataTousers})
       })
       .catch(err => {
         console.log(err);
@@ -35,9 +31,9 @@ class Catalogs extends Component {
               <Link to={"/viewdetail"}>
                 <Card.Img
                   variant="top"
-                  src="https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-1.jpg"
-                  onMouseOver={e => (e.currentTarget.src = "https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-2.jpg")}
-                  onMouseOut={e => (e.currentTarget.src = "https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-1.jpg")}
+                  src={val.gambar}
+                  onMouseOver={e => (e.currentTarget.src = val.gambar1)}
+                  onMouseOut={e => (e.currentTarget.src = val.gambar2)}
                 />
               </Link>
               <Card.Body style={{ textAlign: "center" }}>

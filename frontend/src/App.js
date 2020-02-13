@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import Catalogs1 from "./pages/catalogs1";
 import Catalogs2 from "./pages/catalogs2";
 import Catalogs3 from "./pages/catalogs3";
+import adminPage from "./pages/adminPage"
 // import ViewDetail from './pages/viewdetail'
 import Register from "./pages/signup";
 import Login from "./pages/signin";
@@ -55,6 +56,7 @@ class App extends Component {
           {/* <Route path={'/viewdetail'} exact component={ViewDetail}/> */}
           <Route path={"/register"} exact component={Register} />
           <Route path={"/login"} exact component={Login} />
+          <Route path={'/adminpage'} exact component={adminPage}/>
         </Switch>
         <Footer />
       </div>

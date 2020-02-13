@@ -19,5 +19,5 @@ const { AuthRouter,productRouter } = require("./routers");
 app.use("/auth", AuthRouter);
 app.use("/product", productRouter)
 
-
 app.listen(PORT, () => console.log(`aktif di port ${PORT}`));
+ 

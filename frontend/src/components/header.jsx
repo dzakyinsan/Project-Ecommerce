@@ -4,13 +4,16 @@ import PersonIcon from "@material-ui/icons/Person";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link,Redirect} from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Tooltip, Zoom } from "@material-ui/core";
 import { Dropdown } from "semantic-ui-react";
 import { MDBBtn, MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { onUserRegister, onUserlogin } from "./../redux/Actions";
+import Swal from "sweetalert2";
+import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
+
 
 const LightTooltip = withStyles(theme => ({
   tooltip: {
@@ -32,11 +35,12 @@ const Header = props => {
   const errorLoginRedux = useSelector(state => state.auth.errorlogin);
   const statusRedux = useSelector(state => state.auth.status);
   const loginOk=useSelector(state=>state.auth.login)
+  const Modal=useSelector(state=>state.auth.modalOpen)
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isModal, setModalOpen] = useState(false);
+  // const [isModal, setModalOpen] = useState(false);
 
-  const togglemodal = () => setModalOpen(!isModal);
+  // const togglemodal = () => setModalOpen(!isModal);
   const toggle = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
 
@@ -87,10 +91,13 @@ const Header = props => {
   console.log("user", usernameLogin);
   console.log("pass", passwordLogin);
 
+  // if (loginOk) {
+  //   return Swal.fire("logged in!", "", "success");
+  // }
   return (
     <div>
       <MDBContainer>
-        <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={isModal} toggle={togglemodal} size="lg" centered>
+        <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={Modal} toggle={()=>dispatch({type:USER_MODAL_CLOSE})} size="lg" centered>
           {/* <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader> */}
           <MDBModalBody>
             <MDBContainer>
@@ -264,7 +271,7 @@ const Header = props => {
             <NavItem className="" style={{ color: "white" }}>
               <Link>
                 <LightTooltip title="LOGIN" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
-                  <PersonIcon onClick={togglemodal} className="mt-2" fontSize="m" style={{ color: "white", marginRight: "100px" }} />
+                  <PersonIcon onClick={()=>dispatch({type: USER_MODAL_OPEN})} className="mt-2" fontSize="m" style={{ color: "white", marginRight: "100px" }} />
                 </LightTooltip>
               </Link>
             </NavItem>

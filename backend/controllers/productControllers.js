@@ -10,7 +10,10 @@ module.exports={
             if(err) res.status(500).send(err)
            mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`,(err,result3)=>{
             if(err) res.status(500).send(err)
-            res.status(200).send({dataTops:result,dataShorts:result2,dataTousers:result3})
+            mysqldb.query(`select p.*,g.gambar1,g.gambar2,g.gambar3,g.gambar4 from products p join gambar g on p.id=g.productId`,(err,result4)=>{
+                if(err) res.status(500).send(err)
+                res.status(200).send({dataTops:result,dataShorts:result2,dataTousers:result3,dataProduct:result4})
+            })
            }) 
            })
         })

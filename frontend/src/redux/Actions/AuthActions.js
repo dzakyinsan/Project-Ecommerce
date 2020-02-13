@@ -61,9 +61,6 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
             localStorage.setItem("userId", res.data.id);
             dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
           } 
-          // else {
-          //   dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: res.data });
-          // }
         })
         .catch(err => {
           console.log(err);
@@ -72,6 +69,7 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
     }
   };
 };
+
 export const onUserloginRepeat = ( resdata ) => {
   return dispatch=>{
     localStorage.setItem("token", resdata.token);
