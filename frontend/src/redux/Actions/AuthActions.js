@@ -53,9 +53,9 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
         })
         .then(res => {
           console.log(res);
-          if(res.data.status=="notmatch"){
+          if(res.data.status==="notmatch"){
             dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: res.data.error });
-          }else if (res.data.status == "success") {
+          }else if (res.data.status === "success") {
             console.log(res.data.token);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.id);

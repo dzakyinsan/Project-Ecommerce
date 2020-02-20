@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./../App.css";
-import { FaFacebook } from "react-icons/fa";
+// import { FaFacebook } from "react-icons/fa";
 
 class footer extends Component {
   state = {};
@@ -34,10 +34,10 @@ class footer extends Component {
             <h5 className="mt-3 mb-4">Social Media</h5>
             <div>
               {/* <h1 ><FaFacebook/></h1> */}
-              <h1 className="fab fa-facebook-square mr-4"></h1>
-              <h1 className="fab fa-instagram mr-4"></h1>
-              <h1 className="fab fa-twitter mr-4"></h1>
-              <h1 className="fab fa-whatsapp mr-4"></h1>
+              <h1 className="fab fa-facebook-square mr-4"/>
+              <h1 className="fab fa-instagram mr-4"/>
+              <h1 className="fab fa-twitter mr-4"/>
+              <h1 className="fab fa-whatsapp mr-4"/>
             </div>
           </div>
           <div className="col-md-2" style={{}}></div>

@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case USER_REGIS_SUCCESS:
-      return { ...INITIAL_STATE, register: true };
+      return { ...INITIAL_STATE, register: true,modalOpen:true };
     case USER_LOGIN_SUCCESS:
       return { ...INITIAL_STATE, ...action.payload, login: true, modalOpen: false };
     case AUTH_SYSTEM_REGIS_ERROR:

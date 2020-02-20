@@ -9,13 +9,13 @@ import { APIURL } from "./../helper/ApiUrl";
 
 class Catalogs extends Component {
   state = {
-    dataTops: []
+    dataRunning: []
   };
 
   componentDidMount() {
     Axios.get(`${APIURL}product/getproduct`)
       .then(res => {
-        this.setState({ dataTops: res.data.dataTops });
+        this.setState({ dataRunning: res.data.dataRunning });
       })
       .catch(err => {
         console.log(err);
@@ -23,27 +23,20 @@ class Catalogs extends Component {
   }
 
   renderProducts = () => {
-    return this.state.dataTops.map((val, index) => {
+    return this.state.dataRunning.map((val, index) => {
       return (
-        
-          <div className="col-md-3">
-            <Card className="mt-5 card-container">
-              <Link to={"/viewdetail"}>
-                <Card.Img
-                  variant="top"
-                  src={val.gambar}
-                  onMouseOver={e => (e.currentTarget.src = val.gambar1)}
-                  onMouseOut={e => (e.currentTarget.src = val.gambar2)}
-                />
-              </Link>
-              <Card.Body style={{ textAlign: "center" }}>
-                <Card.Text>New arrival</Card.Text>
-                <Card.Title>{val.namaProduk}</Card.Title>
-                <Card.Text>Harga Rp.{val.harga}</Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
-        
+        <div className="col-md-3">
+          <Card className="mt-5 card-container">
+            <Link to={"/viewdetail"}>
+              <Card.Img variant="top" src={val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar1)} onMouseOut={e => (e.currentTarget.src = val.gambar2)} />
+            </Link>
+            <Card.Body style={{ textAlign: "center" }}>
+              <Card.Text>New arrival</Card.Text>
+              <Card.Title>{val.namaProduk}</Card.Title>
+              <Card.Text>Harga Rp.{val.harga}</Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
       );
     });
   };
@@ -51,14 +44,15 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div className="row">
-        <div className="col-md-2" style={{ background: "#212121" }}></div>
-        <div className="col-md-8 ">
-        <div className="row mt-5">
-          {this.renderProducts()}
+      <div>
+        <img className="d-block w-100" style={{ height: "400px" }} src="https://cs.mg.co.za/crop/content/images/2013/02/19/Bullet.jpg/800x450/" alt="catalog1" />
+        <div className="row">
+          <div className="col-md-2"></div>
+          <div className="col-md-8 ">
+            <div className="row mt-5">{this.renderProducts()}</div>
+          </div>
+          <div className="col-md-2"></div>
         </div>
-        </div>
-        <div className="col-md-2" style={{ background: "#212121" }}></div>
       </div>
     );
   }

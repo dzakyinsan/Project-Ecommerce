@@ -7,18 +7,17 @@ import { Image, Reveal } from "semantic-ui-react";
 import Header from "./../components/header";
 import { APIURL } from "./../helper/ApiUrl";
 
-
 const url = "http://localhost:2001/";
 
 class Catalogs extends Component {
   state = {
-    dataTousers: []
+    dataFootball: []
   };
 
   componentDidMount() {
     Axios.get(`${APIURL}product/getproduct`)
       .then(res => {
-        this.setState({dataTousers:res.data.dataTousers})
+        this.setState({ dataFootball: res.data.dataFootball });
       })
       .catch(err => {
         console.log(err);
@@ -26,27 +25,20 @@ class Catalogs extends Component {
   }
 
   renderProducts = () => {
-    return this.state.dataTousers.map((val, index) => {
+    return this.state.dataFootball.map((val, index) => {
       return (
-        
-          <div className="col-md-3">
-            <Card className="mt-5 card-container">
-              <Link to={"/viewdetail"}>
-                <Card.Img
-                  variant="top"
-                  src={val.gambar1}
-                  onMouseOver={e => (e.currentTarget.src = val.gambar1)}
-                  onMouseOut={e => (e.currentTarget.src = val.gambar2)}
-                />
-              </Link>
-              <Card.Body style={{ textAlign: "center" }}>
-                <Card.Text>New arrival</Card.Text>
-                <Card.Title>{val.namaProduk}</Card.Title>
-                <Card.Text>Harga Rp.{val.harga}</Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
-        
+        <div className="col-md-3">
+          <Card className="mt-5 card-container">
+            <Link to={"/viewdetail"}>
+              <Card.Img variant="top" src={val.gambar1} onMouseOver={e => (e.currentTarget.src = val.gambar1)} onMouseOut={e => (e.currentTarget.src = val.gambar2)} />
+            </Link>
+            <Card.Body style={{ textAlign: "center" }}>
+              <Card.Text>New arrival</Card.Text>
+              <Card.Title>{val.namaProduk}</Card.Title>
+              <Card.Text>Harga Rp.{val.harga}</Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
       );
     });
   };
@@ -54,14 +46,16 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div className="row">
-        <div className="col-md-2" style={{ background: "#212121" }}></div>
-        <div className="col-md-8 ">
-        <div className="row mt-5">
-          {this.renderProducts()}
+      <div>
+        <img className="d-block w-100" style={{ height: "400px" }} src="https://i.pinimg.com/originals/91/ff/af/91ffaf9cc801bba44fe2acb676dd4de8.jpg" alt="catalog1" />
+
+        <div className="row">
+          <div className="col-md-2"></div>
+          <div className="col-md-8 ">
+            <div className="row mt-5">{this.renderProducts()}</div>
+          </div>
+          <div className="col-md-2"></div>
         </div>
-        </div>
-        <div className="col-md-2" style={{ background: "#212121" }}></div>
       </div>
     );
   }

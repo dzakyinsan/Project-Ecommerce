@@ -4,16 +4,16 @@ import PersonIcon from "@material-ui/icons/Person";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link,Redirect} from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
 import { Tooltip, Zoom } from "@material-ui/core";
-import { Dropdown } from "semantic-ui-react";
-import { MDBBtn, MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
+// import { Dropdown } from "semantic-ui-react";
+import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { onUserRegister, onUserlogin } from "./../redux/Actions";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
-
+import InputBase from "@material-ui/core/InputBase";
 
 const LightTooltip = withStyles(theme => ({
   tooltip: {
@@ -24,23 +24,68 @@ const LightTooltip = withStyles(theme => ({
   }
 }))(Tooltip);
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "white"
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: 120,
+      "&:focus": {
+        width: 200
+      }
+    }
+  }
+}));
+
 // const trigger = (
 //   <span>
 //     <PersonIcon name="user" />
 //   </span>
 // );
 const Header = props => {
+  const classes = useStyles();
+
   const registerRedux = useSelector(state => state.auth.register);
   const errorRedux = useSelector(state => state.auth.error);
   const errorLoginRedux = useSelector(state => state.auth.errorlogin);
   const statusRedux = useSelector(state => state.auth.status);
-  const loginOk=useSelector(state=>state.auth.login)
-  const Modal=useSelector(state=>state.auth.modalOpen)
+  const loginOk = useSelector(state => state.auth.login);
+  const Modal = useSelector(state => state.auth.modalOpen);
+
+  // const [isModal, setModalOpen] = useState(false);
+  // const togglemodal = () => setModalOpen(!isModal);
 
   const [isOpen, setIsOpen] = useState(false);
-  // const [isModal, setModalOpen] = useState(false);
-
-  // const togglemodal = () => setModalOpen(!isModal);
   const toggle = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
 
@@ -52,7 +97,7 @@ const Header = props => {
     username: "",
     password: "",
     email: "",
-    confirmpass:""
+    confirmpass: ""
   });
 
   //handle input login
@@ -83,21 +128,18 @@ const Header = props => {
   };
 
   //ini var yg dikirim ke redux
-  var { username, password, confirmpass,email } = dataUser;
+  var { username, password, confirmpass, email } = dataUser;
   var { usernameLogin, passwordLogin } = dataLogin;
-  
+
   // console.log('error',errorRedux);
   // console.log('status',statusRedux);
-  console.log("user", usernameLogin);
-  console.log("pass", passwordLogin);
+  // console.log("user", usernameLogin);
+  // console.log("pass", passwordLogin);
 
-  // if (loginOk) {
-  //   return Swal.fire("logged in!", "", "success");
-  // }
   return (
     <div>
       <MDBContainer>
-        <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={Modal} toggle={()=>dispatch({type:USER_MODAL_CLOSE})} size="lg" centered>
+        <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={Modal} toggle={() => dispatch({ type: USER_MODAL_CLOSE })} size="lg" centered>
           {/* <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader> */}
           <MDBModalBody>
             <MDBContainer>
@@ -124,7 +166,7 @@ const Header = props => {
                     </p>
                     <div className="mt-3">{renderNotifLogin()}</div>
                     <div className="text-center" style={{ marginTop: "150px" }}>
-                      <button className="btn btn-primary" onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
+                      <button className="btn btn-light" style={{backgroundColor:'#c48236'}} onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
                         Login
                       </button>
                       {/* <MDBBtn color="unique" type="submit">
@@ -159,10 +201,10 @@ const Header = props => {
                     <label htmlFor="confirmpass" className="black-text">
                       Confirm Password*
                     </label>
-                    <input type="password" name="confirmpass" className="form-control" onChange={registerHandle}/>
+                    <input type="password" name="confirmpass" className="form-control" onChange={registerHandle} />
                     <div className="mt-3">{renderNotifRegis()}</div>
                     <div className="text-center mt-4">
-                      <button className="btn btn-primary" onClick={() => dispatch(onUserRegister(username, email, confirmpass, password))}>
+                      <button className="btn btn-light" onClick={() => dispatch(onUserRegister(username, email, confirmpass, password))}>
                         Register
                       </button>
                     </div>
@@ -176,102 +218,112 @@ const Header = props => {
       </MDBContainer>
       {/* ======================================= modal end ==========================================
       == */}
-      <Navbar className="fixed-top" expand="md" color="dark" style={{ height: "60px" }}>
+      <Navbar className="fixed-top" expand="md" style={{ height: "90px", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
         <NavbarToggler onClick={toggle} />
         <Collapse className="jumbotron-header mx-5" isOpen={isOpen} navbar>
-          {/* ========================================= navbar pilihan header ==========================
-          == */}
-          <Nav className="menu-header ml-5" style={{ fontSize: "12px", lineHeight: "50px", fontWeight: "700" }} navbar>
-            <NavItem style={{ color: "white" }} className="mr-3">
-              <Dropdown text="File">
-                <Dropdown.Menu>
-                  <Dropdown.Item text="New" />
-                  <Dropdown.Item text="Open..." description="ctrl + o" />
-                  <Dropdown.Item text="Save as..." description="ctrl + s" />
-                  <Dropdown.Item text="Rename" description="ctrl + r" />
-                  <Dropdown.Item text="Make a copy" />
-                  <Dropdown.Item icon="folder" text="Move to folder" />
-                  <Dropdown.Item icon="trash" text="Move to trash" />
-                  <Dropdown.Divider />
-                  <Dropdown.Item text="Download As..." />
-                  <Dropdown.Item text="Publish To Web" />
-                  <Dropdown.Item text="E-mail Collaborators" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </NavItem>
-            <NavItem style={{ color: "white" }} className="mr-3">
-              <Dropdown text="File">
-                <Dropdown.Menu>
-                  <Dropdown.Item text="New" />
-                  <Dropdown.Item text="Open..." description="ctrl + o" />
-                  <Dropdown.Item text="Save as..." description="ctrl + s" />
-                  <Dropdown.Item text="Rename" description="ctrl + r" />
-                  <Dropdown.Item text="Make a copy" />
-                  <Dropdown.Item icon="folder" text="Move to folder" />
-                  <Dropdown.Item icon="trash" text="Move to trash" />
-                  <Dropdown.Divider />
-                  <Dropdown.Item text="Download As..." />
-                  <Dropdown.Item text="Publish To Web" />
-                  <Dropdown.Item text="E-mail Collaborators" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </NavItem>
-            <NavItem style={{ color: "white" }} className="mr-3">
-              <Dropdown text="File">
-                <Dropdown.Menu>
-                  <Dropdown.Item text="New" />
-                  <Dropdown.Item text="Open..." description="ctrl + o" />
-                  <Dropdown.Item text="Save as..." description="ctrl + s" />
-                  <Dropdown.Item text="Rename" description="ctrl + r" />
-                  <Dropdown.Item text="Make a copy" />
-                  <Dropdown.Item icon="folder" text="Move to folder" />
-                  <Dropdown.Item icon="trash" text="Move to trash" />
-                  <Dropdown.Divider />
-                  <Dropdown.Item text="Download As..." />
-                  <Dropdown.Item text="Publish To Web" />
-                  <Dropdown.Item text="E-mail Collaborators" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </NavItem>
-          </Nav>
           {/* ========================================= navbar logo header ======================
           === */}
-          <NavbarBrand href="/" className="logo-header" style={{ fontFamily: "Karla", letterSpacing: "4px", fontSize: "30px" }}>
+          <NavbarBrand href="/" className="logo-header" style={{ fontSize: "25px", marginRight: "200px" }}>
             <Link to={"/"} style={{ color: "white" }}>
               BAJUKU
             </Link>
           </NavbarBrand>
+
+          {/* ========================================= navbar pilihan header ==========================
+          == */}
+
+          <div className="menu-container">
+            {/* <!-- ============= solution ================ --> */}
+            <div className="menu">
+              Solution
+              <div className="dropdown-kiri">
+                <div className="isi-dropdown">Publishers</div>
+                <br />
+                <div className="isi-dropdown">Broadcasters</div>
+                <br />
+                <div className="isi-dropdown">Developers</div>
+                <br />
+                <div className="isi-dropdown">Marketers</div>
+                <br />
+                <div className="isi-dropdown">Partners</div>
+                <br />
+              </div>
+            </div>
+            {/* <!-=========== Developers ============= --> */}
+            <div className="menu">
+              Developers
+              <div className="dropdown-kiri">
+                <div className="isi-dropdown">Web Player</div>
+                <br />
+                <div className="isi-dropdown">Maagement</div>
+                <br />
+                <div className="isi-dropdown">Android SDK</div>
+                <br />
+                <div className="isi-dropdown">iOS SDK</div>
+                <br />
+              </div>
+            </div>
+            {/* <!-- ======== Company ========== --> */}
+            <div className="menu">
+              Company
+              <div className="dropdown-kiri">
+                <div className="isi-dropdown">About us</div>
+                <br />
+                <div className="isi-dropdown">Careers</div>
+                <br />
+                <div className="isi-dropdown">News Room</div>
+                <br />
+                <div className="isi-dropdown">Contact Us</div>
+                <br />
+              </div>
+            </div>
+            {/* <!-- ======== Resources ========================== --> */}
+            <div className="menu">
+              Resources
+              <div className="dropdown-kiri">
+                <div className="isi-dropdown">Blog</div>
+                <br />
+                <div className="isi-dropdown">Event</div>
+                <br />
+                <div className="isi-dropdown">Webinars</div>
+                <br />
+                <div className="isi-dropdown">Case Studies</div>
+                <br />
+              </div>
+            </div>
+          </div>
+
           {/* ===================================== navbar login ========================
           === */}
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ "aria-label": "search" }}
+            />
+          </div>
           <Nav className="loginlogo-header" navbar>
-            <NavItem>
-              <Link to={"/#"}>
-                <LightTooltip title="SEARCH" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
-                  <SearchIcon className="mt-2 mr-3" fontSize="m" style={{ color: "white" }} />
-                </LightTooltip>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <div className="deviderlogo mt-2 mr-3" style={{ height: "25px", width: "1px", background: "#606060", margin: "auto" }} />
-            </NavItem>
-            {loginOk===true?
-            <NavItem className="mr-3">
-              <Link to={"/#"}>
-                <LightTooltip title="CART" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
-                  <Badge badgeContent={9} color="primary" className="mt-2">
-                    <ShoppingCartIcon fontSize="m" style={{ color: "white" }} />
-                  </Badge>
-                </LightTooltip>
-              </Link>
-            </NavItem>:null
-            }
-            <NavItem>
-              <div className="deviderlogo mt-2 mr-3" style={{ height: "25px", width: "1px", background: "#606060", margin: "auto" }} />
-            </NavItem>
+            {loginOk === true ? (
+              <NavItem className="mr-4">
+                <Link to={"/#"}>
+                  <LightTooltip title="CART" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
+                    <Badge badgeContent={9} color="primary" className="mt-2">
+                      <ShoppingCartIcon fontSize="large" style={{ color: "white" }} />
+                    </Badge>
+                  </LightTooltip>
+                </Link>
+              </NavItem>
+            ) : null}
             <NavItem className="" style={{ color: "white" }}>
               <Link>
                 <LightTooltip title="LOGIN" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
-                  <PersonIcon onClick={()=>dispatch({type: USER_MODAL_OPEN})} className="mt-2" fontSize="m" style={{ color: "white", marginRight: "100px" }} />
+                  <PersonIcon onClick={() => dispatch({ type: USER_MODAL_OPEN })} className="mt-2" fontSize="large" style={{ color: "white", marginRight: "100px" }} />
                 </LightTooltip>
               </Link>
             </NavItem>

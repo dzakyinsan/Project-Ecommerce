@@ -8,20 +8,20 @@ import Fade from "react-reveal";
 const images = [
   {
     id:1,
-    url: 'https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/upgjob9cfquj0nqaombd/dri-fit-miler-mens-short-sleeve-running-top-pc4MC3.jpg',
-    title: 'Tops and T-Shirts',
+    url: 'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2016%2F09%2Fnike-hyperadapt-1-0-official-release-date-1.jpg?q=75&w=800&cbr=1&fit=max',
+    title: 'Running',
     width: '33.3%',
   },
   {
     id:2,
-    url: 'https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/aun11crbjzdcol7gsmbj/sportswear-club-fleece-mens-shorts-Ee9mXr.jpg',
-    title: 'Shorts',
+    url: 'https://www.sneakerhdwallpapers.com/wallpapers/2019/lebron-17-wallpaper-preview.jpg',
+    title: 'Basketball',
     width: '33.3%',
   },
   {
     id:3,
-    url: 'https://i1.t4s.cz/products/929859-010/nike-m-nk-shld-swft-rng-pant-153533-929859-010-orig.jpg',
-    title: 'Trousers and Tights',
+    url: 'https://usatftw.files.wordpress.com/2014/04/su14_gfb_merc_hi_3qf_pnk_v3_29207.jpg?w=1000&h=600&crop=1',
+    title: 'Football',
     width: '33.3%',
   },
 ];
@@ -104,7 +104,7 @@ export default function ButtonBases() {
 
   return (
     <Fade bottom>
-    <div className={classes.root} >
+    <div className={classes.root} style={{boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}} >
       {images.map((image) => (
         
         <ButtonBase

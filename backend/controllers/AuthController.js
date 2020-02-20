@@ -61,10 +61,7 @@ module.exports = {
   login: (req, res) => {
     const { username, password } = req.query; //kalo get = .query kalo post =.body
     const {id} =req.params
-    // console.log('password', password);
-    
-    // console.log('hash', hashpassword);
-    // let hashpassword = password
+
     if(id){//ini buat keep login setelah sekali login
       var sql = `select * from users where id=${id}`;
       mysqldb.query(sql, (err, result) => {

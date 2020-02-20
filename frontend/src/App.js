@@ -45,7 +45,7 @@ class App extends Component {
     console.log(this.props.Login);
 
     return (
-      <div>
+      <div style={{backgroundColor:'#f5f5f5'}}>
         <Header />
         {/* <Header2/> */}
         <Switch>

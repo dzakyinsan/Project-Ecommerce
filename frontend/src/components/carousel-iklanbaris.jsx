@@ -12,7 +12,7 @@ class CarouselIklan extends Component {
           <div className='carousel-iklan'>
         <Fade >
         <Carousel style={{color:'white',backgroundColor:'black'}} keyboard='false'>
-        <Carousel.Item style={{height:'47px'}}>
+        <Carousel.Item style={{height:'60px'}}>
          {/* <p style={{color:'black'}}><center>------------------</center></p> */}
          <h5><center>BAJU.KU OFFICIAL STORE</center> </h5>
         </Carousel.Item>
@@ -25,23 +25,6 @@ class CarouselIklan extends Component {
          <p><center>members get 30-day free returns</center></p>
         </Carousel.Item>
       </Carousel>
-    {/* <Carousel>
-<div>
-<img src="/assets/1.jpeg" />
-</div>
-<div>
-<img src="/assets/2.jpeg" />
-</div>
-<div>
-<img src="/assets/3.jpeg" />
-</div>
-<div>
-<img src="/assets/4.jpeg" />
-</div>
-<div>
-<img src="/assets/5.jpeg" />
-</div>
-</Carousel> */}
       </Fade >
 </div>
     );
