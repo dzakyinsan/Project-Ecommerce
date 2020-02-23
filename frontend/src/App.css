@@ -253,10 +253,14 @@
 .container-image-basketballhome{
   margin-top: 100px;
   margin-left: 100px;
+  width: fit-content;
+  /* border:2px solid red */
+
 }
 .image-basketballhome{
   margin-right: 10px;
-  margin-left: 10px;
+  /* border:2px solid red */
+  /* margin-left: 10px; */
 }
 
 
