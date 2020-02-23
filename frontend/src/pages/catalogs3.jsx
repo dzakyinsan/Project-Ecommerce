@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Card, Fade } from "react-bootstrap";
-import { connect } from "react-redux";
-import { Image, Reveal } from "semantic-ui-react";
-import Header from "./../components/header";
+import { Card } from "react-bootstrap";
+// import { connect } from "react-redux";
+// import { Image, Reveal } from "semantic-ui-react";
+// import Header from "./../components/header";
 import { APIURL } from "./../helper/ApiUrl";
 
-const url = "http://localhost:2001/";
+// const url = "http://localhost:2001/";
 
 class Catalogs extends Component {
   state = {

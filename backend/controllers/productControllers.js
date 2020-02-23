@@ -14,7 +14,10 @@ module.exports = {
             if (err) res.status(500).send(err);
             mysqldb.query(`select * from category`, (err, result5) => {
               if (err) res.status(500).send(err);
-              res.status(200).send({ dataRunning: result, dataBasketball: result2, dataFootball: result3, dataProduct: result4, dataCategory: result5 });
+              mysqldb.query(`select p.* from products p left join category c on p.categoryId=c.id order by c.id`, (err, result6) => {
+                if (err) res.status(500).send(err);
+                res.status(200).send({ dataRunning: result, dataBasketball: result2, dataFootball: result3, dataProduct: result4, dataCategory: result5, ForDataEdit: result6 });
+              });
             });
           });
         });
@@ -28,7 +31,7 @@ module.exports = {
 
       upload(req, res, err => {
         if (err) {
-          return res.status(500).json(err);
+          return res.status(500).send(err);
         }
         // foto telah terupload disini
         console.log("masuk");
@@ -49,7 +52,8 @@ module.exports = {
             return res.status(500).send(err);
           }
           console.log("results", results);
-          mysqldb.query(`select p.*,c.category from products p left join category c on p.categoryId=c.id order by p.id`, (err, result2) => {
+          var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
+          mysqldb.query(sql, (err, result2) => {
             if (err) res.status(500).send(err);
             mysqldb.query(`select * from category`, (err, result3) => {
               if (err) res.status(500).send(err);
@@ -61,5 +65,63 @@ module.exports = {
     } catch (err) {
       return res.status(500).send({ message: "There's an error on the server. Please contact the administrator." });
     }
+  },
+  editProduct: (req, res) => {
+    const productId = req.params.id;
+    var sql = `SELECT * from products where id=${productId};`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      if (result.length) {
+        const path = "/product/image";
+        const upload = uploader(path, "PRODUCT").fields([{ name: "image" }]);
+        upload(req, res, err => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+          const { image } = req.files;
+          const imagePath = image ? path + "/" + image[0].filename : null;
+          const data = JSON.parse(req.body.data);
+          // console.log("cek img", image);
+          console.log("cek data", data);
+
+          try {
+            if (imagePath) {
+              data.gambar = imagePath;
+            }
+            sql = `Update products set ? where id =${productId};`;
+            mysqldb.query(sql, data, (err1, result1) => {
+              if (err1) {
+                console.log("isi data", data);
+
+                if (imagePath) {
+                  fs.unlinkSync("./public" + imagePath);
+                }
+                return res.status(500).send(err);
+              }
+              if (imagePath) {
+                //hapus foto lama
+                if (result[0].gambar) {
+                  fs.unlinkSync("./public" + results[0].gambar);
+                }
+              }
+              var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
+              mysqldb.query(sql, (err, result2) => {
+                if (err) res.status(500).send(err);
+                mysqldb.query(`select * from category`, (err, result3) => {
+                  if (err) res.status(500).send(err);
+                  res.status(200).send({ dataProduct: result2, dataCategory: result3 });
+                });
+              });
+            });
+          } catch {
+            console.log("error try, go to catch");
+            return res.status(500).send(err);
+          }
+        });
+      }
+    });
   }
 };

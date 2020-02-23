@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Card, Fade } from "react-bootstrap";
-import { connect } from "react-redux";
-import { APIURL } from "./../helper/ApiUrl";
+import { Card } from "react-bootstrap";
+// import { connect } from "react-redux";
+import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 // import { idcatalog } from "../redux/Actions";
 // import { Image, Reveal } from "semantic-ui-react";
 
@@ -28,7 +28,7 @@ class Catalogs extends Component {
         <div className="col-md-3">
           <Card className="mt-5 card-container">
             <Link to={"/viewdetail"}>
-              <Card.Img variant="top" src={val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar1)} onMouseOut={e => (e.currentTarget.src = val.gambar2)} />
+              <Card.Img variant="top" src={APIURLimage + val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar1)} onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)} />
             </Link>
             <Card.Body style={{ textAlign: "center" }}>
               <Card.Text>New arrival</Card.Text>

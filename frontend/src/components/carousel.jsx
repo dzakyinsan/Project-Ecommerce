@@ -9,7 +9,7 @@ class CarouselIklan extends Component {
     return (
       <div>
         <Fade top>
-          <Carousel style={{ color: "white"}} keyboard="false">
+          <Carousel className='carousel-parallex' keyboard="false">
             <Carousel.Item>
               <img className="d-block w-100" src="https://hoopsindonesia.co.id/img/blockslideshow/141.jpg" alt="First slide" />
             </Carousel.Item>

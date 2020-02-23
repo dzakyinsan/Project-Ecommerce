@@ -129,12 +129,6 @@ const Header = props => {
 
   //ini var yg dikirim ke redux
   var { username, password, confirmpass, email } = dataUser;
-  var { usernameLogin, passwordLogin } = dataLogin;
-
-  // console.log('error',errorRedux);
-  // console.log('status',statusRedux);
-  // console.log("user", usernameLogin);
-  // console.log("pass", passwordLogin);
 
   return (
     <div>
@@ -166,7 +160,7 @@ const Header = props => {
                     </p>
                     <div className="mt-3">{renderNotifLogin()}</div>
                     <div className="text-center" style={{ marginTop: "150px" }}>
-                      <button className="btn btn-light" style={{backgroundColor:'#c48236'}} onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
+                      <button className="btn btn-light" style={{ backgroundColor: "#c48236" }} onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
                         Login
                       </button>
                       {/* <MDBBtn color="unique" type="submit">
@@ -223,7 +217,7 @@ const Header = props => {
         <Collapse className="jumbotron-header mx-5" isOpen={isOpen} navbar>
           {/* ========================================= navbar logo header ======================
           === */}
-          <NavbarBrand href="/" className="logo-header" style={{ fontSize: "25px", marginRight: "200px" }}>
+          <NavbarBrand className="logo-header" style={{ fontSize: "25px", marginRight: "100px" }}>
             <Link to={"/"} style={{ color: "white" }}>
               BAJUKU
             </Link>
@@ -321,7 +315,7 @@ const Header = props => {
               </NavItem>
             ) : null}
             <NavItem className="" style={{ color: "white" }}>
-              <Link>
+              <Link to={"/#"}>
                 <LightTooltip title="LOGIN" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
                   <PersonIcon onClick={() => dispatch({ type: USER_MODAL_OPEN })} className="mt-2" fontSize="large" style={{ color: "white", marginRight: "100px" }} />
                 </LightTooltip>
