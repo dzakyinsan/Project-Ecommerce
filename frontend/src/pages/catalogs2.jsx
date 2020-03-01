@@ -5,8 +5,7 @@ import { Card } from "react-bootstrap";
 // import { connect } from "react-redux";
 // import { Image, Reveal } from "semantic-ui-react";
 // import Header from "./../components/header";
-import { APIURL } from "./../helper/ApiUrl";
-
+import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 // const url = "http://localhost:2001/";
 
 class Catalogs extends Component {
@@ -18,6 +17,8 @@ class Catalogs extends Component {
     Axios.get(`${APIURL}product/getproduct`)
       .then(res => {
         this.setState({ dataBasketball: res.data.dataBasketball });
+        console.log('databasketball', this.state.dataBasketball)
+
       })
       .catch(err => {
         console.log(err);
@@ -30,7 +31,7 @@ class Catalogs extends Component {
         <div className="col-md-3">
           <Card className="mt-5 card-container">
             <Link to={"/viewdetail"}>
-              <Card.Img variant="top" src={val.gambar1} onMouseOver={e => (e.currentTarget.src = val.gambar1)} onMouseOut={e => (e.currentTarget.src = val.gambar2)} />
+              <Card.Img variant="top" src={APIURLimage + val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar)} onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)} />
             </Link>
             <Card.Body style={{ textAlign: "center" }}>
               <Card.Text>New arrival</Card.Text>
@@ -51,7 +52,7 @@ class Catalogs extends Component {
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-8 ">
-            <div className="row mt-5">{this.renderProducts()}</div>
+            <div className="row">{this.renderProducts()}</div>
           </div>
           <div className="col-md-2"></div>
         </div>

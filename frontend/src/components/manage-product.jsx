@@ -1,30 +1,48 @@
 import React, { useEffect, Fragment, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
-import { Table, CustomInput } from "reactstrap";
+import { CustomInput } from "reactstrap";
+import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
+import { AdminDeleteProduct, OpenToggleDeleteRedux,AdminGetProduct } from "./../redux/Actions";
 import Modal from "./../components/modal";
+import { MODAL_ADD } from "./../redux/Actions/types";
 
 function ManageProduct() {
-  const [dataproduct, setdataproduct] = useState([
-    {
-      namaProduk: "",
-      harga: 0,
-      category: ""
-    }
-  ]);
-  const [datacategory, setdatacategory] = useState([]);
+  // ======================== global state redux ================
+  const { dataProductRedux, dataCategoryRedux, dataEditRedux, modalDeleteRedux, idProductDeleteRedux, modalAddRedux } = useSelector(state => state.ManageProductReducer);
+  //useSelector buat manggil state dari redux
+
+  //========================= set dispatch (buat masukin data ke redux) ======================
+  const dispatch = useDispatch();
+
+  // ============================ local state =====================
+  // const [dataproduct, setdataproduct] = useState([
+  //   {
+  //     namaProduk: "",
+  //     harga: 0,
+  //     category: ""
+  //   }
+  // ]);
+  //dispatch(adddataproduct(adddataproduct))
+  // const [datacategory, setdatacategory] = useState([]);
   const [addDataProduct, setaddDataProduct] = useState([]);
   const [addimagefile, setaddimagefile] = useState({
     imageFileName: "select image...",
     imageFile: undefined
   });
   const [editDataProduct, seteditDataProduct] = useState([]);
+  const [dataEditBackend, setdataEditBackend] = useState([]);
   const [editimagefile, seteditimagefile] = useState({
     imageEditFileName: "select image...",
     imageEditFile: undefined
   });
 
-  // ============================================== add (modaladd,add datacategory, add image) =======
+  // console.log(dataEditRedux[0].namaProduk);
+
+  // const [dataProductDelete, setdataProductDelete] = useState([]);
+
+  // ============================================== add  ===================================
   const [modaladd, setmodaladd] = useState(false);
   const toggleadd = () => setmodaladd(!modaladd);
   const onchangeAdddata = e => {
@@ -42,19 +60,20 @@ function ManageProduct() {
       setaddimagefile({ ...addimagefile, ImageFileName: "Select Image...", ImageFile: undefined });
     }
   };
-  // ================================================ edit (modaledit, ) ========================
-  const [dataEditBackend, setdataEditBackend] = useState([]);
+  // ================================================ edit  =============================
   const [modaledit, setmodaledit] = useState(false);
-  const toggleedit = () => setmodaledit(!modaledit);
+  const toggleedit = () => {
+    setmodaledit(!modaledit);
+    console.log("dataEditRedux", dataEditRedux);
+  };
   const onchangeEditdata = e => {
     const { name, value } = e.target;
     seteditDataProduct({ ...editDataProduct, [name]: value });
   };
   const opentogelEdit = index => {
-    seteditDataProduct(dataEditBackend[index]);
-    console.log("state editdata", editDataProduct);
+    seteditDataProduct(dataEditRedux[index]);
     setmodaledit(true);
-    // console.log(editDataProduct);
+    console.log("data edit redux", dataEditRedux);
   };
 
   const onEditImageFileChange = e => {
@@ -66,44 +85,73 @@ function ManageProduct() {
       seteditimagefile({ ...editimagefile, imageEditFileName: "Select Image...", imageEditFile: undefined });
     }
   };
+  // =================================================== delete ========================================
+  // const [modaldelete, setmodaldelete] = useState(false);
+  // const [deletestatus, setdeletestatus] = useState(false);
+
+  const opentogelDelete = index => {
+    // setmodaldelete(!modaldelete);
+    // setdataProductDelete(index);
+    dispatch(OpenToggleDeleteRedux(index));
+
+    console.log(dataEditBackend[index]);
+  };
 
   // ================================================ use effect/ didmount ==============
-  useEffect(() => {
-    Axios.get(`${APIURL}product/getproduct`)
-      .then(res => {
-        setdataproduct(res.data.dataProduct);
-        setdatacategory(res.data.dataCategory);
-        setdataEditBackend(res.data.ForDataEdit);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   Axios.get(`${APIURL}product/getproduct`)
+  //     .then(res => {
+  //       console.log("use effect");
+  //       setdataproduct(res.data.dataProduct);
+  //       setdatacategory(res.data.dataCategory);
+  //       setdataEditBackend(res.data.ForDataEdit);
+
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }, []);
+  // ======================================================== use effect/did update =================
+  // useEffect(() => {
+  //   if (deletestatus) {
+  //     Axios.get(`${APIURL}product/getproduct`)
+  //       .then(res => {
+  //         console.log("use effect");
+  //         setdataproduct(res.data.dataProduct);
+  //         setdatacategory(res.data.dataCategory);
+  //         setdataEditBackend(res.data.ForDataEdit);
+  //         setdeletestatus(false);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [deletestatus]);
 
   //   ======================================================= render product ================
   const renderProduct = () => {
-    console.log("state dataproduk", dataproduct);
-    console.log("state datacategory", datacategory);
-    console.log("state dataEditBackend", dataEditBackend);
-    return dataproduct.map((val, index) => {
+    // console.log("state dataproduk", dataproduct);
+    // console.log("state datacategory", datacategory);
+    // console.log("state dataEditBackend", dataEditBackend);
+    return dataProductRedux.map((val, index) => {
       return (
-        <tr key={val.id}>
-          <th scope="row">{index + 1}</th>
-          <td>
+        <TableRow key={val.id}>
+          <TableCell>{index + 1}</TableCell>
+          <TableCell>
             <img src={APIURLimage + val.gambar} alt={index} width="120px" height="120px" />
-          </td>
-          <td>{val.namaProduk}</td>
-          <td>{val.harga}</td>
-          <td>{val.category}</td>
-          <td>
+          </TableCell>
+          <TableCell>{val.namaProduk}</TableCell>
+          <TableCell>{val.harga}</TableCell>
+          <TableCell>{val.category}</TableCell>
+          <TableCell>
             <button onClick={() => opentogelEdit(index)}> edit</button>
-            <button> delete</button>
-          </td>
-        </tr>
+            <button onClick={() => opentogelDelete(val.id)}> delete</button>
+          </TableCell>
+        </TableRow>
       );
     });
   };
-  // ============================================================= function crut =======================
+  // ============================================================= function crud =======================
 
   // ============ add data ===========
   const adddata = () => {
@@ -122,9 +170,11 @@ function ManageProduct() {
     Axios.post(`${APIURL}product/postproduct`, formdata, Headers)
       .then(res => {
         console.log(res);
-        setdataproduct(res.data.dataProduct);
-        setdatacategory(res.data.dataCategory);
+        dispatch(AdminGetProduct())
+        // setdataproduct(res.data.dataProduct);
+        // setdatacategory(res.data.dataCategory);
         setmodaladd(!modaladd);
+        console.log("masuk add data");
       })
       .catch(err => {
         console.log("post data gagal", err);
@@ -132,6 +182,7 @@ function ManageProduct() {
   };
   // ============ edit data ========
   const Editdata = () => {
+    console.log("editdataproduk", editDataProduct);
     var formdata = new FormData();
     var Headers = {
       headers: {
@@ -145,8 +196,9 @@ function ManageProduct() {
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
       .then(res => {
         console.log(res);
-        setdataproduct(res.data.dataProduct);
-        setdatacategory(res.data.dataCategory);
+        dispatch(AdminGetProduct())
+        // setdataproduct(res.data.dataProduct);
+        // setdatacategory(res.data.dataCategory);
         setmodaledit(!modaledit);
       })
       .catch(err => {
@@ -154,12 +206,38 @@ function ManageProduct() {
         console.log(editDataProduct);
       });
   };
+  // ============== delete data =======
+  const Deletedata = () => {
+    var idProduct = idProductDeleteRedux;
+    console.log(idProduct);
+    dispatch(AdminDeleteProduct(idProduct));
+    // Axios.delete(`${APIURL}product/deletedata/${idProduct}`)
+    //   .then(() => {
+    //     setdeletestatus(true)
+    //     setmodaldelete(!modaldelete);
+    //     Axios.get(`${APIURL}product/getproduct`)
+    //       .then(res => {
 
-  if (dataproduct.length === 0) {
+    //         setdataproduct(res.data.dataProduct);
+    //         setdatacategory(res.data.dataCategory);
+    //         console.log('data product setelah delete',dataproduct)
+    //       })
+    //       .catch(err1 => {
+    //         console.log("error get data setelah delete", err1);
+    //       });
+    //   })
+    //   .catch(err => {
+    //     console.log("error di axios delete", err);
+    //   });
+  };
+
+  if (dataProductRedux.length === 0 || dataCategoryRedux.length === 0 || dataEditRedux.length === 0) {
     return <div>loading</div>;
   }
   return (
+    
     <Fragment>
+      
       <button style={{ marginTop: "10px" }} onClick={toggleadd}>
         {" "}
         add data
@@ -170,7 +248,7 @@ function ManageProduct() {
         <input type="text" name="harga" placeholder="harga" className="form-control" onChange={onchangeAdddata} />
         <select name="categoryId" className="form-control" onChange={onchangeAdddata}>
           <option hidden>piliih category</option>
-          {datacategory.map((val, index) => {
+          {dataCategoryRedux.map((val, index) => {
             return (
               <option key={index} value={val.id}>
                 {val.category}
@@ -186,7 +264,7 @@ function ManageProduct() {
         <input type="text" name="harga" value={editDataProduct.harga} className="form-control" onChange={onchangeEditdata} />
         <select name="categoryId" value={editDataProduct.categoryId} className="form-control" onChange={onchangeEditdata}>
           <option hidden>piliih category</option>
-          {datacategory.map((val, index) => {
+          {dataCategoryRedux.map((val, index) => {
             return (
               <option key={index} value={val.id}>
                 {val.category}
@@ -196,18 +274,20 @@ function ManageProduct() {
         </select>
         <CustomInput type="file" label={editimagefile.imageEditFileName} id="editImagePost1" className="form-control" onChange={onEditImageFileChange} />
       </Modal>
+      {/* ============= modal delete ========= */}
+      <Modal title={`delete product`} toggle={opentogelDelete} modal={modalDeleteRedux} actionfunc={Deletedata} btnTitle="delete"></Modal>
       <Table hover style={{ marginBottom: "500px" }}>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Gambar</th>
-            <th>Nama Produk</th>
-            <th>Harga</th>
-            <th>Category</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>{renderProduct()}</tbody>
+        <TableHead>
+          <TableRow>
+            <TableCell>No</TableCell>
+            <TableCell>Gambar</TableCell>
+            <TableCell>Nama Produk</TableCell>
+            <TableCell>Harga</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{renderProduct()}</TableBody>
       </Table>
     </Fragment>
   );

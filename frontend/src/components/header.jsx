@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from "reactstrap";
 import PersonIcon from "@material-ui/icons/Person";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Badge from "@material-ui/core/Badge";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
@@ -131,16 +133,15 @@ const Header = props => {
   var { username, password, confirmpass, email } = dataUser;
 
   return (
-    <div>
+    <div >
       <MDBContainer>
         <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={Modal} toggle={() => dispatch({ type: USER_MODAL_CLOSE })} size="lg" centered>
-          {/* <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader> */}
           <MDBModalBody>
             <MDBContainer>
               <MDBRow>
                 {/* =========================== modal login ========================== */}
                 <MDBCol md="5">
-                  <div>
+                  <div className='modal-loginregis'>
                     {/* nanti divnya ganti jadi form biar waktu click langsung refresh */}
                     <p className="h4 text-center mb-4">LOGIN</p>
                     <label htmlFor="username" className="black-text">
@@ -174,7 +175,7 @@ const Header = props => {
                 </MDBCol>
                 {/* =========================== modal register ================== */}
                 <MDBCol md="5">
-                  <div>
+                  <div className='modal-loginregis' >
                     <p className="h4 text-center mb-4">REGISTER</p>
                     <label htmlFor="username" className="black-text">
                       Username*
@@ -206,28 +207,28 @@ const Header = props => {
                 </MDBCol>
               </MDBRow>
             </MDBContainer>
-            {/* <MDBInput label="E-mail address" outline icon="envelope" /> */}
           </MDBModalBody>
         </MDBModal>
       </MDBContainer>
       {/* ======================================= modal end ==========================================
       == */}
-      <Navbar className="fixed-top" expand="md" style={{ height: "90px", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+      <Navbar className=" fixed-top container-header" expand="md">
+        {/* tambahin fixed-top biar fix headernya */}
         <NavbarToggler onClick={toggle} />
         <Collapse className="jumbotron-header mx-5" isOpen={isOpen} navbar>
           {/* ========================================= navbar logo header ======================
           === */}
-          <NavbarBrand className="logo-header" style={{ fontSize: "25px", marginRight: "100px" }}>
+          <NavbarBrand className="logo-header">
             <Link to={"/"} style={{ color: "white" }}>
-              BAJUKU
+              FootBoots 2020
             </Link>
           </NavbarBrand>
 
           {/* ========================================= navbar pilihan header ==========================
           == */}
 
-          <div className="menu-container">
-            {/* <!-- ============= solution ================ --> */}
+          {/* <div className="menu-container">
+            <!-- ============= solution ================ -->
             <div className="menu">
               Solution
               <div className="dropdown-kiri">
@@ -243,7 +244,7 @@ const Header = props => {
                 <br />
               </div>
             </div>
-            {/* <!-=========== Developers ============= --> */}
+            <!-=========== Developers ============= -->
             <div className="menu">
               Developers
               <div className="dropdown-kiri">
@@ -257,7 +258,7 @@ const Header = props => {
                 <br />
               </div>
             </div>
-            {/* <!-- ======== Company ========== --> */}
+            <!-- ======== Company ========== -->
             <div className="menu">
               Company
               <div className="dropdown-kiri">
@@ -271,7 +272,7 @@ const Header = props => {
                 <br />
               </div>
             </div>
-            {/* <!-- ======== Resources ========================== --> */}
+            <!-- ======== Resources ========================== -->
             <div className="menu">
               Resources
               <div className="dropdown-kiri">
@@ -285,11 +286,11 @@ const Header = props => {
                 <br />
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* ===================================== navbar login ========================
           === */}
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -301,9 +302,9 @@ const Header = props => {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
           <Nav className="loginlogo-header" navbar>
-            {loginOk === true ? (
+            {/* {loginOk === true ? (
               <NavItem className="mr-4">
                 <Link to={"/#"}>
                   <LightTooltip title="CART" style={{ outline: "none" }} TransitionComponent={Zoom} placement="bottom-start">
@@ -320,7 +321,26 @@ const Header = props => {
                   <PersonIcon onClick={() => dispatch({ type: USER_MODAL_OPEN })} className="mt-2" fontSize="large" style={{ color: "white", marginRight: "100px" }} />
                 </LightTooltip>
               </Link>
-            </NavItem>
+            </NavItem> */}
+            {loginOk === true ? (
+              <div className="row cart" style={{marginLeft:'1000px'}}>
+                <div className="col-md-8 isi-cart">Cart</div>
+                <div className="col-md-4 isi-cart">0</div>
+              </div>
+            ) : null}
+            {loginOk === true ? (
+              <div className="login-regis">
+                <div className="text-login-regis">
+                  <b>Logout</b> <ChevronRightIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+                </div>
+              </div>
+            ) : (
+              <div className="login-regis" style={{marginLeft:'1150px'}}>
+                <div className="text-login-regis" onClick={() => dispatch({ type: USER_MODAL_OPEN })}>
+                  <b>Join Us</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+                </div>
+              </div>
+            )}
           </Nav>
         </Collapse>
       </Navbar>

@@ -45,6 +45,7 @@ module.exports = {
         console.log(data);
         data.gambar = imagePath; //ngepush image kedalam data
         console.log("data", data);
+
         var sql = " INSERT INTO products SET ?";
         mysqldb.query(sql, data, (err, results) => {
           if (err) {
@@ -67,7 +68,7 @@ module.exports = {
     }
   },
   editProduct: (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.id;// id ini sesuai dengan parameter yg ada di productRouter
     var sql = `SELECT * from products where id=${productId};`;
     mysqldb.query(sql, (err, result) => {
       if (err) {
@@ -93,6 +94,7 @@ module.exports = {
             }
             sql = `Update products set ? where id =${productId};`;
             mysqldb.query(sql, data, (err1, result1) => {
+              console.log('result1 edit gambar',result1)
               if (err1) {
                 console.log("isi data", data);
 
@@ -104,7 +106,7 @@ module.exports = {
               if (imagePath) {
                 //hapus foto lama
                 if (result[0].gambar) {
-                  fs.unlinkSync("./public" + results[0].gambar);
+                  fs.unlinkSync("./public" + result[0].gambar);
                 }
               }
               var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
@@ -123,5 +125,33 @@ module.exports = {
         });
       }
     });
+  },
+  deleteProduct:(req,res)=>{
+    console.log(req.params)
+    let sql=`select * from products where id=${req.params.productid}`// productid ini sesuai dengan parameter yg ada di productRouter
+    mysqldb.query(sql,(err,result)=>{ 
+      console.log('result delete',result)
+      if(err) res.status(500).send(err)
+      if(result.length){
+        sql = `delete from products where id=${req.params.productid}`
+        mysqldb.query(sql,(err,result1)=>{
+          if (err) res.status(500).send(err);
+          if(result[0].gambar){
+            fs.unlinkSync('./public'+result[0].gambar)
+          }
+          var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
+          mysqldb.query(sql, (err, result2) => {
+            if (err) res.status(500).send(err);
+            mysqldb.query(`select * from category`, (err, result3) => {
+              if (err) res.status(500).send(err);
+              res.status(200).send({ dataProduct: result2, dataCategory: result3 });
+            });
+          });
+        })
+      }
+      else{
+        return res.status(500).send({ message: "nggak ada woy idnya" });
+      }
+    })
   }
 };
