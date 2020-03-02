@@ -15,6 +15,7 @@ module.exports = {
             mysqldb.query(`select * from category`, (err, result5) => {
               if (err) res.status(500).send(err);
               mysqldb.query(`select p.* from products p left join category c on p.categoryId=c.id order by c.id`, (err, result6) => {
+                //select * from products order by 
                 if (err) res.status(500).send(err);
                 res.status(200).send({ dataRunning: result, dataBasketball: result2, dataFootball: result3, dataProduct: result4, dataCategory: result5, ForDataEdit: result6 });
               });

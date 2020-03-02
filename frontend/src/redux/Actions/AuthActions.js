@@ -1,6 +1,25 @@
 import axios from "axios";
 import { USER_REGIS_SUCCESS,USER_LOGIN_SUCCESS, AUTH_SYSTEM_REGIS_ERROR,AUTH_SYSTEM_LOGIN_ERROR, AUTH_LOADING, USER_LOGOUT } from "./types";
 import { APIURL } from "./../../helper/ApiUrl";
+import Swal from "sweetalert2";
+
+
+// const Toast = Swal.mixin({
+//   toast: true,
+//   position: 'central',
+//   showConfirmButton: "top",
+//   timer: 3000,
+//   timerProgressBar: true,
+//   onOpen: (toast) => {
+//     toast.addEventListener('mouseenter', Swal.stopTimer)
+//     toast.addEventListener('mouseleave', Swal.resumeTimer)
+//   }
+// })
+
+// Toast.fire({
+//   icon: 'success',
+//   title: 'Signed in successfully'
+// })
 
 export const onUserRegister = (username, email, password, confirmpass) => {
   console.log("masuk username", username);
@@ -60,6 +79,13 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.id);
             dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Signed in successfully',
+              showConfirmButton: false,
+              timer: 1500
+            })
           } 
         })
         .catch(err => {
@@ -75,5 +101,12 @@ export const onUserloginRepeat = ( resdata ) => {
     localStorage.setItem("token", resdata.token);
     localStorage.setItem("userId", resdata.id);
     dispatch({ type: USER_LOGIN_SUCCESS, payload: resdata });
+  }
+}
+
+export const onUserlogOut =()=>{
+  return dispatch =>{
+    localStorage.clear()
+    dispatch({type:USER_LOGOUT})
   }
 }

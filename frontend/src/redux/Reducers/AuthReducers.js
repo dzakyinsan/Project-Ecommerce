@@ -21,9 +21,9 @@ export default (state = INITIAL_STATE, action) => {
     case USER_LOGIN_SUCCESS:
       return { ...INITIAL_STATE, ...action.payload, login: true, modalOpen: false };
     case AUTH_SYSTEM_REGIS_ERROR:
-      return { ...INITIAL_STATE, error: action.payload, authchecked: true };
+      return { ...INITIAL_STATE, error: action.payload, authchecked: true,modalOpen:true };
     case AUTH_SYSTEM_LOGIN_ERROR:
-      return { ...INITIAL_STATE, errorlogin: action.payload, authchecked: true };
+      return { ...INITIAL_STATE, errorlogin: action.payload, authchecked: true,modalOpen:true };
     case AUTH_LOADING:
       return { ...state, error: "", loading: true };
     case USER_LOGOUT:
@@ -32,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...INITIAL_STATE, modalOpen: true };
     case USER_MODAL_CLOSE:
       return { ...INITIAL_STATE, modalOpen: false };
+    case USER_LOGOUT:
+      return {state}
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { APIURL } from "../support/ApiUrl";
+// import { APIURL } from "../support/ApiUrl";
 import { connect } from "react-redux";
 import { Carousel, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { Button, Icon, Card, Image, Input } from "semantic-ui-react";

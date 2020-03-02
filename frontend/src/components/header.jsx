@@ -9,71 +9,82 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
 import { Tooltip, Zoom } from "@material-ui/core";
-// import { Dropdown } from "semantic-ui-react";
 import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
-import { onUserRegister, onUserlogin } from "./../redux/Actions";
-// import Swal from "sweetalert2";
+import { onUserRegister, onUserlogin,onUserlogOut } from "./../redux/Actions";
 import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
+import Alert from '@material-ui/lab/Alert';
+
 import InputBase from "@material-ui/core/InputBase";
+// import { Dropdown } from "semantic-ui-react";
+// import Swal from "sweetalert2";
 
-const LightTooltip = withStyles(theme => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-    color: "rgba(0, 0, 0, 0.87)",
-    boxShadow: theme.shadows[1],
-    fontSize: 11
-  }
-}))(Tooltip);
+// const LightTooltip = withStyles(theme => ({
+//   tooltip: {
+//     backgroundColor: theme.palette.common.white,
+//     color: "rgba(0, 0, 0, 0.87)",
+//     boxShadow: theme.shadows[1],
+//     fontSize: 11
+//   }
+// }))(Tooltip);
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "white"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
-      "&:focus": {
-        width: 200
-      }
-    }
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   search: {
+//     position: "relative",
+//     borderRadius: theme.shape.borderRadius,
+//     backgroundColor: fade(theme.palette.common.white, 0.15),
+//     "&:hover": {
+//       backgroundColor: fade(theme.palette.common.white, 0.25)
+//     },
+//     marginLeft: 0,
+//     width: "100%",
+//     [theme.breakpoints.up("sm")]: {
+//       marginLeft: theme.spacing(1),
+//       width: "auto"
+//     }
+//   },
+//   searchIcon: {
+//     width: theme.spacing(7),
+//     height: "100%",
+//     position: "absolute",
+//     pointerEvents: "none",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center"
+//   },
+//   inputRoot: {
+//     color: "white"
+//   },
+//   inputInput: {
+//     padding: theme.spacing(1, 1, 1, 7),
+//     transition: theme.transitions.create("width"),
+//     width: "100%",
+//     [theme.breakpoints.up("sm")]: {
+//       width: 120,
+//       "&:focus": {
+//         width: 200
+//       }
+//     }
+//   }
+// }));
 
 // const trigger = (
 //   <span>
 //     <PersonIcon name="user" />
 //   </span>
 // );
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
 const Header = props => {
   const classes = useStyles();
 
@@ -83,6 +94,7 @@ const Header = props => {
   const statusRedux = useSelector(state => state.auth.status);
   const loginOk = useSelector(state => state.auth.login);
   const Modal = useSelector(state => state.auth.modalOpen);
+  const usernameRedux = useSelector(state =>state.auth.username)
 
   // const [isModal, setModalOpen] = useState(false);
   // const togglemodal = () => setModalOpen(!isModal);
@@ -116,17 +128,23 @@ const Header = props => {
 
   const renderNotifRegis = () => {
     if (errorRedux.length > 0) {
-      return <p className="alert alert-danger">{errorRedux}</p>;
+    return <Alert severity="error">{errorRedux}</Alert>
     } else if (registerRedux) {
-      return <p className="alert alert-success">Register Success, Please Login!!</p>;
+      return <Alert severity="success">Register Success, Please Login</Alert>
+    }else{
+      return <div style={{height:'48px'}}></div>
     }
   };
   const renderNotifLogin = () => {
     if (errorLoginRedux.length > 0) {
-      return <p className="alert alert-danger">{errorLoginRedux}</p>;
-    } else if (statusRedux.length > 0) {
-      return <p className="alert alert-success">{statusRedux}</p>;
+      return <Alert severity="error">{errorLoginRedux}</Alert>
     }
+    else{
+      return  <div style={{height:'48px'}}></div>
+    }
+    //  else if (statusRedux.length > 0) {
+    //   return <p className="alert alert-success">{statusRedux}</p>;
+    // }
   };
 
   //ini var yg dikirim ke redux
@@ -135,7 +153,7 @@ const Header = props => {
   return (
     <div >
       <MDBContainer>
-        <MDBModal style={{ color: "black", backgroundColor: "black" }} isOpen={Modal} toggle={() => dispatch({ type: USER_MODAL_CLOSE })} size="lg" centered>
+        <MDBModal isOpen={Modal} toggle={() => dispatch({ type: USER_MODAL_CLOSE })} size="lg" centered>
           <MDBModalBody>
             <MDBContainer>
               <MDBRow>
@@ -160,7 +178,7 @@ const Header = props => {
                       </a>
                     </p>
                     <div className="mt-3">{renderNotifLogin()}</div>
-                    <div className="text-center" style={{ marginTop: "150px" }}>
+                    <div className="text-center" style={{ marginTop: "130px" }}>
                       <button className="btn btn-light" style={{ backgroundColor: "#c48236" }} onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>
                         Login
                       </button>
@@ -171,7 +189,7 @@ const Header = props => {
                   </div>
                 </MDBCol>
                 <MDBCol md="2">
-                  <div className="devider" style={{ height: "400px", width: "1.5px", background: "#606060", margin: "auto" }} />
+                  <div className="devider"/>
                 </MDBCol>
                 {/* =========================== modal register ================== */}
                 <MDBCol md="5">
@@ -198,7 +216,7 @@ const Header = props => {
                     </label>
                     <input type="password" name="confirmpass" className="form-control" onChange={registerHandle} />
                     <div className="mt-3">{renderNotifRegis()}</div>
-                    <div className="text-center mt-4">
+                    <div className="text-center">
                       <button className="btn btn-light" onClick={() => dispatch(onUserRegister(username, email, confirmpass, password))}>
                         Register
                       </button>
@@ -212,8 +230,7 @@ const Header = props => {
       </MDBContainer>
       {/* ======================================= modal end ==========================================
       == */}
-      <Navbar className=" fixed-top container-header" expand="md">
-        {/* tambahin fixed-top biar fix headernya */}
+      <Navbar className="container-header" expand="md" fixed='top'>
         <NavbarToggler onClick={toggle} />
         <Collapse className="jumbotron-header mx-5" isOpen={isOpen} navbar>
           {/* ========================================= navbar logo header ======================
@@ -323,14 +340,19 @@ const Header = props => {
               </Link>
             </NavItem> */}
             {loginOk === true ? (
-              <div className="row cart" style={{marginLeft:'1000px'}}>
+              <div className="username-login" style={{marginLeft:'800px'}} >
+               <a>Hello,{usernameRedux}</a>
+              </div>
+            ) : null}
+            {loginOk === true ? (
+              <div className="row cart" style={{marginLeft:'50px'}}>
                 <div className="col-md-8 isi-cart">Cart</div>
                 <div className="col-md-4 isi-cart">0</div>
               </div>
             ) : null}
             {loginOk === true ? (
               <div className="login-regis">
-                <div className="text-login-regis">
+                <div className="text-login-regis" onClick={()=>dispatch(onUserlogOut())}>
                   <b>Logout</b> <ChevronRightIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
                 </div>
               </div>

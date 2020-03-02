@@ -9,7 +9,7 @@ import Catalogs1 from "./pages/catalogs1";
 import Catalogs2 from "./pages/catalogs2";
 import Catalogs3 from "./pages/catalogs3";
 import adminPage from "./pages/adminPage";
-// import ViewDetail from './pages/viewdetail'
+import ViewDetail from './pages/viewdetail'
 // import Register from "./pages/signup";
 import Login from "./pages/signin";
 import Axios from "axios";
@@ -52,7 +52,7 @@ class App extends Component {
           <Route path={"/catalogs1"} exact component={Catalogs1} />
           <Route path={"/catalogs2"} exact component={Catalogs2} />
           <Route path={"/catalogs3"} exact component={Catalogs3} />
-          {/* <Route path={'/viewdetail'} exact component={ViewDetail}/> */}
+          <Route path={'/viewdetail'} exact component={ViewDetail}/>
           {/* <Route path={"/register"} exact component={Register} /> */}
           <Route path={"/login"} exact component={Login} />
           <Route path={"/adminpage"} exact component={adminPage} />

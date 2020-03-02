@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 .App {
   text-align: center;
 }
@@ -40,7 +43,6 @@
 .container-header {
   height: 60px;
   background-color: black;
-  
 }
 .logo-header {
   /* margin-left: 120px; */
@@ -59,19 +61,32 @@
   background-color: whitesmoke;
   margin-left: 50px;
 }
-.cart{
+.username-login {
+  font-family: "Press Start 2P";
+  color: whitesmoke;
+  font-size: 16px;
+  margin-top: 19px;
+  margin-left: auto;
+}
+.cart {
   width: 150px;
   height: 60px;
   background-color: whitesmoke;
   /* border: 2px solid red; */
   /* margin-left: 1000px; */
 }
-.isi-cart{
+.cart:hover {
+  background-color: purple;
+  transition: 500ms;
+  cursor: pointer;
+}
+.isi-cart {
   font-family: "Press Start 2P";
   color: black;
   font-size: 16px;
   margin-top: 19px;
 }
+
 .login-regis:hover {
   cursor: pointer;
   background-color: #c48236;
@@ -98,11 +113,6 @@
 .carousel {
   height: 700px;
 }
-/* ================ HOME ================== */
-.home{
-  scroll-behavior: smooth;
-
-}
 @import url("https://fonts.googleapis.com/css?family=Ubuntu&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Sniglet&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
@@ -122,8 +132,28 @@
 
 .carousel-gambar {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
 }
-
+.search-box {
+  /* border: 1px solid red; */
+  height: max-content;
+  width: max-content;
+  font-family: "Poppins";
+  /* background-color: whitesmoke; */
+  /* border-radius: 15px; */
+}
+.search-bar {
+  /* border-top-left-radius: 15px;
+border-bottom-left-radius: 15px; */
+  border-radius: 15px;
+  height: 50px;
+  width: 500px;
+  background-color: whitesmoke;
+  outline: none;
+  font-size: 20px;
+  /* background:url() no-repeat scroll 7px 7px; */
+  padding-left: 30px;
+}
 #apppage .gradient {
   background: -moz-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
   background: -webkit-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
@@ -134,7 +164,8 @@
 
 #apppage .view {
   /* https://img1.goodfon.com/wallpaper/nbig/d/42/pose-runner-start-waiting.jpg */
-  background-image: url("https://vistapointe.net/images/the-conductor-2.jpg");
+  /* background-image: url("https://vistapointe.net/images/the-conductor-2.jpg"); */
+  background-image: url("https://images.daznservices.com/di/library/GOAL/34/76/kobe-bryant-died-in-usa_l3e8pm7bq9vt11dhco56egcmt.jpg?t=-416563073&quality=100");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -174,10 +205,10 @@
     min-height: 150vh;
   }
 }
-.carousel-iklan .carousel-indicators li {
+/* .carousel-iklan .carousel-indicators li {
   visibility: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+} */
 
 .header {
   position: absolute;
@@ -230,40 +261,73 @@
   color: #c48236;
 }
 /* ====================== modal ===================== */
-.modal-loginregis{
+.modal-loginregis {
   text-align: left;
 }
+.devider {
+  height: 450px;
+  width: 1.5px;
+  background-color: #b7b7b7;
+  /* border: 2px solid red; */
+  margin-left: 50px;
+  /* margin: auto; */
+}
 /* ===================== pilihan home ================== */
+
 .pilihan-home {
   /* border: 2px solid red; */
   background-color: black;
-  height: 300px;
+  height: 100px;
 }
 @keyframes flickerAnimation {
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-@-o-keyframes flickerAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-@-moz-keyframes flickerAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-@-webkit-keyframes flickerAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .animate-flicker {
-   -webkit-animation: flickerAnimation 2s infinite;
-   -moz-animation: flickerAnimation 2s infinite;
-   -o-animation: flickerAnimation 2s infinite;
-    animation: flickerAnimation 2s infinite;
+  -webkit-animation: flickerAnimation 2s infinite;
+  -moz-animation: flickerAnimation 2s infinite;
+  -o-animation: flickerAnimation 2s infinite;
+  animation: flickerAnimation 2s infinite;
 }
 .isi-pilihan-home {
   /* border: 2px solid red; */
@@ -272,17 +336,17 @@
   width: 530px;
   margin: 40px 30px 10px 70px;
 }
-.text-home{
+.text-home {
   font-family: "Press Start 2P";
   color: white;
-  /* background-color: red; */
   font-size: 40px;
   text-align: center;
-  /* margin-top: 12px;
-  margin-left: 20px; */
 }
-.text-home a{
+.text-home a {
   color: #c48236;
+}
+.text-home a:hover {
+  color: purple;
 }
 
 /* ================== Home football ==================== */
@@ -291,6 +355,10 @@
   padding-top: 100px;
   padding-bottom: 50px;
   /* height: 1000px; */
+}
+.cuma-div-untuk-tujuan-id {
+  height: 100px;
+  /* background-color: whitesmoke; */
 }
 .category-title {
   /* font-family: "Black Han Sans"; */
@@ -402,7 +470,7 @@
 
 .text {
   font-family: "Bangers";
-  background-color: #006563;
+  background-color: purple;
   color: white;
   font-size: 30px;
   padding: 16px 32px;

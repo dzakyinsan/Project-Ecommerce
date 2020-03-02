@@ -11,9 +11,7 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import Bounce from 'react-reveal/Bounce';
-
-
-
+import {Link} from 'react-router-dom'
 
 class Home extends Component {
   state = {
@@ -65,8 +63,7 @@ class Home extends Component {
           <div className="col-md-4 pilihan-home">
             <div className="isi-pilihan-home">
               <div className="animate-flicker">
-                <div className="text-home" >
-                  
+                <div className="text-home" >                  
                   <a href="#footballPage">FootBall</a>
                 </div>
                 <div style={{ textAlign: "center", color: "whitesmoke" }}>
@@ -103,7 +100,9 @@ class Home extends Component {
         </Fade>
         {/* =========================== football menu =============== */}
         <div className="home-menu-football">
-          <div className="category-title" id="footballPage">
+        <div className='cuma-div-untuk-tujuan-id' id="footballPage"></div>
+
+          <div className="category-title" >
             <Zoom>
               FOOTBALL BOOTS
             </Zoom>
@@ -113,7 +112,9 @@ class Home extends Component {
               <div className="col-md-6 container">
                 <img className="d-block w-100 image" src="https://www.jakpost.travel/wimages/large/96-966766_soccer-nike-electro-boots-wallpaper-2018-in-soccer.jpg" alt="First slide" />
                 <div className="middle">
+                  <Link to={"/catalogs3"}>
                   <div className="text"> Buy Now</div>
+                  </Link>
                 </div>
               </div>
             </Zoom>

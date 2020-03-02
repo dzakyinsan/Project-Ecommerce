@@ -183,6 +183,7 @@ function ManageProduct() {
   // ============ edit data ========
   const Editdata = () => {
     console.log("editdataproduk", editDataProduct);
+    console.log('editimagefile',editimagefile)
     var formdata = new FormData();
     var Headers = {
       headers: {
