@@ -3,7 +3,7 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 // import { connect } from "react-redux";
-import { APIURL, APIURLimage } from "./../helper/ApiUrl";
+import { APIURL, APIURLimage } from "../helper/ApiUrl";
 // import { idcatalog } from "../redux/Actions";
 // import { Image, Reveal } from "semantic-ui-react";
 

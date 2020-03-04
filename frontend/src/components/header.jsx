@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { onUserRegister, onUserlogin,onUserlogOut } from "./../redux/Actions";
 import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
 import Alert from '@material-ui/lab/Alert';
+import Fade from 'react-reveal/Fade';
+
 
 import InputBase from "@material-ui/core/InputBase";
 // import { Dropdown } from "semantic-ui-react";
@@ -236,9 +238,11 @@ const Header = props => {
           {/* ========================================= navbar logo header ======================
           === */}
           <NavbarBrand className="logo-header">
+            <Fade left>
             <Link to={"/"} style={{ color: "white" }}>
               FootBoots 2020
             </Link>
+            </Fade>
           </NavbarBrand>
 
           {/* ========================================= navbar pilihan header ==========================
@@ -321,6 +325,7 @@ const Header = props => {
             />
           </div> */}
           <Nav className="loginlogo-header" navbar>
+            
             {/* {loginOk === true ? (
               <NavItem className="mr-4">
                 <Link to={"/#"}>
@@ -340,28 +345,39 @@ const Header = props => {
               </Link>
             </NavItem> */}
             {loginOk === true ? (
+              <Fade right>
+
               <div className="username-login" style={{marginLeft:'800px'}} >
                <a>Hello,{usernameRedux}</a>
               </div>
+              </Fade>
             ) : null}
             {loginOk === true ? (
+              <Fade right>
+
               <div className="row cart" style={{marginLeft:'50px'}}>
                 <div className="col-md-8 isi-cart">Cart</div>
                 <div className="col-md-4 isi-cart">0</div>
               </div>
+              </Fade>
             ) : null}
             {loginOk === true ? (
+              <Fade right>
+
               <div className="login-regis">
                 <div className="text-login-regis" onClick={()=>dispatch(onUserlogOut())}>
                   <b>Logout</b> <ChevronRightIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
                 </div>
               </div>
+              </Fade>
             ) : (
+                 <Fade right>
               <div className="login-regis" style={{marginLeft:'1150px'}}>
                 <div className="text-login-regis" onClick={() => dispatch({ type: USER_MODAL_OPEN })}>
                   <b>Join Us</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
                 </div>
               </div>
+                  </Fade>
             )}
           </Nav>
         </Collapse>

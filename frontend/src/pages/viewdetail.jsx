@@ -40,9 +40,9 @@ class ViewDetail extends Component {
         ini id dari catalognya {this.props.idcat}<br/> */
     }
     return (
-      <div className="row p-3 mx-5 my-4" style={{border:'2px solid red'}}> 
+      <div className="row mx-5" style={{border:'2px solid red',marginTop:'100px'}}> 
         {/* ====================== row kiri ======================= */}
-        <div className="col-md-6" style={{border:'2px solid red'}} >
+        <div className="col-md-6" style={{border:'2px solid green'}} >
           <Carousel>
             <Carousel.Item>
               <img className="gambar-viewdetail" src="https://www.reclays.id/wp-content/uploads/2019/12/HEALFIE-WHITE-1.jpg" alt="First slide" />

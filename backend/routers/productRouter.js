@@ -8,5 +8,8 @@ router.post("/postproduct", productControllers.postProduct);
 router.put("/editdata/:id", productControllers.editProduct);
 router.delete('/deletedata/:productid',productControllers.deleteProduct)
 
+// ====================================== view details =========================
+router.get("/getDetail/:id",productControllers.getDetail)
+
 
 module.exports = router;

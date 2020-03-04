@@ -14,8 +14,8 @@ module.exports = {
             if (err) res.status(500).send(err);
             mysqldb.query(`select * from category`, (err, result5) => {
               if (err) res.status(500).send(err);
-              mysqldb.query(`select p.* from products p left join category c on p.categoryId=c.id order by c.id`, (err, result6) => {
-                //select * from products order by 
+              mysqldb.query(`select * from products order by categoryId`, (err, result6) => {
+                //select p.* from products p left join category c on p.categoryId=c.id order by c.id
                 if (err) res.status(500).send(err);
                 res.status(200).send({ dataRunning: result, dataBasketball: result2, dataFootball: result3, dataProduct: result4, dataCategory: result5, ForDataEdit: result6 });
               });
@@ -24,6 +24,13 @@ module.exports = {
         });
       });
     });
+  },
+  getDetail:(req,res)=>{
+    const detailId=req.params.id
+    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3 AND p.id=${detailId}`,(err,result)=>{
+      if(err) res.status(500).send(err)
+      res.status(200).send({dataDetail:result})
+    })
   },
   postProduct: (req, res) => {
     try {

@@ -169,7 +169,7 @@ border-bottom-left-radius: 15px; */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  min-height: 85vh;
+  min-height: 80vh;
 }
 
 #apppage h6 {
@@ -483,4 +483,23 @@ border-bottom-left-radius: 15px; */
   color: white;
   font-size: 30px;
   padding: 16px 32px;
+}
+
+/* ==================== view detail 2 ==================== */
+.container-viewdetail2{
+  /* margin-top: 100px; */
+  padding-top: 100px;
+}
+.image-viewdetail2 img{
+  height: 465px;
+  width: 465px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.viewdetail-desc{
+  margin-left: 100px;
+  margin-top: 20px;
+}
+.viewdetail-desc Button{
+  outline: none !important;
 }

@@ -216,7 +216,7 @@ function ManageProduct() {
     //   .then(() => {
     //     setdeletestatus(true)
     //     setmodaldelete(!modaldelete);
-    //     Axios.get(`${APIURL}product/getproduct`)
+    //     Axios.get(`${APIURL}product/getproduct`)======
     //       .then(res => {
 
     //         setdataproduct(res.data.dataProduct);

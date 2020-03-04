@@ -13,6 +13,7 @@ import Zoom from 'react-reveal/Zoom';
 import Bounce from 'react-reveal/Bounce';
 import {Link} from 'react-router-dom'
 
+
 class Home extends Component {
   state = {
     dataFootball: []
