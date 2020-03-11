@@ -30,7 +30,7 @@ class Catalogs extends Component {
       return (
         <div className="col-md-3">
           <Card className="mt-5 card-container">
-            <Link to={"/viewdetail"}>
+            <Link to={"/viewdetail/"+val.id}>
               <Card.Img variant="top" src={APIURLimage + val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar)} onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)} />
             </Link>
             <Card.Body style={{ textAlign: "center" }}>

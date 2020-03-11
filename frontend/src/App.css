@@ -43,6 +43,7 @@ html {
 .container-header {
   height: 60px;
   background-color: black;
+  border-bottom: 1px solid whitesmoke;
 }
 .logo-header {
   /* margin-left: 120px; */
@@ -99,8 +100,10 @@ html {
   font-family: "Press Start 2P";
   color: black;
   font-size: 16px;
-  margin-top: 12px;
+  /* margin-top: 10px; */
+  padding-top: 15px;
   margin-left: 20px;
+  /* border: 1px solid red; */
 }
 
 .loginlogo-header {
@@ -503,3 +506,57 @@ border-bottom-left-radius: 15px; */
 .viewdetail-desc Button{
   outline: none !important;
 }
+.size-label {
+  display: block;
+  position: relative;
+  /* padding-left: 35px; */
+  /* margin-bottom: 5px; */
+  margin-right:10px;
+  cursor: pointer;
+  /* font-size: 22px; */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+}
+/* Hide the browser's default radio button */
+.size-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+/* Create a custom radio button */
+.checkmark {
+  /* position: absolute; */
+  padding:10px 10px 10px 10px;
+  top: 0;
+  left: 0;
+  height: 45px;
+  width: 48px;
+  background-color: #eee;
+  border-radius: 20%;
+  border:1px solid black;
+  font-size: 20px;
+}
+/* On mouse-over, add a grey background color */
+.size-label:hover input ~ .checkmark {
+  background-color: #cecece;
+}
+/* When the radio button is checked, add a blue background */
+.size-label input:checked ~ .checkmark {
+  background-color: #b7b7b7;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the indicator (dot/circle) when checked */
+.size-label input:checked ~ .checkmark:after {
+  display: block;
+}
+.container-size{
+  display:flex
+  }

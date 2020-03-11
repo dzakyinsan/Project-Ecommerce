@@ -10,6 +10,10 @@ router.delete('/deletedata/:productid',productControllers.deleteProduct)
 
 // ====================================== view details =========================
 router.get("/getDetail/:id",productControllers.getDetail)
+router.post('/posttransaction',productControllers.postTransaction)
 
+// ========================================== cart ==============================
+router.get("/getCart/:id",productControllers.getCart)
+router.delete('/deletecart/:id/:idUser',productControllers.deleteCart)
 
 module.exports = router;

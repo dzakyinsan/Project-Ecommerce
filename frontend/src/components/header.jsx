@@ -1,94 +1,33 @@
 import React, { useState } from "react";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from "reactstrap";
-import PersonIcon from "@material-ui/icons/Person";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+// import PersonIcon from "@material-ui/icons/Person";
+// import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import Badge from "@material-ui/core/Badge";
-import SearchIcon from "@material-ui/icons/Search";
+// import Badge from "@material-ui/core/Badge";
+// import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
-import { Tooltip, Zoom } from "@material-ui/core";
+// import { Tooltip, Zoom } from "@material-ui/core";
 import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
-import { onUserRegister, onUserlogin,onUserlogOut } from "./../redux/Actions";
+import { onUserRegister, onUserlogin, onUserlogOut } from "./../redux/Actions";
 import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
-import Alert from '@material-ui/lab/Alert';
-import Fade from 'react-reveal/Fade';
+import Alert from "@material-ui/lab/Alert";
+import Fade from "react-reveal/Fade";
+import Bounce from "react-reveal/Bounce";
 
-
-import InputBase from "@material-ui/core/InputBase";
-// import { Dropdown } from "semantic-ui-react";
-// import Swal from "sweetalert2";
-
-// const LightTooltip = withStyles(theme => ({
-//   tooltip: {
-//     backgroundColor: theme.palette.common.white,
-//     color: "rgba(0, 0, 0, 0.87)",
-//     boxShadow: theme.shadows[1],
-//     fontSize: 11
-//   }
-// }))(Tooltip);
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   search: {
-//     position: "relative",
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: fade(theme.palette.common.white, 0.15),
-//     "&:hover": {
-//       backgroundColor: fade(theme.palette.common.white, 0.25)
-//     },
-//     marginLeft: 0,
-//     width: "100%",
-//     [theme.breakpoints.up("sm")]: {
-//       marginLeft: theme.spacing(1),
-//       width: "auto"
-//     }
-//   },
-//   searchIcon: {
-//     width: theme.spacing(7),
-//     height: "100%",
-//     position: "absolute",
-//     pointerEvents: "none",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center"
-//   },
-//   inputRoot: {
-//     color: "white"
-//   },
-//   inputInput: {
-//     padding: theme.spacing(1, 1, 1, 7),
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("sm")]: {
-//       width: 120,
-//       "&:focus": {
-//         width: 200
-//       }
-//     }
-//   }
-// }));
-
-// const trigger = (
-//   <span>
-//     <PersonIcon name="user" />
-//   </span>
-// );
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2)
+    }
+  }
 }));
 
 const Header = props => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const registerRedux = useSelector(state => state.auth.register);
   const errorRedux = useSelector(state => state.auth.error);
@@ -96,7 +35,8 @@ const Header = props => {
   const statusRedux = useSelector(state => state.auth.status);
   const loginOk = useSelector(state => state.auth.login);
   const Modal = useSelector(state => state.auth.modalOpen);
-  const usernameRedux = useSelector(state =>state.auth.username)
+  const usernameRedux = useSelector(state => state.auth.username);
+  const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
 
   // const [isModal, setModalOpen] = useState(false);
   // const togglemodal = () => setModalOpen(!isModal);
@@ -130,19 +70,30 @@ const Header = props => {
 
   const renderNotifRegis = () => {
     if (errorRedux.length > 0) {
-    return <Alert severity="error">{errorRedux}</Alert>
+      return (
+        <Bounce>
+          <Alert severity="error">{errorRedux}</Alert>
+        </Bounce>
+      );
     } else if (registerRedux) {
-      return <Alert severity="success">Register Success, Please Login</Alert>
-    }else{
-      return <div style={{height:'48px'}}></div>
+      return (
+        <Bounce>
+          <Alert severity="success">Register Success, Please Login</Alert>
+        </Bounce>
+      );
+    } else {
+      return <div style={{ height: "48px" }}></div>;
     }
   };
   const renderNotifLogin = () => {
     if (errorLoginRedux.length > 0) {
-      return <Alert severity="error">{errorLoginRedux}</Alert>
-    }
-    else{
-      return  <div style={{height:'48px'}}></div>
+      return (
+        <Bounce>
+          <Alert severity="error">{errorLoginRedux}</Alert>
+        </Bounce>
+      );
+    } else {
+      return <div style={{ height: "48px" }}></div>;
     }
     //  else if (statusRedux.length > 0) {
     //   return <p className="alert alert-success">{statusRedux}</p>;
@@ -153,7 +104,7 @@ const Header = props => {
   var { username, password, confirmpass, email } = dataUser;
 
   return (
-    <div >
+    <div>
       <MDBContainer>
         <MDBModal isOpen={Modal} toggle={() => dispatch({ type: USER_MODAL_CLOSE })} size="lg" centered>
           <MDBModalBody>
@@ -161,7 +112,7 @@ const Header = props => {
               <MDBRow>
                 {/* =========================== modal login ========================== */}
                 <MDBCol md="5">
-                  <div className='modal-loginregis'>
+                  <div className="modal-loginregis">
                     {/* nanti divnya ganti jadi form biar waktu click langsung refresh */}
                     <p className="h4 text-center mb-4">LOGIN</p>
                     <label htmlFor="username" className="black-text">
@@ -191,11 +142,11 @@ const Header = props => {
                   </div>
                 </MDBCol>
                 <MDBCol md="2">
-                  <div className="devider"/>
+                  <div className="devider" />
                 </MDBCol>
                 {/* =========================== modal register ================== */}
                 <MDBCol md="5">
-                  <div className='modal-loginregis' >
+                  <div className="modal-loginregis">
                     <p className="h4 text-center mb-4">REGISTER</p>
                     <label htmlFor="username" className="black-text">
                       Username*
@@ -232,16 +183,16 @@ const Header = props => {
       </MDBContainer>
       {/* ======================================= modal end ==========================================
       == */}
-      <Navbar className="container-header" expand="md" fixed='top'>
+      <Navbar className="container-header" expand="md" fixed="top">
         <NavbarToggler onClick={toggle} />
         <Collapse className="jumbotron-header mx-5" isOpen={isOpen} navbar>
           {/* ========================================= navbar logo header ======================
           === */}
           <NavbarBrand className="logo-header">
             <Fade left>
-            <Link to={"/"} style={{ color: "white" }}>
-              FootBoots 2020
-            </Link>
+              <Link to={"/"} style={{ color: "white" }}>
+                FootBoots 2020
+              </Link>
             </Fade>
           </NavbarBrand>
 
@@ -325,7 +276,6 @@ const Header = props => {
             />
           </div> */}
           <Nav className="loginlogo-header" navbar>
-            
             {/* {loginOk === true ? (
               <NavItem className="mr-4">
                 <Link to={"/#"}>
@@ -346,38 +296,39 @@ const Header = props => {
             </NavItem> */}
             {loginOk === true ? (
               <Fade right>
-
-              <div className="username-login" style={{marginLeft:'800px'}} >
-               <a>Hello,{usernameRedux}</a>
-              </div>
-              </Fade>
-            ) : null}
-            {loginOk === true ? (
-              <Fade right>
-
-              <div className="row cart" style={{marginLeft:'50px'}}>
-                <div className="col-md-8 isi-cart">Cart</div>
-                <div className="col-md-4 isi-cart">0</div>
-              </div>
-              </Fade>
-            ) : null}
-            {loginOk === true ? (
-              <Fade right>
-
-              <div className="login-regis">
-                <div className="text-login-regis" onClick={()=>dispatch(onUserlogOut())}>
-                  <b>Logout</b> <ChevronRightIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+                <div className="username-login" style={{ marginLeft: "800px" }}>
+                  <a>Hello,{usernameRedux}</a>
                 </div>
-              </div>
+              </Fade>
+            ) : null}
+            {loginOk === true ? (
+              <Fade right>
+                <Link to={"/cartPage"} style={{ color: "white" }}>
+                  <div className="row cart" style={{ marginLeft: "50px" }}>
+                    <div className="col-md-8 isi-cart">Cart</div>
+                    <div className="col-md-4 isi-cart">{dataCartRedux.length}</div>
+                  </div>
+                </Link>
+              </Fade>
+            ) : null}
+            {loginOk === true ? (
+              <Fade right>
+                <Link to={"/"} style={{ color: "white" }}>
+                  <div className="login-regis">
+                    <div className="text-login-regis" onClick={() => dispatch(onUserlogOut())}>
+                      <b>Logout</b> <ChevronRightIcon fontSize="large" style={{ marginLeft: "50px" }} />
+                    </div>
+                  </div>
+                </Link>
               </Fade>
             ) : (
-                 <Fade right>
-              <div className="login-regis" style={{marginLeft:'1150px'}}>
-                <div className="text-login-regis" onClick={() => dispatch({ type: USER_MODAL_OPEN })}>
-                  <b>Join Us</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+              <Fade right>
+                <div className="login-regis" style={{ marginLeft: "1150px" }}>
+                  <div className="text-login-regis" onClick={() => dispatch({ type: USER_MODAL_OPEN })}>
+                    <b>Join Us</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+                  </div>
                 </div>
-              </div>
-                  </Fade>
+              </Fade>
             )}
           </Nav>
         </Collapse>

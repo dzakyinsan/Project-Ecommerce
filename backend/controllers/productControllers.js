@@ -25,12 +25,44 @@ module.exports = {
       });
     });
   },
-  getDetail:(req,res)=>{
-    const detailId=req.params.id
-    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3 AND p.id=${detailId}`,(err,result)=>{
-      if(err) res.status(500).send(err)
-      res.status(200).send({dataDetail:result})
-    })
+  getDetail: (req, res) => {
+    const detailId = req.params.id;
+    mysqldb.query(
+      `select p.*,c.category,s.size40,s.size41,s.size42,s.size43,s.size44,s.size45 from products p 
+    left join category c on p.categoryId=c.id 
+    left join size s on s.productId =p.id 
+    where categoryId=3 AND p.id=${detailId}`,
+      (err, result) => {
+        if (err) res.status(500).send(err);
+        mysqldb.query(
+          `select p.*,c.category,s.size40,s.size41,s.size42,s.size43,s.size44,s.size45 from products p 
+      left join category c on p.categoryId=c.id 
+      left join size s on s.productId =p.id 
+      where categoryId=2 AND p.id=${detailId}`,
+          (err, result2) => {
+            if (err) res.status(500).send(err);
+            mysqldb.query(
+              `select p.*,c.category,s.size40,s.size41,s.size42,s.size43,s.size44,s.size45 from products p 
+        left join category c on p.categoryId=c.id 
+        left join size s on s.productId =p.id 
+        where categoryId=1 AND p.id=${detailId}`,
+              (err, result3) => {
+                if (err) res.status(500).send(err);
+                res.status(200).send({ dataDetailFootball: result[0], dataDetailBasketball: result2[0], dataDetailRunning: result3[0] });
+              }
+            );
+          }
+        );
+      }
+    );
+  },
+  getCart: (req, res) => {
+    const IdUserRedux = req.params.id;
+    var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux}`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send({ dataCart: result });
+    });
   },
   postProduct: (req, res) => {
     try {
@@ -75,8 +107,24 @@ module.exports = {
       return res.status(500).send({ message: "There's an error on the server. Please contact the administrator." });
     }
   },
+  postTransaction: (req, res) => {
+    console.log("post transaction", req.body.dataAddtoCart);
+    var data = req.body.dataAddtoCart;
+    var sql = "INSERT INTO transaction SET ?";
+    mysqldb.query(sql, data, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      console.log(result);
+      var sql = "select * from transaction";
+      mysqldb.query(sql, (err, result2) => {
+        if (err) res.status(500).send(err);
+        res.status(200).send({ dataCart: result2 });
+      });
+    });
+  },
   editProduct: (req, res) => {
-    const productId = req.params.id;// id ini sesuai dengan parameter yg ada di productRouter
+    const productId = req.params.id; // id ini sesuai dengan parameter yg ada di productRouter
     var sql = `SELECT * from products where id=${productId};`;
     mysqldb.query(sql, (err, result) => {
       if (err) {
@@ -102,7 +150,7 @@ module.exports = {
             }
             sql = `Update products set ? where id =${productId};`;
             mysqldb.query(sql, data, (err1, result1) => {
-              console.log('result1 edit gambar',result1)
+              console.log("result1 edit gambar", result1);
               if (err1) {
                 console.log("isi data", data);
 
@@ -134,18 +182,18 @@ module.exports = {
       }
     });
   },
-  deleteProduct:(req,res)=>{
-    console.log(req.params)
-    let sql=`select * from products where id=${req.params.productid}`// productid ini sesuai dengan parameter yg ada di productRouter
-    mysqldb.query(sql,(err,result)=>{ 
-      console.log('result delete',result)
-      if(err) res.status(500).send(err)
-      if(result.length){
-        sql = `delete from products where id=${req.params.productid}`
-        mysqldb.query(sql,(err,result1)=>{
+  deleteProduct: (req, res) => {
+    console.log(req.params);
+    let sql = `select * from products where id=${req.params.productid}`; // productid ini sesuai dengan parameter yg ada di productRouter
+    mysqldb.query(sql, (err, result) => {
+      console.log("result delete", result);
+      if (err) res.status(500).send(err);
+      if (result.length) {
+        sql = `delete from products where id=${req.params.productid}`;
+        mysqldb.query(sql, (err, result1) => {
           if (err) res.status(500).send(err);
-          if(result[0].gambar){
-            fs.unlinkSync('./public'+result[0].gambar)
+          if (result[0].gambar) {
+            fs.unlinkSync("./public" + result[0].gambar);
           }
           var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
           mysqldb.query(sql, (err, result2) => {
@@ -155,11 +203,28 @@ module.exports = {
               res.status(200).send({ dataProduct: result2, dataCategory: result3 });
             });
           });
-        })
-      }
-      else{
+        });
+      } else {
         return res.status(500).send({ message: "nggak ada woy idnya" });
       }
-    })
+    });
+  },
+  deleteCart: (req, res) => {
+    console.log(req.params.id)
+    let sql = `select * from transaction where id=${req.params.id}`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) res.status(500).send(err);
+      if (result.length) {
+        sql = `delete from transaction where id=${req.params.id}`;
+        mysqldb.query(sql, (err, result1) => {
+          if (err) res.status(500).send(err);
+          var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${req.params.idUser}`;
+          mysqldb.query(sql, (err, result3) => {
+            if (err) res.status(500).send(err);
+            res.status(200).send({ dataCart: result3 });
+          });
+        });
+      }
+    });
   }
 };

@@ -194,6 +194,8 @@ function ManageProduct() {
     formdata.append("data", JSON.stringify(editDataProduct));
     console.log("formdata", formdata);
     console.log("data edit product", editDataProduct);
+    console.log('editimagefile.imageEditFile',editimagefile.imageEditFile);
+    
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
       .then(res => {
         console.log(res);
