@@ -28,6 +28,7 @@ function ViewDetail2() {
   // ======================== local state =================
   const [dataDetail, setdataDetail] = useState([]);
   const [selectedSize, setselectedSize] = useState([]);
+
   // ============================== useParam (buat ambil parameter dari app.js) ===========
   const { idDetail } = useParams(); //
   // ====================== component didmount ==============

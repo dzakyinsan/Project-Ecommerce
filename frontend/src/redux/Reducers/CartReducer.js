@@ -3,13 +3,14 @@ import { GET_CART_SUCCESS, GET_CART_ERROR, GET_CART_LOADING } from "./../Actions
 const INITIAL_STATE = {
   dataCartRedux: [],
   loading: false,
-  message: ""
+  message: "",
+  dataTotalHarga:0
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_CART_SUCCESS:
-      return { ...state, dataCartRedux: action.payload };
+      return { ...state, dataCartRedux: action.payload.dataCart,dataTotalHarga:action.payload.dataTotalHarga };
     case GET_CART_LOADING:
       return { ...state, loading: true };
     case GET_CART_ERROR:

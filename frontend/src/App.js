@@ -13,12 +13,13 @@ import cartPage from "./pages/cartPage";
 import ViewDetail from "./pages/viewdetail";
 import ViewDetail2 from "./pages/viewdetail2";
 import ViewDetail3 from "./pages/viewdetail3";
+import checkout from "./pages/checkout"
 // import Register from "./pages/signup";
 // import Login from "./pages/signin";
 import Axios from "axios";
 import { APIURL } from "./helper/ApiUrl";
 import { connect } from "react-redux";
-import { onUserloginRepeat,CartGetProduct } from "./redux/Actions";
+import { onUserloginRepeat,CartGetProduct,CheckOutGetProduct } from "./redux/Actions";
 
 class App extends Component {
   state = {
@@ -41,12 +42,13 @@ class App extends Component {
   }
 
   render() {
-    var id = localStorage.getItem("userId");
+    // var id = localStorage.getItem("userId");
     if (this.state.loading) {
       return <div>loading...</div>;
     }
     {
-      this.props.CartGetProduct(id)
+      this.props.CartGetProduct()
+      this.props.CheckOutGetProduct()
     }
 
     console.log(this.props.Login);
@@ -66,6 +68,7 @@ class App extends Component {
           {/* <Route path={"/login"} exact component={Login} /> */}
           <Route path={"/adminpage"} exact component={adminPage} />
           <Route path={"/cartPage"} exact component={cartPage} />
+          <Route path={"/checkout"} exact component={checkout} />
         </Switch>
         <Footer />
       </div>
@@ -79,4 +82,4 @@ const MapStateToProps = state => {
   };
 };
 
-export default connect(MapStateToProps, { onUserloginRepeat,CartGetProduct })(App);
+export default connect(MapStateToProps, { onUserloginRepeat,CartGetProduct,CheckOutGetProduct })(App);

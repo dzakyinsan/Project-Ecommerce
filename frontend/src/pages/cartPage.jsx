@@ -1,18 +1,23 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
-import Modal from './../components/modal'
-import {DeleteCartAction,CartGetProduct} from './../redux/Actions'
+import Modal from "./../components/modal";
+import { DeleteCartAction, CartGetProduct } from "./../redux/Actions";
+import NumberFormat from "react-number-format";
+import { Redirect } from "react-router-dom";
 
 function CartPage() {
   // ================================== Global state ==========================
   const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
-  const IdUserRedux = useSelector(state=>state.auth.id)
+  const IdUserRedux = useSelector(state => state.auth.id);
+  const dataTotalHarga = useSelector(state => state.CartReducer.dataTotalHarga);
   // ================================== Local state ==========================
-  const [modalDelete,setmodalDelete]=useState(false)
-  const [idDelete,setidDelete]=useState(0)
+  const [modalDelete, setmodalDelete] = useState(false);
+  const [idDelete, setidDelete] = useState(0);
+  const [Redirectcheckout, setRedirectcheckout] = useState(false);
+
   // ==================================set dispatch ==========================
   const dispatch = useDispatch();
 
@@ -21,17 +26,57 @@ function CartPage() {
   //   dispatch(CartGetProduct(IdUserRedux));
   // }, []);
 
-  const OpenToggleDelete= index=>{
-    setmodalDelete(!modalDelete)
-    setidDelete(index)
-  }
-  const Deletedata=()=>{
-    dispatch(DeleteCartAction(idDelete,IdUserRedux))
-  }
+  // ============================================= delete ==============================
+  const OpenToggleDelete = index => {
+    setmodalDelete(!modalDelete);
+    setidDelete(index);
+  };
+  const Deletedata = () => {
+    dispatch(DeleteCartAction(idDelete, IdUserRedux));
+  };
+  // ==============================================================================================
+  const onCheckOutClick = () => {
+    for (var i = 0; i < dataCartRedux.length; i++) {
+      var data = {
+        id: dataCartRedux[i].id,
+        userId: dataCartRedux[i].userId,
+        productId: dataCartRedux[i].productId,
+        size: dataCartRedux[i].size,
+        jumlah: dataCartRedux[i].jumlah,
+        harga: dataCartRedux[i].harga,
+        totalHarga: dataCartRedux[i].totalHarga,
+        status: "checkout"
+      };
+      var id = data.id;
+      console.log("data", data);
+
+      Axios.put(`${APIURL}product/checkoutcart/${id}`, { data })
+        .then(res => {
+          dispatch(CartGetProduct());
+          //  <Redirect to={"/checkout"} />;
+        })
+        .catch(err => {
+          console.log("error axios checkout click ");
+        });
+      }
+      setRedirectcheckout(true);
+  };
+
+  // console.log('Redirectcheckout',Redirectcheckout)
 
   const renderCart = () => {
+    if (dataCartRedux.length === 0) {
+      return (
+        <tr>
+          <td>
+            <h1> tidak ada cart yang di tambahkan</h1>
+          </td>
+        </tr>
+      );
+    }
     return dataCartRedux.map((val, index) => {
-      console.log('dataCartRedux',dataCartRedux)
+      console.log("dataCartRedux", dataCartRedux);
+      // console.log('dataTotalHarga',dataTotalHarga);
 
       return (
         <TableRow key={val.id}>
@@ -40,23 +85,37 @@ function CartPage() {
             <img src={APIURLimage + val.gambar} alt={index} width="120px" height="120px" />
           </TableCell>
           <TableCell>{val.namaProduk}</TableCell>
-          <TableCell>Rp. {val.harga}</TableCell>
-          <TableCell>{val.jumlah}</TableCell>
-          <TableCell>Rp. {val.totalHarga}</TableCell>
           <TableCell>
-            <button onClick={()=>OpenToggleDelete(val.id)}> delete</button>
+            <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+          </TableCell>
+          <TableCell>{val.jumlah}</TableCell>
+          <TableCell>
+            <NumberFormat value={val.totalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+          </TableCell>
+          <TableCell>
+            <button onClick={() => OpenToggleDelete(val.id)}> delete</button>
           </TableCell>
         </TableRow>
       );
     });
   };
-
+  if (Redirectcheckout === true) {
+    return <Redirect to={"/checkout"} />;
+  }
   return (
-    <Fragment >
-      <button style={{marginTop:'100px'}}>bayar</button>
+    
+    <div className="cart-page">
+      <button className="btn btn-success" style={{ marginTop: "100px" }} onClick={onCheckOutClick}>
+        Checkout
+      </button>
+      <button className="btn btn-success" style={{ marginTop: "100px" }}>
+        <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+
+        {/* {dataTotalHarga} */}
+      </button>
       {/* ================= modal delete ==================== */}
       <Modal title={`delete cart`} toggle={OpenToggleDelete} modal={modalDelete} actionfunc={Deletedata} btnTitle="delete"></Modal>
-      <Table hover >
+      <Table hover>
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>
@@ -70,7 +129,7 @@ function CartPage() {
         </TableHead>
         <TableBody>{renderCart()}</TableBody>
       </Table>
-    </Fragment>
+    </div>
   );
 }
 export default CartPage;

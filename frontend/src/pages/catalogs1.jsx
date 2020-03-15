@@ -44,8 +44,8 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div>
-        <img className="d-block w-100" style={{ height: "400px" }} src="https://cs.mg.co.za/crop/content/images/2013/02/19/Bullet.jpg/800x450/" alt="catalog1" />
+      <div className='catalog-page'>
+        <img className="d-block w-100" src="https://content.nike.com/content/dam/one-nike/en_hk/SU16/Cities/NRC-header.jpg.transform/full-screen/NRC-header.jpg" alt="catalog1" />
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-8 ">

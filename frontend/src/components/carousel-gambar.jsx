@@ -49,11 +49,12 @@ class AppPage extends React.Component {
         <Fade top>
         <MDBView>
           <MDBMask className="d-flex justify-content-center align-items-center">
-            <MDBContainer >
-              <MDBRow>
+            <MDBContainer style={{marginRight:'600px'}} >
+              <MDBRow >
                 <MDBCol
                   md="6"
                   className="white-text text-center text-md-left mt-xl-5 mb-5"
+                  
                 >
                   <MDBAnimation style={{fontSize:'30px'}} type="fadeInLeft" delay=".5s">
                     <h3 style={{letterSpacing:'5px'}} className="h1-responsive font-weight-bold mt-sm-5">
@@ -86,7 +87,7 @@ class AppPage extends React.Component {
                 </MDBCol>
               </MDBRow>
               <MDBAnimation type="fadeInRight" delay=".5s">
-              <div className='search-box'>
+              <div className='search-box' >
                   <input type='text' className='search-bar' placeholder=' Search...'/>
                   {/* <SearchIcon style={{color:'white',height:'100px'}}/> */}
               </div>

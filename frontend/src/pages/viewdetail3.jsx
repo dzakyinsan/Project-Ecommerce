@@ -7,7 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { useParams } from "react-router-dom";
-
+import { CartGetProduct } from "./../redux/Actions";
+import Swal from "sweetalert2";
+import NumberFormat from "react-number-format";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(1),
       width: "400px",
       height: "50px",
-      backgroundColor: "#c48236",
+      backgroundColor: "black",
       color: "white",
       fontSize: "15px"
     }
@@ -26,12 +28,16 @@ function ViewDetail2() {
   const classes = useStyles();
   // ============================================================ global state ===============
   const IdUserRedux = useSelector(state => state.auth.id);
+  const stateAuthRedux = useSelector(state=>state.auth)
+
   // ============================================================= local state =================
   const [dataDetail, setdataDetail] = useState([]);
   const [dataAddtoCart, setdataAddtoCart] = useState([]);
 
   // ===================================================================== useParam (buat ambil parameter dari app.js) ===========
-  const { idDetail } = useParams(); //
+  const { idDetail } = useParams();
+  // ================================================================== set dispatch ================ ==========
+  const dispatch = useDispatch();
   // ====================================================================== component didmount ==============
   useEffect(() => {
     // setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux });
@@ -42,7 +48,7 @@ function ViewDetail2() {
         setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id });
         setdataDetail(res.data.dataDetailFootball);
         // console.log("dataDetailFootball", res.data.dataDetailFootball);
-        console.log('dataAddtoCart',dataAddtoCart)
+        console.log("dataAddtoCart", dataAddtoCart);
       })
       .catch(err => {
         console.log("error axios");
@@ -50,12 +56,12 @@ function ViewDetail2() {
   }, []);
   //  =============================================================================== component did update =====================
   useEffect(() => {
-    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: 0 });
+    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status:'cart' });
   }, [dataDetail]);
 
-  console.log("state data detail", dataDetail);
+  // console.log("state data detail", dataDetail);
   console.log("data add to cart", dataAddtoCart);
-  console.log("data add to cart", typeof dataAddtoCart.jumlah);
+  // console.log("data add to cart", typeof dataAddtoCart.jumlah);
   console.log("id user redux", IdUserRedux);
 
   const onSizeChange = e => {
@@ -65,17 +71,26 @@ function ViewDetail2() {
   const onJumlahChange = e => {
     const { name, value } = e.target;
     const totalHarga = parseInt(value) * dataDetail.harga;
-    setdataAddtoCart({ ...dataAddtoCart, [name]: parseInt(value),totalHarga });
+    setdataAddtoCart({ ...dataAddtoCart, [name]: parseInt(value), totalHarga });
   };
   const addtoCartClick = () => {
     Axios.post(`${APIURL}product/posttransaction`, { dataAddtoCart }) // dataAddtoCart dipakein {} biar waktu di controllersnya manngilnya jadi req.body.dataAddtoCart.nama variable, kalo gapake {} di backend manggilnya langsung req.body.nama variable
       .then(res => {
         console.log(res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${dataDetail.namaProduk} has been added to your cart`,
+          showConfirmButton: false,
+          timer: 2500
+        });
+        dispatch(CartGetProduct());
       })
       .catch(err => {
-        console.log('backendnya error',err);
+        console.log("backendnya error", err);
       });
   };
+console.log('stateAuthRedux',stateAuthRedux);
 
   return (
     <div className="row container-viewdetail2">
@@ -100,7 +115,9 @@ function ViewDetail2() {
         <div style={{ width: "450px" }}>
           <h4>{dataDetail.category}</h4>
           <h1>{dataDetail.namaProduk}</h1>
-          <h3 style={{ marginTop: "40px" }}>Rp. {dataDetail.harga}</h3>
+          <h3 style={{ marginTop: "40px" }}>
+            <NumberFormat value={dataDetail.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+          </h3>
           <div style={{ marginBottom: "50px" }}>
             <p>select size</p>
             <div className="container-size">
@@ -129,7 +146,7 @@ function ViewDetail2() {
                 <span className="checkmark">45</span>
               </label>
             </div>
-            <input type="number" name="jumlah" placeholder="jumlah" onChange={onJumlahChange} />
+            <input type="number" name="jumlah" placeholder="jumlah"  onChange={onJumlahChange} />
           </div>
           <div className={classes.root}>
             <Button variant="contained" onClick={addtoCartClick}>

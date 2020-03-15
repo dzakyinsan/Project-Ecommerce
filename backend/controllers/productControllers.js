@@ -3,6 +3,19 @@ const { uploader } = require("./../helper/uploader");
 const fs = require("fs");
 
 module.exports = {
+  // ========================================================= GET ============================================
+  getHotItems:(req,res)=>{
+    mysqldb.query(`select * from products where categoryId=1 limit 6`,(err,result)=>{
+      if(err) res.status(500).send(err)
+      mysqldb.query(`select * from products where categoryId=2 limit 6`,(err,result2)=>{
+        if(err) res.status(500).send(err)
+        mysqldb.query(`select * from products where categoryId=3 limit 6`,(err,result3)=>{
+          if(err) res.send(500).send(err)
+          res.status(200).send({football:result3,basketball:result2,running:result})
+        })
+      })
+    })
+  },
   getProduct: (req, res) => {
     mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
       if (err) res.status(500).send(err);
@@ -58,12 +71,21 @@ module.exports = {
   },
   getCart: (req, res) => {
     const IdUserRedux = req.params.id;
-    var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux}`;
+    var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='cart'`;
     mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send(err);
       res.status(200).send({ dataCart: result });
     });
   },
+  getCheckout:(req,res)=>{
+    const IdUserRedux = req.params.id;
+    var sql=`select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`
+    mysqldb.query(sql,(err,result)=>{
+      if (err) res.status(500).send(err);
+      res.status(200).send({ dataCheckout: result });
+    })
+  },
+  // =========================================================== POST ================================================
   postProduct: (req, res) => {
     try {
       const path = "/product/image"; //file save path
@@ -123,6 +145,7 @@ module.exports = {
       });
     });
   },
+  // ============================================================== PUT / EDIT ========================================
   editProduct: (req, res) => {
     const productId = req.params.id; // id ini sesuai dengan parameter yg ada di productRouter
     var sql = `SELECT * from products where id=${productId};`;
@@ -182,6 +205,29 @@ module.exports = {
       }
     });
   },
+  editCheckbox: (req, res) => {
+    let productId = req.params.id;
+
+    console.log("productId", productId);
+    var sql = `select * from transaction where id=${productId};`;
+    mysqldb.query(sql, (err, result) => {
+      // console.log("masuk2 ");
+      if (err) {
+        // console.log("error ");
+        return res.status(500).send(err);
+      }
+      const data = req.body.data;
+      // console.log("berhasil get");
+      // console.log("data", data);
+      sql = `Update transaction set ? where id=${productId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        console.log("berhasil edit");
+        res.status(200).send({ checkout: true });
+      });
+    });
+  },
+  // ================================================================ DELETE =========================================
   deleteProduct: (req, res) => {
     console.log(req.params);
     let sql = `select * from products where id=${req.params.productid}`; // productid ini sesuai dengan parameter yg ada di productRouter
@@ -210,7 +256,7 @@ module.exports = {
     });
   },
   deleteCart: (req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
     let sql = `select * from transaction where id=${req.params.id}`;
     mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send(err);

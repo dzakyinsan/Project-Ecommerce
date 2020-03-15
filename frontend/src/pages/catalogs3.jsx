@@ -30,7 +30,7 @@ class Catalogs extends Component {
         <div className="col-md-3">
           <Card className="mt-5 card-container">
             <Link to={"/viewdetail3/"+val.id}>
-              <Card.Img variant="top" src={APIURLimage+val.gambar1} onMouseOver={e => (e.currentTarget.src = APIURLimage+val.gambar1)} onMouseOut={e => (e.currentTarget.src = APIURLimage+ val.gambar2)} />
+              <Card.Img variant="top" src={APIURLimage+val.gambar} onMouseOver={e => (e.currentTarget.src = APIURLimage+val.gambar)} onMouseOut={e => (e.currentTarget.src = APIURLimage+ val.gambar)} />
             </Link>
             <Card.Body style={{ textAlign: "center" }}>
               <Card.Text>New arrival</Card.Text>
@@ -46,7 +46,7 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div>
+      <div className='catalog-page'>
         <img className="d-block w-100" style={{ height: "400px" }} src="https://i.pinimg.com/originals/91/ff/af/91ffaf9cc801bba44fe2acb676dd4de8.jpg" alt="catalog1" />
 
         <div className="row">

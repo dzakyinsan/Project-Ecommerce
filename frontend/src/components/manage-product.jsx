@@ -4,9 +4,11 @@ import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { CustomInput } from "reactstrap";
 import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
-import { AdminDeleteProduct, OpenToggleDeleteRedux,AdminGetProduct } from "./../redux/Actions";
+import { AdminDeleteProduct, OpenToggleDeleteRedux, AdminGetProduct } from "./../redux/Actions";
 import Modal from "./../components/modal";
-import { MODAL_ADD } from "./../redux/Actions/types";
+import NumberFormat from "react-number-format";
+
+// import { MODAL_ADD } from "./../redux/Actions/types";
 
 function ManageProduct() {
   // ======================== global state redux ================
@@ -69,6 +71,7 @@ function ManageProduct() {
   const onchangeEditdata = e => {
     const { name, value } = e.target;
     seteditDataProduct({ ...editDataProduct, [name]: value });
+    console.log("editDataProduct", editDataProduct);
   };
   const opentogelEdit = index => {
     seteditDataProduct(dataEditRedux[index]);
@@ -137,11 +140,13 @@ function ManageProduct() {
       return (
         <TableRow key={val.id}>
           <TableCell>{index + 1}</TableCell>
-          <TableCell>
-            <img src={APIURLimage + val.gambar} alt={index} width="120px" height="120px" />
-          </TableCell>
           <TableCell>{val.namaProduk}</TableCell>
-          <TableCell>{val.harga}</TableCell>
+          <TableCell>
+            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" />
+          </TableCell>
+          <TableCell>
+            <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+          </TableCell>
           <TableCell>{val.category}</TableCell>
           <TableCell>
             <button onClick={() => opentogelEdit(index)}> edit</button>
@@ -170,7 +175,7 @@ function ManageProduct() {
     Axios.post(`${APIURL}product/postproduct`, formdata, Headers)
       .then(res => {
         console.log(res);
-        dispatch(AdminGetProduct())
+        dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);
         setmodaladd(!modaladd);
@@ -183,7 +188,7 @@ function ManageProduct() {
   // ============ edit data ========
   const Editdata = () => {
     console.log("editdataproduk", editDataProduct);
-    console.log('editimagefile',editimagefile)
+    console.log("editimagefile", editimagefile);
     var formdata = new FormData();
     var Headers = {
       headers: {
@@ -194,12 +199,12 @@ function ManageProduct() {
     formdata.append("data", JSON.stringify(editDataProduct));
     console.log("formdata", formdata);
     console.log("data edit product", editDataProduct);
-    console.log('editimagefile.imageEditFile',editimagefile.imageEditFile);
-    
+    console.log("editimagefile.imageEditFile", editimagefile.imageEditFile);
+
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
       .then(res => {
         console.log(res);
-        dispatch(AdminGetProduct())
+        dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);
         setmodaledit(!modaledit);
@@ -238,9 +243,7 @@ function ManageProduct() {
     return <div>loading</div>;
   }
   return (
-    
     <Fragment>
-      
       <button style={{ marginTop: "10px" }} onClick={toggleadd}>
         {" "}
         add data
@@ -283,8 +286,8 @@ function ManageProduct() {
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>
-            <TableCell>Gambar</TableCell>
             <TableCell>Nama Produk</TableCell>
+            <TableCell></TableCell>
             <TableCell>Harga</TableCell>
             <TableCell>Category</TableCell>
             <TableCell>Action</TableCell>

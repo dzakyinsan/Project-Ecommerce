@@ -37,9 +37,8 @@ const Header = props => {
   const Modal = useSelector(state => state.auth.modalOpen);
   const usernameRedux = useSelector(state => state.auth.username);
   const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
-
-  // const [isModal, setModalOpen] = useState(false);
-  // const togglemodal = () => setModalOpen(!isModal);
+  const dataUserRedux =useSelector(state=>state.auth)
+  console.log("dataUserRedux",dataUserRedux)
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -116,12 +115,12 @@ const Header = props => {
                     {/* nanti divnya ganti jadi form biar waktu click langsung refresh */}
                     <p className="h4 text-center mb-4">LOGIN</p>
                     <label htmlFor="username" className="black-text">
-                      Username*
+                      Username<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="text" name="usernameLogin" className="form-control" onChange={loginHandle} />
                     <br />
                     <label htmlFor="password" className="black-text">
-                      Password*
+                      Password<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="password" name="passwordLogin" className="form-control" onChange={loginHandle} />
                     <p className="font-small black-text d-flex justify-content-start mt-3">
@@ -149,23 +148,23 @@ const Header = props => {
                   <div className="modal-loginregis">
                     <p className="h4 text-center mb-4">REGISTER</p>
                     <label htmlFor="username" className="black-text">
-                      Username*
+                      Username<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="text" name="username" className="form-control" onChange={registerHandle} />
 
                     <br />
                     <label htmlFor="email" className="black-text">
-                      Your email*
+                      Your email<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="email" name="email" className="form-control" onChange={registerHandle} />
                     <br />
                     <label htmlFor="password" className="black-text">
-                      password*
+                      password<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="password" name="password" className="form-control" onChange={registerHandle} />
                     <br />
                     <label htmlFor="confirmpass" className="black-text">
-                      Confirm Password*
+                      Confirm Password<span style={{color:'red'}}>*</span>
                     </label>
                     <input type="password" name="confirmpass" className="form-control" onChange={registerHandle} />
                     <div className="mt-3">{renderNotifRegis()}</div>

@@ -35,3 +35,14 @@ export const GET_CART_LOADING = 'GET_CART_LOADING'
 export const CART_DELETE_LOADING = 'CART_DELETE_LOADING' 
 export const CART_DELETE_ERROR ='CART_DELETE_ERROR'
 
+// =============================================== CheckOut
+export const GET_CHECKOUT_SUCCESS ='GET_CHECKOUT_SUCCESS'
+export const GET_CHECKOUT_ERROR ='GET_CHECKOUT_ERROR'
+export const GET_CHECKOUT_LOADING ='GET_CHECKOUT_LOADING'
+
+// ================================================== Home
+export const GET_FOOTBALL_SUCCESS ='GET_FOOTBALL_SUCCESS'
+export const GET_BASKETBALL_SUCCESS ='GET_BASKETBALL_SUCCESS'
+export const GET_RUNNING_SUCCESS ='GET_RUNNING_SUCCESS'
+export const GET_HOME_ERROR ='GET_HOME_ERROR'
+export const GET_HOME_LOADING ='GET_HOME_LOADING'

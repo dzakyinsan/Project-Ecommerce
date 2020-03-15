@@ -47,8 +47,8 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div>
-        <img className="d-block w-100" style={{ height: "400px" }} src="https://pbs.twimg.com/media/D9izHHpXkAA45vl.jpg" alt="catalog1" />
+      <div className='catalog-page'>
+        <img className="d-block w-100" style={{ height: "500px" }} src="https://pbs.twimg.com/media/D9izHHpXkAA45vl.jpg" alt="catalog1" />
         <div className="row">
           <div className="col-md-2"></div>
           <div className="col-md-8 ">

@@ -71,7 +71,7 @@ module.exports = {
         }
         const token = createJWTToken({ userid: result[0].id, username: result[0].username });
         console.log(token);
-        return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
+        return res.send({ username: result[0].username, id:result[0].id, status: "success", token,roleId:result[0].roleId });
       });
     }else{//ini ketika pertama login
       var hashpassword = cryptogenerate(password);
@@ -83,7 +83,7 @@ module.exports = {
       }
       const token = createJWTToken({ userid: result[0].id, username: result[0].username });
       console.log(token);
-      return res.send({ username: result[0].username, id:result[0].id, status: "success", token });
+      return res.send({ username: result[0].username, id:result[0].id, status: "success", token,roleId:result[0].roleId });
     });
     }
   }

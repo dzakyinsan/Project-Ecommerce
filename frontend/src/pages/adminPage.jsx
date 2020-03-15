@@ -21,7 +21,8 @@ function AdminPage() {
   return (
     <Tabs defaultTab="manage-product" vertical className="vertical-tabs" style={{ marginTop: "90px" }}>
       <TabList>
-        <Tab tabFor="manage-product">Product</Tab>
+        <Tab tabFor="manage-product">Football</Tab>
+        <Tab tabFor="manage-product">Basketball</Tab>
         <Tab tabFor="manage-category">Category</Tab>
       </TabList>
 

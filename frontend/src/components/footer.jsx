@@ -6,7 +6,7 @@ class footer extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className='footer'>
         <div className="row px-5" style={{ height: "250px" }}>
           <div className="col-md-2" style={{}}></div>
           <div className="col-md-2" style={{ height: "250px", marginTop: "10px" }}>

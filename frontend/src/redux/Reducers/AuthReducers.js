@@ -3,7 +3,7 @@ import { AUTH_LOADING, AUTH_SYSTEM_REGIS_ERROR, AUTH_SYSTEM_LOGIN_ERROR, USER_LO
 const INITIAL_STATE = {
   id: "",
   username: "",
-  email: "",
+  // email: "",
   status: "",
   error: "",
   errorlogin: "",
