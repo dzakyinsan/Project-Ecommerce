@@ -37,8 +37,9 @@ const Header = props => {
   const Modal = useSelector(state => state.auth.modalOpen);
   const usernameRedux = useSelector(state => state.auth.username);
   const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
-  const dataUserRedux =useSelector(state=>state.auth)
-  console.log("dataUserRedux",dataUserRedux)
+  const dataUserRedux = useSelector(state => state.auth);
+  const roleId = useSelector(state => state.auth.roleId);
+  console.log("dataUserRedux", dataUserRedux);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -115,12 +116,12 @@ const Header = props => {
                     {/* nanti divnya ganti jadi form biar waktu click langsung refresh */}
                     <p className="h4 text-center mb-4">LOGIN</p>
                     <label htmlFor="username" className="black-text">
-                      Username<span style={{color:'red'}}>*</span>
+                      Username<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="text" name="usernameLogin" className="form-control" onChange={loginHandle} />
                     <br />
                     <label htmlFor="password" className="black-text">
-                      Password<span style={{color:'red'}}>*</span>
+                      Password<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="password" name="passwordLogin" className="form-control" onChange={loginHandle} />
                     <p className="font-small black-text d-flex justify-content-start mt-3">
@@ -148,23 +149,23 @@ const Header = props => {
                   <div className="modal-loginregis">
                     <p className="h4 text-center mb-4">REGISTER</p>
                     <label htmlFor="username" className="black-text">
-                      Username<span style={{color:'red'}}>*</span>
+                      Username<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="text" name="username" className="form-control" onChange={registerHandle} />
 
                     <br />
                     <label htmlFor="email" className="black-text">
-                      Your email<span style={{color:'red'}}>*</span>
+                      Your email<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="email" name="email" className="form-control" onChange={registerHandle} />
                     <br />
                     <label htmlFor="password" className="black-text">
-                      password<span style={{color:'red'}}>*</span>
+                      password<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="password" name="password" className="form-control" onChange={registerHandle} />
                     <br />
                     <label htmlFor="confirmpass" className="black-text">
-                      Confirm Password<span style={{color:'red'}}>*</span>
+                      Confirm Password<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="password" name="confirmpass" className="form-control" onChange={registerHandle} />
                     <div className="mt-3">{renderNotifRegis()}</div>
@@ -300,12 +301,21 @@ const Header = props => {
                 </div>
               </Fade>
             ) : null}
-            {loginOk === true ? (
+            {loginOk === true && roleId === 2 ? (
               <Fade right>
                 <Link to={"/cartPage"} style={{ color: "white" }}>
                   <div className="row cart" style={{ marginLeft: "50px" }}>
                     <div className="col-md-8 isi-cart">Cart</div>
                     <div className="col-md-4 isi-cart">{dataCartRedux.length}</div>
+                  </div>
+                </Link>
+              </Fade>
+            ) : null}
+            {loginOk === true && roleId === 1 ? (
+              <Fade right>
+                <Link to={"/adminpage"} style={{ color: "white" }}>
+                  <div className="manage-product" style={{ marginLeft: "50px" }}>
+                    <div className=" isi-manage-product">Manage Porduct</div>
                   </div>
                 </Link>
               </Fade>

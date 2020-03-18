@@ -12,7 +12,8 @@ const INITIAL_STATE = {
   login: false,
   authchecked: false,
   loading: false,
-  modalOpen: false
+  modalOpen: false,
+  roleId:0
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {

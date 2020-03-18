@@ -4,17 +4,17 @@ const fs = require("fs");
 
 module.exports = {
   // ========================================================= GET ============================================
-  getHotItems:(req,res)=>{
-    mysqldb.query(`select * from products where categoryId=1 limit 6`,(err,result)=>{
-      if(err) res.status(500).send(err)
-      mysqldb.query(`select * from products where categoryId=2 limit 6`,(err,result2)=>{
-        if(err) res.status(500).send(err)
-        mysqldb.query(`select * from products where categoryId=3 limit 6`,(err,result3)=>{
-          if(err) res.send(500).send(err)
-          res.status(200).send({football:result3,basketball:result2,running:result})
-        })
-      })
-    })
+  getHotItems: (req, res) => {
+    mysqldb.query(`select * from products where categoryId=1 limit 6`, (err, result) => {
+      if (err) res.status(500).send(err);
+      mysqldb.query(`select * from products where categoryId=2 limit 6`, (err, result2) => {
+        if (err) res.status(500).send(err);
+        mysqldb.query(`select * from products where categoryId=3 limit 6`, (err, result3) => {
+          if (err) res.send(500).send(err);
+          res.status(200).send({ football: result3, basketball: result2, running: result });
+        });
+      });
+    });
   },
   getProduct: (req, res) => {
     mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
@@ -77,13 +77,13 @@ module.exports = {
       res.status(200).send({ dataCart: result });
     });
   },
-  getCheckout:(req,res)=>{
+  getCheckout: (req, res) => {
     const IdUserRedux = req.params.id;
-    var sql=`select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`
-    mysqldb.query(sql,(err,result)=>{
+    var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`;
+    mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send(err);
       res.status(200).send({ dataCheckout: result });
-    })
+    });
   },
   // =========================================================== POST ================================================
   postProduct: (req, res) => {
@@ -144,6 +144,39 @@ module.exports = {
         res.status(200).send({ dataCart: result2 });
       });
     });
+  },
+  postCheckout: (req, res) => {
+    console.log("masuk backend");
+    const { nama, alamat, provinsi, kota, telepon, shipping, payment } = req.body.PostCheckout;
+    // console.log("nama.length", nama.length);
+    console.log("typeof nama", typeof nama);
+
+    if (nama === undefined || alamat === undefined || provinsi === undefined || kota === undefined || telepon === undefined) {
+      console.log("masuk backend if");
+
+      res.status(200).send({ validation: false, message: "Biling Details dengan tanda (*) Wajib diisi" });
+    } else if (shipping === undefined || payment === undefined) {
+      console.log("masuk backend else if");
+
+      res.status(200).send({ validation: false, message: "Shipping dan payment wajib diisi" });
+    } else {
+      var data = req.body.PostCheckout;
+      data.tanggal = new Date();
+      var sql = "INSERT INTO transaction_address SET ?";
+      console.log("masuk backend else");
+
+      mysqldb.query(sql, data, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+        console.log(result);
+        var sql = "select * from transaction_address";
+        mysqldb.query(sql, (err, result2) => {
+          if (err) res.status(500).send(err);
+          res.status(200).send({ dataCheckout: result2 });
+        });
+      });
+    }
   },
   // ============================================================== PUT / EDIT ========================================
   editProduct: (req, res) => {
@@ -211,19 +244,30 @@ module.exports = {
     console.log("productId", productId);
     var sql = `select * from transaction where id=${productId};`;
     mysqldb.query(sql, (err, result) => {
-      // console.log("masuk2 ");
       if (err) {
-        // console.log("error ");
         return res.status(500).send(err);
       }
       const data = req.body.data;
-      // console.log("berhasil get");
-      // console.log("data", data);
       sql = `Update transaction set ? where id=${productId}`;
       mysqldb.query(sql, data, (err, result2) => {
         if (err) res.status(500).send(err);
         console.log("berhasil edit");
         res.status(200).send({ checkout: true });
+      });
+    });
+  },
+  editWaitingpayment: (req, res) => {
+    let productId = req.params.id;
+    var sql = `select * from transaction where userId=${productId} and status='checkout'`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      const data = req.body.data;
+      sql = `update transaction set ? where id=${productId} and status='checkout'`;
+      mysqldb.query(sql, data, (err, results2) => {
+        if (err) res.status(500).send(err);
+        res.status(200).send({ waitingpayment: true });
       });
     });
   },
