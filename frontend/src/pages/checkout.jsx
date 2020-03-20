@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
+import { CustomInput } from "reactstrap";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +35,7 @@ function CheckOut() {
   const checkoutValid = useSelector(state => state.CheckoutReducer.checkoutValid);
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
-  const [goToCompletePage,setgoToCompletePage]=useState(false)
+  const [goToCompletePage, setgoToCompletePage] = useState(false);
   // ==================================set dispatch ==========================
   const dispatch = useDispatch();
   // ==================================component didmount ==========================
@@ -50,27 +51,27 @@ function CheckOut() {
   const onChangeCheckout = e => {
     const { name, value } = e.target;
     setPostCheckout({ ...PostCheckout, [name]: value });
-    console.log("PostCheckout", PostCheckout);
+    // console.log("PostCheckout", PostCheckout);
   };
 
   const FinishCheckout = () => {
     dispatch(PostCheckoutProduct(PostCheckout, dataCheckoutRedux));
-    setgoToCompletePage(true)
-    dispatch(CheckOutGetProduct())
+    setgoToCompletePage(true);
+    dispatch(CheckOutGetProduct());
     // if (messageRedux === "berhasil post") {
     //   dispatch(PutCheckoutProduct(dataCheckoutRedux));
     // }
     // console.log("messageRedux", messageRedux);
   };
 
-  console.log("messageRedux luar", messageRedux);
+  // console.log("messageRedux luar", messageRedux);
 
   const messageErrorNotif = () => {
     if (messageRedux) {
       return <h4 style={{ color: "red" }}> {messageRedux}</h4>;
     }
   };
-  console.log("dataCheckoutRedux", dataCheckoutRedux);
+  // console.log("dataCheckoutRedux", dataCheckoutRedux);
 
   const renderCheckout = () => {
     return dataCheckoutRedux.map((val, index) => {
@@ -89,8 +90,10 @@ function CheckOut() {
       );
     });
   };
-  console.log("checkoutValid", checkoutValid);
+  // console.log("checkoutValid", checkoutValid);
   console.log("dataCheckoutRedux.length", dataCheckoutRedux.length);
+  const { nama, alamat, provinsi, kota, telepon, shipping, payment } = PostCheckout;
+  console.log("typeof shipping", typeof shipping);
 
   if (dataCheckoutRedux.length === 0) {
     return (
@@ -102,19 +105,10 @@ function CheckOut() {
   if (goToCompletePage) {
     return <Redirect to={"/ordercomplete"} />;
   }
-
-  // return (
-  //   <div style={{ marginTop: "100px" }}>
-  //     <h1>tidak ada barang di checkout</h1>
-  //   </div>
-  // );
-  // else if(dataCheckoutRedux.length === 0 && messageRedux==="berhasil post dan update"){
-  //   return <Redirect to={"/ordercomplete"} />;
-
-  // }
+  console.log("PostCheckout", PostCheckout);
 
   return (
-    <div className="cart-page" style={{ paddingTop: "80px" }}>
+    <div className="checkout-page" style={{ paddingTop: "80px" }}>
       <div className="checkout-title">
         <h3>
           <center>Checkout</center>
@@ -122,62 +116,169 @@ function CheckOut() {
       </div>
       <div className="row">
         <div className="col-md-2" />
-        <div className="col-md-4 checkout-left-box">
-          <h5>BILING DETAILS</h5>
-          <hr />
+        <div className="col-md-4 mt-3 checkout-left-box">
+          <div className="detailPembayaran-title">BILING DETAILS</div>
+
           <div className="form-group">
             <label for="inputNamaLengkap">
-              <b>
-                Nama Lengkap<span style={{ color: "red" }}>*</span>
-              </b>
+              Nama Lengkap<span style={{ color: "red" }}>*</span>
             </label>
             <input type="text" name="nama" className="form-control" placeholder="Nama Pengirim" onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="inputAlamatLengkap">
-              <b>
-                Alamat Pengiriman<span style={{ color: "red" }}>*</span>
-              </b>
+              Alamat Pengiriman<span style={{ color: "red" }}>*</span>
             </label>
             <input type="text" name="alamat" className="form-control" placeholder="Alamat yang akan dituju" onChange={onChangeCheckout} />
           </div>
           <div className="form-group row">
             <div className="col-md-6">
               <label for="inputProvinsi">
-                <b>
-                  Provinsi<span style={{ color: "red" }}>*</span>
-                </b>
+                Provinsi<span style={{ color: "red" }}>*</span>
               </label>
               <input type="text" name="provinsi" className="form-control" placeholder="Provinsi" onChange={onChangeCheckout} />
             </div>
             <div className="col-md-6">
               <label for="inputKota">
-                <b>
-                  Kota<span style={{ color: "red" }}>*</span>
-                </b>
+                Kota<span style={{ color: "red" }}>*</span>
               </label>
               <input type="text" name="kota" className="form-control" placeholder="Kota" onChange={onChangeCheckout} />
             </div>
           </div>
           <div className="form-group">
             <label for="inputNomorHp">
-              <b>
-                Telepon/WA<span style={{ color: "red" }}>*</span>
-              </b>
+              Telepon/WA<span style={{ color: "red" }}>*</span>
             </label>
             <input type="number" name="telepon" className="form-control" placeholder="Nomor telepon" onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
-            <label for="catatan">
-              <b>Catatan(optional)</b>
-            </label>
+            <label for="catatan">Catatan(optional)</label>
             <textarea className="form-control" name="catatan" rows="3" placeholder="catatan untuk order dan pengiriman" onChange={onChangeCheckout}></textarea>
           </div>
           <div className="mt-5">{messageErrorNotif()}</div>
+          {/* =============================================================== payment box ===================== */}
+          {PostCheckout.nama !== undefined &&
+          PostCheckout.alamat !== undefined &&
+          PostCheckout.provinsi !== undefined &&
+          PostCheckout.kota !== undefined &&
+          PostCheckout.telepon !== undefined &&
+          PostCheckout.shipping !== undefined &&
+          PostCheckout.payment === "Bank Mandiri Bni" ? (
+            <div className="payment-box">
+              <div className="checkout-right-box-dalam">
+                <div>
+                  <div className="detailPembayaran-title">Detail Pembayaran</div>
+                  <div className="nama-bank">
+                    <td>Nama Bank : &nbsp;</td>
+                    <th>Bank Mandiri / Bank BNI </th>
+                  </div>
+                  <div className="nama-bank">
+                    <td>Nama Pemilik : &nbsp; </td>
+                    <th>M. dzaky Insan </th>
+                  </div>
+                  <div className="nama-bank">
+                    <td>Nomor Rekening : &nbsp; </td>
+                    <th>0221133144 </th>
+                  </div>
+                </div>
+                <div>
+                  <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
+                    Order Detail
+                  </div>
+                  <div className="yourorder-checkout">
+                    <td>Shipping</td>
+                    <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
+                  </div>
+                  <hr />
+                  <div className="yourorder-checkout">
+                    <td>Payment Method</td>
+                    <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
+                  </div>
+                  <hr />
+                </div>
+                <div>
+                  <div className="yourorder-checkout">
+                    <td>Subtotal</td>
+                    <th style={{ marginLeft: "auto" }}>
+                      <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+                    </th>
+                  </div>
+                  <hr />
+                  <div className="detailPembayaran-title">Bukti Pembayaran</div>
+                  <CustomInput type="file" />
+                </div>
+                <div className={classes.root}>
+                  <Button variant="contained" onClick={FinishCheckout}>
+                    Selesaikan Belanja
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          {/* ========================================= */}
+          {PostCheckout.nama !== undefined &&
+          PostCheckout.alamat !== undefined &&
+          PostCheckout.provinsi !== undefined &&
+          PostCheckout.kota !== undefined &&
+          PostCheckout.telepon !== undefined &&
+          PostCheckout.shipping !== undefined &&
+          PostCheckout.payment === "Convenience Store" ? (
+            <div className="payment-box">
+              <div className="checkout-right-box-dalam">
+                <div>
+                  <div className="detailPembayaran-title">Detail Pembayaran</div>
+                  <div className="nama-bank">
+                    <td>Convenience Store :&nbsp; </td>
+                    <th>Alfamart / Indomaret </th>
+                  </div>
+                  <div className="nama-bank">
+                    <td>Nama Tujuan :&nbsp; </td>
+                    <th>FootBoots2020 </th>
+                  </div>
+                  <div className="nama-bank">
+                    <td>Nomor Rekening :&nbsp; </td>
+                    <th>0221133144 </th>
+                  </div>
+                </div>
+                <div>
+                  <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
+                    Order Detail
+                  </div>
+                  <div className="yourorder-checkout">
+                    <td>Shipping</td>
+                    <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
+                  </div>
+                  <hr />
+                  <div className="yourorder-checkout">
+                    <td>Payment Method</td>
+                    <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
+                  </div>
+                  <hr />
+                </div>
+                <div>
+                  <div className="yourorder-checkout">
+                    <td>Subtotal</td>
+                    <th style={{ marginLeft: "auto" }}>
+                      <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+                    </th>
+                  </div>
+                  <hr />
+                  <div className="detailPembayaran-title">Bukti Pembayaran</div>
+                  <CustomInput type="file" />
+                </div>
+                <div className={classes.root}>
+                  <Button variant="contained" onClick={FinishCheckout}>
+                    Selesaikan Belanja
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
+        {/* =================================================================== your order ================== */}
         <div className="col-md-4 checkout-right-box">
           <div className="checkout-right-box-dalam">
-            <h5 style={{ marginBottom: "20px" }}>YOUR ORDER</h5>
+            <div className="detailPembayaran-title">YOUR ORDER</div>
             <div className="yourorder-checkout">
               <th>PRODUCT</th>
               <th style={{ marginLeft: "auto" }}>TOTAL</th>
@@ -207,24 +308,24 @@ function CheckOut() {
             <div className="shipping">
               <th>payment</th>
             </div>
-            <input type="radio" className="shipping" name="payment" value="Bank Mandiri Bni" onChange={onChangeCheckout} /> <b>Bank Mandiri / Bank BNI</b>
+            <input type="radio" className="shipping" name="payment" value="Bank Mandiri Bni" onChange={onChangeCheckout} /> Bank Mandiri / Bank BNI
             <div className="shipping">
               <img src="https://upload.wikimedia.org/wikipedia/id/thumb/f/fa/Bank_Mandiri_logo.svg/1280px-Bank_Mandiri_logo.svg.png" width="300px" height="60px" />
               <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" width="300px" height="50px" />
             </div>
             <hr />
             <input type="radio" className="shipping" name="payment" value="Convenience Store" onChange={onChangeCheckout} />
-            <b> Convenience Store</b>
+            Convenience Store
             <div className="shipping">
               <img src="https://www.reclays.id/wp-content/plugins/nicepay_cvs/alfa-indo.png" width="500px" height="80px" />
             </div>
             <hr />
-            <input type="checkbox" /> <b>I have read and agree to the website terms and conditions *</b>
-            <div className={classes.root}>
+            {/* <input type="checkbox" /> I have read and agree to the website terms and conditions */}
+            {/* <div className={classes.root}>
               <Button variant="contained" onClick={FinishCheckout}>
                 Selesaikan Belanja
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="col-md-2" />

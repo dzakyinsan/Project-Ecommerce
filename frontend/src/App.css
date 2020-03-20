@@ -69,12 +69,12 @@ html {
   margin-top: 19px;
   margin-left: auto;
 }
-.manage-product{
+.manage-product {
   width: 280px;
   height: 60px;
   background-color: whitesmoke;
 }
-.isi-manage-product{
+.isi-manage-product {
   font-family: "Press Start 2P";
   color: black;
   font-size: 16px;
@@ -149,12 +149,11 @@ html {
 @import url("https://fonts.googleapis.com/css?family=Spartan&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
-
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
 /* ============== css gambar-carousel mdb ========= */
 
 .carousel-gambar {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  
 }
 .search-box {
   /* border: 1px solid red; */
@@ -500,8 +499,6 @@ border-bottom-left-radius: 15px; */
   font-family: "Bangers";
 }
 
-
-
 /* ==== hover img home ==== */
 .container {
   text-align: center;
@@ -553,29 +550,28 @@ border-bottom-left-radius: 15px; */
   padding: 16px 32px;
 } */
 /* ===================== catalog ====================== */
-.catalog-page{
+.catalog-page {
   min-height: 950px;
 }
 
 /* ==================== view detail 2 ==================== */
-.container-viewdetail2{
+.container-viewdetail2 {
   /* margin-top: 100px; */
   padding-top: 100px;
   min-height: 1500px;
   font-family: "Poppins";
-
 }
-.image-viewdetail2 img{
+.image-viewdetail2 img {
   height: 465px;
   width: 465px;
   margin-top: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.viewdetail-desc{
+.viewdetail-desc {
   margin-left: 100px;
   margin-top: 20px;
 }
-.viewdetail-desc Button{
+.viewdetail-desc button {
   outline: none !important;
 }
 .size-label {
@@ -583,14 +579,13 @@ border-bottom-left-radius: 15px; */
   position: relative;
   /* padding-left: 35px; */
   /* margin-bottom: 5px; */
-  margin-right:10px;
+  margin-right: 10px;
   cursor: pointer;
   /* font-size: 22px; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  
 }
 /* Hide the browser's default radio button */
 .size-label input {
@@ -601,14 +596,14 @@ border-bottom-left-radius: 15px; */
 /* Create a custom radio button */
 .checkmark {
   /* position: absolute; */
-  padding:10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
   top: 0;
   left: 0;
   height: 45px;
   width: 48px;
   background-color: #eee;
   border-radius: 20%;
-  border:1px solid black;
+  border: 1px solid black;
   font-size: 20px;
 }
 /* On mouse-over, add a grey background color */
@@ -630,72 +625,85 @@ border-bottom-left-radius: 15px; */
 .size-label input:checked ~ .checkmark:after {
   display: block;
 }
-.container-size{
-  display:flex
-  }
-  .jmlinput{
-    height: 50px;
-    width:110px;
-    font-size: 20px;
-    text-align: center;
-    background-color: whitesmoke;
-    margin-top: 10px;
-    /* border: 2px solid black; */
-    border-radius: 5%;
-  }
-  .harga-detail{
-    font-size: 50px;
-    color: #cc0000;
-  }
-  /* ====================================== cart page ==================== */
-  .cart-page{
-    min-height: 950px;
-  }
-  .btn-delete-cart{
-    border-radius: 20%;
-    border: 2px solid black;
-    background-color: #c48236;
-  }
-  .btn-delete-cart:hover{
-    border-radius: 20%;
-    border: 2px solid whitesmoke;
-    background-color: whitesmoke;
-    transition: 500ms;
-  }
-  /* =============================================== checkout =================== */
-  /* .form-group{
-    border: 1px solid red;
-  } */
-  .yourorder-checkout{
-    display: flex;
-  }
-  .checkout-title{
-    margin:0 250px 80px 300px;
-    /* border: 2px solid black; */
-    padding: 20px 0 20px 0;
-    /* margin-bottom: 100px; */
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-  .checkout-right-box{
-    border: 2px solid black;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    /* border-radius: 15px; */
-    padding: 30px 0 30px 0;
-    /* padding-left: 100px; */
-    margin-bottom: 100px;
-  }
-  .checkout-right-box-dalam{
-    /* border: 2px solid black; */
-    margin: 0 20px 0 20px;
-  }
-  .checkout-left-box{
-   margin-right: 50px; 
-  }
-  .shipping{
-    margin-top: 10px;
-  }
-  /* ============================================= footer ========================= */
-  .footer{
-    border-top: 2px solid black;
-  }
+.container-size {
+  display: flex;
+}
+.jmlinput {
+  height: 50px;
+  width: 110px;
+  font-size: 20px;
+  text-align: center;
+  background-color: whitesmoke;
+  margin-top: 10px;
+  /* border: 2px solid black; */
+  border-radius: 5%;
+}
+.harga-detail {
+  font-size: 50px;
+  color: #cc0000;
+}
+/* ====================================== cart page ==================== */
+.btn-delete-cart {
+  border-radius: 20%;
+  border: 2px solid black;
+  background-color: #c48236;
+}
+.btn-delete-cart:hover {
+  border-radius: 20%;
+  border: 2px solid whitesmoke;
+  background-color: whitesmoke;
+  transition: 500ms;
+}
+/* =============================================== checkout =================== */
+
+.checkout-page {
+  min-height: 950px;
+  font-family: "Poppins";
+}
+.yourorder-checkout {
+  display: flex;
+}
+.checkout-title {
+  margin: 0 250px 80px 300px;
+  /* border: 2px solid black; */
+  padding: 20px 0 20px 0;
+  /* margin-bottom: 100px; */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.checkout-right-box {
+  border: 2px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* border-radius: 15px; */
+  /* padding: 30px 0 30px 0; */
+  /* padding-left: 100px; */
+  margin-bottom: 50px;
+}
+.checkout-right-box-dalam {
+  /* border: 2px solid black; */
+  margin: 30px 20px 30px 20px;
+}
+.checkout-left-box {
+  margin-right: 50px;
+}
+.shipping {
+  margin-top: 10px;
+}
+.payment-box {
+  border: 2px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 14px;
+  margin-bottom: 50px;
+}
+.detailPembayaran-title {
+  font-size: 25px;
+  font-family: "Noto Sans TC", sans-serif;
+  margin-bottom: 25px;
+}
+.nama-bank {
+  margin: 15px 0 10px 0;
+}
+/* ============================================= footer ========================= */
+.footer {
+  border-top: 2px solid black;
+}

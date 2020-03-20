@@ -93,8 +93,6 @@ function ManageProduct() {
   // const [deletestatus, setdeletestatus] = useState(false);
 
   const opentogelDelete = index => {
-    // setmodaldelete(!modaldelete);
-    // setdataProductDelete(index);
     dispatch(OpenToggleDeleteRedux(index));
 
     console.log(dataEditBackend[index]);
