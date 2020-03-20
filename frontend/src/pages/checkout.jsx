@@ -4,10 +4,11 @@ import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
 import Modal from "./../components/modal";
-import { PutCheckoutProduct, PostCheckoutProduct } from "./../redux/Actions";
+import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
 import Button from "@material-ui/core/Button";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,12 +29,12 @@ function CheckOut() {
 
   // ================================== Global state ==========================
   const dataCheckoutRedux = useSelector(state => state.CheckoutReducer.dataCheckoutRedux);
-  // const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
   const dataTotalHarga = useSelector(state => state.CheckoutReducer.dataTotalHarga);
   const messageRedux = useSelector(state => state.CheckoutReducer.message);
-  const IdUserRedux = useSelector(state => state.auth.id);
+  const checkoutValid = useSelector(state => state.CheckoutReducer.checkoutValid);
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
+  const [goToCompletePage,setgoToCompletePage]=useState(false)
   // ==================================set dispatch ==========================
   const dispatch = useDispatch();
   // ==================================component didmount ==========================
@@ -41,6 +42,7 @@ function CheckOut() {
     // console.log(IdUserRedux);
     var userid = localStorage.getItem("userId");
     setPostCheckout({ ...PostCheckout, userId: userid, term: false });
+    dispatch(CheckOutGetProduct());
   }, []);
 
   // console.log(dataCheckoutRedux, dataTotalHarga);
@@ -52,11 +54,16 @@ function CheckOut() {
   };
 
   const FinishCheckout = () => {
-    const { nama, alamat, provinsi, kota, telepon, shipping, payment } = PostCheckout;
-    dispatch(PostCheckoutProduct(nama, alamat, provinsi, kota, telepon, shipping, payment, PostCheckout));
-    dispatch(PutCheckoutProduct(dataCheckoutRedux));
-    console.log("messageRedux", messageRedux);
+    dispatch(PostCheckoutProduct(PostCheckout, dataCheckoutRedux));
+    setgoToCompletePage(true)
+    dispatch(CheckOutGetProduct())
+    // if (messageRedux === "berhasil post") {
+    //   dispatch(PutCheckoutProduct(dataCheckoutRedux));
+    // }
+    // console.log("messageRedux", messageRedux);
   };
+
+  console.log("messageRedux luar", messageRedux);
 
   const messageErrorNotif = () => {
     if (messageRedux) {
@@ -82,14 +89,29 @@ function CheckOut() {
       );
     });
   };
+  console.log("checkoutValid", checkoutValid);
+  console.log("dataCheckoutRedux.length", dataCheckoutRedux.length);
 
-  if(dataCheckoutRedux.length===0){
-    return(
-      <div style={{marginTop:'100px'}}>
+  if (dataCheckoutRedux.length === 0) {
+    return (
+      <div style={{ marginTop: "100px" }}>
         <h1>tidak ada barang di checkout</h1>
       </div>
-    )
+    );
   }
+  if (goToCompletePage) {
+    return <Redirect to={"/ordercomplete"} />;
+  }
+
+  // return (
+  //   <div style={{ marginTop: "100px" }}>
+  //     <h1>tidak ada barang di checkout</h1>
+  //   </div>
+  // );
+  // else if(dataCheckoutRedux.length === 0 && messageRedux==="berhasil post dan update"){
+  //   return <Redirect to={"/ordercomplete"} />;
+
+  // }
 
   return (
     <div className="cart-page" style={{ paddingTop: "80px" }}>

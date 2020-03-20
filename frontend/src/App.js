@@ -14,8 +14,7 @@ import ViewDetail from "./pages/viewdetail";
 import ViewDetail2 from "./pages/viewdetail2";
 import ViewDetail3 from "./pages/viewdetail3";
 import checkout from "./pages/checkout"
-// import Register from "./pages/signup";
-// import Login from "./pages/signin";
+import orderComplete from "./pages/orderComplete"
 import Axios from "axios";
 import { APIURL } from "./helper/ApiUrl";
 import { connect } from "react-redux";
@@ -64,11 +63,10 @@ class App extends Component {
           <Route path={"/viewdetail/:idDetail"} exact component={ViewDetail} />
           <Route path={"/viewdetail2/:idDetail"} exact component={ViewDetail2} />
           <Route path={"/viewdetail3/:idDetail"} exact component={ViewDetail3} />
-          {/* <Route path={"/register"} exact component={Register} /> */}
-          {/* <Route path={"/login"} exact component={Login} /> */}
           <Route path={"/adminpage"} exact component={adminPage} />
           <Route path={"/cartPage"} exact component={cartPage} />
           <Route path={"/checkout"} exact component={checkout} />
+          <Route path={"/ordercomplete"} exact component={orderComplete} />
         </Switch>
         <Footer />
       </div>

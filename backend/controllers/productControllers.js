@@ -146,6 +146,7 @@ module.exports = {
     });
   },
   postCheckout: (req, res) => {
+    const IdUserRedux=req.params.id
     console.log("masuk backend");
     const { nama, alamat, provinsi, kota, telepon, shipping, payment } = req.body.PostCheckout;
     // console.log("nama.length", nama.length);
@@ -153,24 +154,23 @@ module.exports = {
 
     if (nama === undefined || alamat === undefined || provinsi === undefined || kota === undefined || telepon === undefined) {
       console.log("masuk backend if");
-
       res.status(200).send({ validation: false, message: "Biling Details dengan tanda (*) Wajib diisi" });
+
     } else if (shipping === undefined || payment === undefined) {
       console.log("masuk backend else if");
-
       res.status(200).send({ validation: false, message: "Shipping dan payment wajib diisi" });
+
     } else {
       var data = req.body.PostCheckout;
       data.tanggal = new Date();
       var sql = "INSERT INTO transaction_address SET ?";
       console.log("masuk backend else");
-
       mysqldb.query(sql, data, (err, result) => {
         if (err) {
           return res.status(500).send(err);
         }
         console.log(result);
-        var sql = "select * from transaction_address";
+        var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`;
         mysqldb.query(sql, (err, result2) => {
           if (err) res.status(500).send(err);
           res.status(200).send({ dataCheckout: result2 });

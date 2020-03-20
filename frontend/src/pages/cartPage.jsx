@@ -7,6 +7,7 @@ import Modal from "./../components/modal";
 import { DeleteCartAction, CartGetProduct } from "./../redux/Actions";
 import NumberFormat from "react-number-format";
 import { Redirect } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function CartPage() {
   // ================================== Global state ==========================
@@ -33,6 +34,7 @@ function CartPage() {
   };
   const Deletedata = () => {
     dispatch(DeleteCartAction(idDelete, IdUserRedux));
+    setmodalDelete(!modalDelete)
   };
   // ==============================================================================================
   const onCheckOutClick = () => {
@@ -58,8 +60,8 @@ function CartPage() {
         .catch(err => {
           console.log("error axios checkout click ");
         });
-      }
-      setRedirectcheckout(true);
+    }
+    setRedirectcheckout(true);
   };
 
   // console.log('Redirectcheckout',Redirectcheckout)
@@ -93,7 +95,9 @@ function CartPage() {
             <NumberFormat value={val.totalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
           </TableCell>
           <TableCell>
-            <button onClick={() => OpenToggleDelete(val.id)}> delete</button>
+            <button className='btn-delete-cart' onClick={() => OpenToggleDelete(val.id)}> 
+            <DeleteIcon/> 
+            </button>
           </TableCell>
         </TableRow>
       );
@@ -103,15 +107,17 @@ function CartPage() {
     return <Redirect to={"/checkout"} />;
   }
   return (
-    
-    <div className="cart-page">
-      <button className="btn btn-success" style={{ marginTop: "100px" }} onClick={onCheckOutClick}>
+    <div className="cart-page" style={{ paddingTop: "80px" }}>
+      <div className="checkout-title" >
+        <h3>
+          <center>Cart</center>
+        </h3>
+      </div>
+      <button className="btn btn-success" onClick={onCheckOutClick}>
         Checkout
       </button>
-      <button className="btn btn-success" style={{ marginTop: "100px" }}>
+      <button className="btn btn-success">
         <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-
-        {/* {dataTotalHarga} */}
       </button>
       {/* ================= modal delete ==================== */}
       <Modal title={`delete cart`} toggle={OpenToggleDelete} modal={modalDelete} actionfunc={Deletedata} btnTitle="delete"></Modal>

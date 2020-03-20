@@ -20,7 +20,7 @@ router.put("/checkoutcart/:id", productControllers.editCheckbox);
 
 // ============================================ checkout ========================
 router.get("/getCheckout/:id", productControllers.getCheckout);
-router.post("/postCheckout", productControllers.postCheckout);
+router.post("/postCheckout/:id", productControllers.postCheckout);
 router.put("/waitingpayment/:id", productControllers.editWaitingpayment);
 
 module.exports = router;

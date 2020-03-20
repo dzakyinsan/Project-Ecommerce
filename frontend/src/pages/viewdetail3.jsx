@@ -5,7 +5,8 @@ import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
+// import AddIcon from "@material-ui/icons/Add";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useParams } from "react-router-dom";
 import { CartGetProduct } from "./../redux/Actions";
 import Swal from "sweetalert2";
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "400px",
+      width: "300px",
       height: "50px",
       backgroundColor: "black",
       color: "white",
@@ -28,7 +29,7 @@ function ViewDetail2() {
   const classes = useStyles();
   // ============================================================ global state ===============
   const IdUserRedux = useSelector(state => state.auth.id);
-  const stateAuthRedux = useSelector(state=>state.auth)
+  const stateAuthRedux = useSelector(state => state.auth);
 
   // ============================================================= local state =================
   const [dataDetail, setdataDetail] = useState([]);
@@ -45,7 +46,7 @@ function ViewDetail2() {
     Axios.get(`${APIURL}product/getDetail/${idDetail}`)
       .then(res => {
         const { id, harga } = res.data.dataDetailFootball;
-        setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id });
+        setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id,jumlah:1 });
         setdataDetail(res.data.dataDetailFootball);
         // console.log("dataDetailFootball", res.data.dataDetailFootball);
         console.log("dataAddtoCart", dataAddtoCart);
@@ -56,7 +57,8 @@ function ViewDetail2() {
   }, []);
   //  =============================================================================== component did update =====================
   useEffect(() => {
-    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status:'cart' });
+    const totalHarga=dataAddtoCart.jumlah*dataDetail.harga
+    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: "cart" ,totalHarga});
   }, [dataDetail]);
 
   // console.log("state data detail", dataDetail);
@@ -90,7 +92,9 @@ function ViewDetail2() {
         console.log("backendnya error", err);
       });
   };
-console.log('stateAuthRedux',stateAuthRedux);
+  console.log("dataAddtoCart", dataAddtoCart);
+  console.log('typeof jumlah',typeof dataAddtoCart.jumlah);
+  
 
   return (
     <div className="row container-viewdetail2">
@@ -115,10 +119,10 @@ console.log('stateAuthRedux',stateAuthRedux);
         <div style={{ width: "450px" }}>
           <h4>{dataDetail.category}</h4>
           <h1>{dataDetail.namaProduk}</h1>
-          <h3 style={{ marginTop: "40px" }}>
+          <div className="harga-detail" style={{ marginTop: "40px" }}>
             <NumberFormat value={dataDetail.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
-          </h3>
-          <div style={{ marginBottom: "50px" }}>
+          </div>
+          <div style={{ marginBottom: "50px", marginTop: "80px" }}>
             <p>select size</p>
             <div className="container-size">
               <label className="size-label">
@@ -146,17 +150,33 @@ console.log('stateAuthRedux',stateAuthRedux);
                 <span className="checkmark">45</span>
               </label>
             </div>
-            <input type="number" name="jumlah" placeholder="jumlah"  onChange={onJumlahChange} />
-          </div>
-          <div className={classes.root}>
-            <Button variant="contained" onClick={addtoCartClick}>
-              <AddIcon /> <span>&nbsp;&nbsp;</span> Add to Cart
-            </Button>
+            <div style={{ display: "flex", marginTop: "30px" }}>
+              <div>
+                <input className="jmlinput" type="number" name="jumlah" placeholder=" Quantity" defaultValue='1'  onChange={onJumlahChange} />
+              </div>
+              
+              {dataAddtoCart.size !== undefined && dataAddtoCart.jumlah >0 ? (
+                <div className={classes.root}>
+                  <Button variant="contained" onClick={addtoCartClick} >
+                    {/* <ShoppingCartIcon />  */}
+                    Add to Cart
+                  </Button>
+                </div>
+              ) : (
+                <div className={classes.root}>
+                  <Button variant="contained" onClick={addtoCartClick}disabled>
+                    {/* <ShoppingCartIcon />  */}
+                    Add to Cart
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
       <div className="col-md-1" />
     </div>
+    
   );
 }
 

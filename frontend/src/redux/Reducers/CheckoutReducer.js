@@ -1,10 +1,21 @@
-import { GET_CHECKOUT_ERROR, GET_CHECKOUT_LOADING, GET_CHECKOUT_SUCCESS, POST_CHECKOUT_SUCCESS, POST_CHECKOUT_ERROR, POST_CHECKOUT_LOADING } from "./../Actions/types";
+import {
+  GET_CHECKOUT_ERROR,
+  GET_CHECKOUT_LOADING,
+  GET_CHECKOUT_SUCCESS,
+  POST_CHECKOUT_SUCCESS,
+  POST_CHECKOUT_ERROR,
+  POST_CHECKOUT_LOADING,
+  PUT_CHECKOUT_SUCCESS,
+  PUT_CHECKOUT_ERROR,
+  PUT_CHECKOUT_LOADING
+} from "./../Actions/types";
 
 const INITIAL_STATE = {
   dataCheckoutRedux: [],
   dataTotalHarga: 0,
   message: "",
-  loading: false
+  loading: false,
+  checkoutValid:false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,11 +27,15 @@ export default (state = INITIAL_STATE, action) => {
     case GET_CHECKOUT_ERROR:
       return { ...state, message: "axios gagal get di action redux" };
     case POST_CHECKOUT_SUCCESS:
-      return { ...state, dataCheckoutRedux: action.payload, message: "berhasil post" };
+      return { ...state, dataCheckoutRedux: action.payload, message: "berhasil post",checkoutValid:true};
     case POST_CHECKOUT_ERROR:
       return { ...state, message: action.payload };
     case POST_CHECKOUT_LOADING:
       return { ...state, loading: true };
+    case PUT_CHECKOUT_SUCCESS:
+      return {...state,message: "berhasil post dan update"}
+    case  PUT_CHECKOUT_ERROR:
+      return {...state,message:'gagal put'}
     default:
       return state;
   }

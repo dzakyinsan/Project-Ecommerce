@@ -31,17 +31,18 @@ export const CheckOutGetProduct = () => {
       });
   };
 };
-export const PostCheckoutProduct = (PostCheckout) => {
+export const PostCheckoutProduct = (PostCheckout,dataCheckoutRedux) => {
   return dispatch => {
+    var IdUserRedux = localStorage.getItem("userId");
     dispatch({ type: POST_CHECKOUT_LOADING });
-    Axios.post(`${APIURL}product/postCheckout`, { PostCheckout })
+    Axios.post(`${APIURL}product/postCheckout/${IdUserRedux}`, { PostCheckout })
       .then(res => {
         if (res.data.validation === false) {
           dispatch({ type: POST_CHECKOUT_ERROR, payload: res.data.message });
         } else {
           dispatch({ type: POST_CHECKOUT_SUCCESS, payload: res.data.dataCheckout });
           dispatch(CheckOutGetProduct());
-        //   dispatch(PutCheckoutProduct(dataCheckoutRedux));
+          dispatch(PutCheckoutProduct(dataCheckoutRedux));
         }
         //   console.log("berhasil", res.data.dataCheckout);
       })
@@ -68,6 +69,7 @@ export const PutCheckoutProduct = dataCheckoutRedux => {
       var id = data.id;
       Axios.put(`${APIURL}product/waitingpayment/${id}`, { data })
       .then(res=>{
+          dispatch({type:PUT_CHECKOUT_SUCCESS})
         dispatch(CheckOutGetProduct())
       })
       .catch(err=>{
