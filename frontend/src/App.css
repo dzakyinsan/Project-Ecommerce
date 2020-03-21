@@ -660,6 +660,10 @@ border-bottom-left-radius: 15px; */
   min-height: 950px;
   font-family: "Poppins";
 }
+.cart-page {
+  min-height: 950px;
+  font-family: "Poppins";
+}
 .yourorder-checkout {
   display: flex;
 }
@@ -703,7 +707,16 @@ border-bottom-left-radius: 15px; */
 .nama-bank {
   margin: 15px 0 10px 0;
 }
+.bukti-pembayaran-berhasil {
+  border: 5px solid green;
+  padding: 10px;
+}
+.bukti-pembayaran-gagal {
+  border: 5px solid red;
+  padding: 10px;
+}
 /* ============================================= footer ========================= */
 .footer {
   border-top: 2px solid black;
+  font-family: "Poppins";
 }

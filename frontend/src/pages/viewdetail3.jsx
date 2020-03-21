@@ -46,7 +46,7 @@ function ViewDetail2() {
     Axios.get(`${APIURL}product/getDetail/${idDetail}`)
       .then(res => {
         const { id, harga } = res.data.dataDetailFootball;
-        setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id,jumlah:1 });
+        setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id, jumlah: 1 });
         setdataDetail(res.data.dataDetailFootball);
         // console.log("dataDetailFootball", res.data.dataDetailFootball);
         console.log("dataAddtoCart", dataAddtoCart);
@@ -57,8 +57,8 @@ function ViewDetail2() {
   }, []);
   //  =============================================================================== component did update =====================
   useEffect(() => {
-    const totalHarga=dataAddtoCart.jumlah*dataDetail.harga
-    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: "cart" ,totalHarga});
+    const totalHarga = dataAddtoCart.jumlah * dataDetail.harga;
+    setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: "cart", totalHarga });
   }, [dataDetail]);
 
   // console.log("state data detail", dataDetail);
@@ -80,7 +80,7 @@ function ViewDetail2() {
       .then(res => {
         console.log(res);
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: `${dataDetail.namaProduk} has been added to your cart`,
           showConfirmButton: false,
@@ -93,8 +93,7 @@ function ViewDetail2() {
       });
   };
   console.log("dataAddtoCart", dataAddtoCart);
-  console.log('typeof jumlah',typeof dataAddtoCart.jumlah);
-  
+  console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
 
   return (
     <div className="row container-viewdetail2">
@@ -152,19 +151,19 @@ function ViewDetail2() {
             </div>
             <div style={{ display: "flex", marginTop: "30px" }}>
               <div>
-                <input className="jmlinput" type="number" name="jumlah" placeholder=" Quantity" defaultValue='1'  onChange={onJumlahChange} />
+                <input className="jmlinput" type="number" name="jumlah" placeholder=" Quantity" defaultValue="1" onChange={onJumlahChange} />
               </div>
-              
-              {dataAddtoCart.size !== undefined && dataAddtoCart.jumlah >0 ? (
+
+              {dataAddtoCart.size !== undefined && dataAddtoCart.jumlah > 0 ? (
                 <div className={classes.root}>
-                  <Button variant="contained" onClick={addtoCartClick} >
+                  <Button variant="contained" onClick={addtoCartClick}>
                     {/* <ShoppingCartIcon />  */}
                     Add to Cart
                   </Button>
                 </div>
               ) : (
                 <div className={classes.root}>
-                  <Button variant="contained" onClick={addtoCartClick}disabled>
+                  <Button variant="contained" onClick={addtoCartClick} disabled>
                     {/* <ShoppingCartIcon />  */}
                     Add to Cart
                   </Button>
@@ -176,7 +175,6 @@ function ViewDetail2() {
       </div>
       <div className="col-md-1" />
     </div>
-    
   );
 }
 

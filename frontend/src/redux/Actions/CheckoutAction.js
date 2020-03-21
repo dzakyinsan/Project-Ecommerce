@@ -11,6 +11,7 @@ import {
 } from "./types";
 import { APIURL } from "./../../helper/ApiUrl";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 export const CheckOutGetProduct = () => {
   return dispatch => {
@@ -31,15 +32,35 @@ export const CheckOutGetProduct = () => {
       });
   };
 };
-export const PostCheckoutProduct = (PostCheckout,dataCheckoutRedux) => {
+export const PostCheckoutProduct = (PostCheckout, AddImageFile, dataCheckoutRedux) => {
   return dispatch => {
     var IdUserRedux = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     dispatch({ type: POST_CHECKOUT_LOADING });
-    Axios.post(`${APIURL}product/postCheckout/${IdUserRedux}`, { PostCheckout })
+    var formdata = new FormData();
+    var Headers = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`
+      }
+    };
+    formdata.append("image", AddImageFile.imageFile);
+    formdata.append("data", JSON.stringify(PostCheckout));
+    console.log("AddImageFile.imageFile", AddImageFile.imageFile);
+    console.log("PostCheckout", PostCheckout);
+    console.log("formdata", formdata);
+    Axios.post(`${APIURL}product/postCheckout/${IdUserRedux}`, formdata, Headers)
       .then(res => {
         if (res.data.validation === false) {
           dispatch({ type: POST_CHECKOUT_ERROR, payload: res.data.message });
         } else {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Thank you. Your order has been received.`,
+            showConfirmButton: false,
+            timer: 2500
+          });
           dispatch({ type: POST_CHECKOUT_SUCCESS, payload: res.data.dataCheckout });
           dispatch(CheckOutGetProduct());
           dispatch(PutCheckoutProduct(dataCheckoutRedux));
@@ -68,14 +89,13 @@ export const PutCheckoutProduct = dataCheckoutRedux => {
       };
       var id = data.id;
       Axios.put(`${APIURL}product/waitingpayment/${id}`, { data })
-      .then(res=>{
-          dispatch({type:PUT_CHECKOUT_SUCCESS})
-        dispatch(CheckOutGetProduct())
-      })
-      .catch(err=>{
-        console.log(err)
-      })
-      
+        .then(res => {
+          dispatch({ type: PUT_CHECKOUT_SUCCESS });
+          dispatch(CheckOutGetProduct());
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   };
 };

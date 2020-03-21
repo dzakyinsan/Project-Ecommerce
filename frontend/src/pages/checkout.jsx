@@ -36,6 +36,12 @@ function CheckOut() {
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
   const [goToCompletePage, setgoToCompletePage] = useState(false);
+  const [AddImageFile, setAddImageFile] = useState({
+    imageName: "No File Chosen",
+    imageFile: undefined
+  });
+  console.log("PostCheckout", PostCheckout);
+  console.log("AddImageFile", AddImageFile);
   // ==================================set dispatch ==========================
   const dispatch = useDispatch();
   // ==================================component didmount ==========================
@@ -46,25 +52,26 @@ function CheckOut() {
     dispatch(CheckOutGetProduct());
   }, []);
 
-  // console.log(dataCheckoutRedux, dataTotalHarga);
+  const onAddImageFile = e => {
+    console.log("e.target.files[0]", e.target.files[0]);
+    var file = e.target.files[0];
+    if (file) {
+      setAddImageFile({ ...AddImageFile, imageName: file.name, imageFile: file });
+    } else {
+      setAddImageFile({ ...AddImageFile, imageName: "No File Chosen", imageFile: undefined });
+    }
+  };
 
   const onChangeCheckout = e => {
     const { name, value } = e.target;
     setPostCheckout({ ...PostCheckout, [name]: value });
-    // console.log("PostCheckout", PostCheckout);
   };
 
   const FinishCheckout = () => {
-    dispatch(PostCheckoutProduct(PostCheckout, dataCheckoutRedux));
-    setgoToCompletePage(true);
+    dispatch(PostCheckoutProduct(PostCheckout, AddImageFile, dataCheckoutRedux));
+    // setgoToCompletePage(true);
     dispatch(CheckOutGetProduct());
-    // if (messageRedux === "berhasil post") {
-    //   dispatch(PutCheckoutProduct(dataCheckoutRedux));
-    // }
-    // console.log("messageRedux", messageRedux);
   };
-
-  // console.log("messageRedux luar", messageRedux);
 
   const messageErrorNotif = () => {
     if (messageRedux) {
@@ -205,13 +212,29 @@ function CheckOut() {
                   </div>
                   <hr />
                   <div className="detailPembayaran-title">Bukti Pembayaran</div>
-                  <CustomInput type="file" />
+                  {AddImageFile.imageFile !== undefined ? (
+                    <div className="bukti-pembayaran-berhasil">
+                      <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                    </div>
+                  ) : (
+                    <div className="bukti-pembayaran-gagal">
+                      <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                    </div>
+                  )}{" "}
                 </div>
-                <div className={classes.root}>
-                  <Button variant="contained" onClick={FinishCheckout}>
-                    Selesaikan Belanja
-                  </Button>
-                </div>
+                {AddImageFile.imageFile !== undefined ? (
+                  <div className={classes.root}>
+                    <Button variant="contained" onClick={FinishCheckout}>
+                      Selesaikan Belanja
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={classes.root}>
+                    <Button variant="contained" onClick={FinishCheckout} disabled>
+                      Selesaikan Belanja
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           ) : null}
@@ -264,16 +287,103 @@ function CheckOut() {
                   </div>
                   <hr />
                   <div className="detailPembayaran-title">Bukti Pembayaran</div>
-                  <CustomInput type="file" />
+                  <div className="bukti-pembayaran">
+                    <div className="bukti-pembayaran">
+                      {AddImageFile.imageFile !== undefined ? (
+                        <div className="bukti-pembayaran-berhasil">
+                          <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                        </div>
+                      ) : (
+                        <div className="bukti-pembayaran-gagal">
+                          <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
+                {AddImageFile.imageFile !== undefined ? (
+                  <div className={classes.root}>
+                    <Button variant="contained" onClick={FinishCheckout}>
+                      Selesaikan Belanja
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={classes.root}>
+                    <Button variant="contained" onClick={FinishCheckout} disabled>
+                      Selesaikan Belanja
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+          {/* ==================================================== payment box try =============================== */}
+          {/* <div className="payment-box">
+            <div className="checkout-right-box-dalam">
+              <div>
+                <div className="detailPembayaran-title">Detail Pembayaran</div>
+                <div className="nama-bank">
+                  <td>Convenience Store :&nbsp; </td>
+                  <th>Alfamart / Indomaret </th>
+                </div>
+                <div className="nama-bank">
+                  <td>Nama Tujuan :&nbsp; </td>
+                  <th>FootBoots2020 </th>
+                </div>
+                <div className="nama-bank">
+                  <td>Nomor Rekening :&nbsp; </td>
+                  <th>0221133144 </th>
+                </div>
+              </div>
+              <div>
+                <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
+                  Order Detail
+                </div>
+                <div className="yourorder-checkout">
+                  <td>Shipping</td>
+                  <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
+                </div>
+                <hr />
+                <div className="yourorder-checkout">
+                  <td>Payment Method</td>
+                  <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
+                </div>
+                <hr />
+              </div>
+              <div>
+                <div className="yourorder-checkout">
+                  <td>Subtotal</td>
+                  <th style={{ marginLeft: "auto" }}>
+                    <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+                  </th>
+                </div>
+                <hr />
+                <div className="detailPembayaran-title">Bukti Pembayaran</div>
+                {AddImageFile.imageFile !== undefined ? (
+                  <div className="bukti-pembayaran-berhasil">
+                    <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                  </div>
+                ) : (
+                  <div className="bukti-pembayaran-gagal">
+                    <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                  </div>
+                )}
+              </div>
+              {AddImageFile.imageFile !== undefined ? (
                 <div className={classes.root}>
                   <Button variant="contained" onClick={FinishCheckout}>
                     Selesaikan Belanja
                   </Button>
                 </div>
-              </div>
+              ) : (
+                <div className={classes.root}>
+                  <Button variant="contained" onClick={FinishCheckout} disabled>
+                    Selesaikan Belanja
+                  </Button>
+                </div>
+              )}
             </div>
-          ) : null}
+          </div> */}
         </div>
         {/* =================================================================== your order ================== */}
         <div className="col-md-4 checkout-right-box">

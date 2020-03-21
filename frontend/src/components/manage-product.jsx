@@ -19,15 +19,6 @@ function ManageProduct() {
   const dispatch = useDispatch();
 
   // ============================ local state =====================
-  // const [dataproduct, setdataproduct] = useState([
-  //   {
-  //     namaProduk: "",
-  //     harga: 0,
-  //     category: ""
-  //   }
-  // ]);
-  //dispatch(adddataproduct(adddataproduct))
-  // const [datacategory, setdatacategory] = useState([]);
   const [addDataProduct, setaddDataProduct] = useState([]);
   const [addimagefile, setaddimagefile] = useState({
     imageFileName: "select image...",
@@ -40,10 +31,6 @@ function ManageProduct() {
     imageEditFile: undefined
   });
 
-  // console.log(dataEditRedux[0].namaProduk);
-
-  // const [dataProductDelete, setdataProductDelete] = useState([]);
-
   // ============================================== add  ===================================
   const [modaladd, setmodaladd] = useState(false);
   const toggleadd = () => setmodaladd(!modaladd);
@@ -53,7 +40,6 @@ function ManageProduct() {
   };
   const onAddImageFileChange = event => {
     console.log("event.target.files[0]", event.target.files[0]); //ini isinya nama dari img yg kita ambil
-    // setImageData({ ...imageData, [event.target.name]: event.target.files[0] });
     var file = event.target.files[0];
 
     if (file) {

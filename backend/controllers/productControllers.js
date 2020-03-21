@@ -102,9 +102,9 @@ module.exports = {
         const imagePath = image ? path + "/" + image[0].filename : null; //filenamenya dari uploader
         console.log(imagePath);
 
-        console.log(req.body.data);
+        console.log("req.body.data", req.body.data);
         const data = JSON.parse(req.body.data);
-        console.log(data);
+        console.log("data", data);
         data.gambar = imagePath; //ngepush image kedalam data
         console.log("data", data);
 
@@ -146,37 +146,58 @@ module.exports = {
     });
   },
   postCheckout: (req, res) => {
-    const IdUserRedux=req.params.id
-    console.log("masuk backend");
-    const { nama, alamat, provinsi, kota, telepon, shipping, payment } = req.body.PostCheckout;
-    // console.log("nama.length", nama.length);
-    console.log("typeof nama", typeof nama);
+    try {
+      const path = "/product/image"; //file save path
+      const upload = uploader(path, "PRODUCT").fields([{ name: "image" }]);
 
-    if (nama === undefined || alamat === undefined || provinsi === undefined || kota === undefined || telepon === undefined) {
-      console.log("masuk backend if");
-      res.status(200).send({ validation: false, message: "Biling Details dengan tanda (*) Wajib diisi" });
-
-    } else if (shipping === undefined || payment === undefined) {
-      console.log("masuk backend else if");
-      res.status(200).send({ validation: false, message: "Shipping dan payment wajib diisi" });
-
-    } else {
-      var data = req.body.PostCheckout;
-      data.tanggal = new Date();
-      var sql = "INSERT INTO transaction_address SET ?";
-      console.log("masuk backend else");
-      mysqldb.query(sql, data, (err, result) => {
+      upload(req, res, err => {
         if (err) {
           return res.status(500).send(err);
         }
-        console.log(result);
-        var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`;
-        mysqldb.query(sql, (err, result2) => {
-          if (err) res.status(500).send(err);
-          res.status(200).send({ dataCheckout: result2 });
-        });
+        const IdUserRedux = req.params.id;
+        // console.log(IdUserRedux);
+        // console.log("masuk backend");
+        // console.log("req.body.data", req.body.data);
+        const { image } = req.files;
+        // console.log("image", image);
+        const imagePath = image ? path + "/" + image[0].filename : null; //filenamenya dari uploader
+        const data = JSON.parse(req.body.data);
+        data.gambar = imagePath;
+
+        // console.log("req.body.PostCheckout", req.body.PostCheckout);
+
+        // console.log("data", data.nama);
+        const { nama, alamat, provinsi, kota, telepon, shipping, payment } = data;
+        // console.log("nama.length", nama, alamat, provinsi);
+        // console.log("req.body.data", req.body.data);
+        // console.log("data", data.nama);
+
+        if (nama === undefined || alamat === undefined || provinsi === undefined || kota === undefined || telepon === undefined) {
+          console.log("masuk backend if");
+          res.status(200).send({ validation: false, message: "Biling Details dengan tanda (*) Wajib diisi" });
+        } else if (shipping === undefined || payment === undefined) {
+          console.log("masuk backend else if");
+          res.status(200).send({ validation: false, message: "Shipping dan payment wajib diisi" });
+        } else {
+          //   var data = req.body.PostCheckout;
+          //   data.tanggal = new Date();
+          var sql = "INSERT INTO transaction_address SET ?";
+          console.log("masuk backend else");
+          mysqldb.query(sql, data, (err, result) => {
+            if (err) {
+              fs.unlinkSync("./public" + imagePath);
+              return res.status(500).send(err);
+            }
+            //     console.log(result);
+            var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`;
+            mysqldb.query(sql, (err, result2) => {
+              if (err) res.status(500).send(err);
+              res.status(200).send({ dataCheckout: result2 });
+            });
+          });
+        }
       });
-    }
+    } catch (err) {}
   },
   // ============================================================== PUT / EDIT ========================================
   editProduct: (req, res) => {
