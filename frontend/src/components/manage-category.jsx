@@ -20,17 +20,6 @@ function ManageCategory() {
     setdataAddCategory({...dataAddCategory,[name]:value})
   }
 
-  
-  // ======================================== use effect ============================
-  // useEffect(() => {
-  //   Axios.get(`${APIURL}product/getproduct`)
-  //     .then(res => {
-  //       setdataCategory(res.data.dataCategory);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // });
   // ======================================= render category ========================
   const renderCategory = () => {
     return dataCategoryRedux.map((val, index) => {

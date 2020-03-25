@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { CartGetProduct } from "./../redux/Actions";
 import Swal from "sweetalert2";
 import NumberFormat from "react-number-format";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +23,12 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       fontSize: "15px"
     }
+  },
+  root2: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2)
+    }
   }
 }));
 
@@ -30,6 +37,7 @@ function ViewDetail2() {
   // ============================================================ global state ===============
   const IdUserRedux = useSelector(state => state.auth.id);
   const stateAuthRedux = useSelector(state => state.auth);
+  const roleRedux = useSelector(state => state.auth.roleId);
 
   // ============================================================= local state =================
   const [dataDetail, setdataDetail] = useState([]);
@@ -92,8 +100,9 @@ function ViewDetail2() {
         console.log("backendnya error", err);
       });
   };
-  console.log("dataAddtoCart", dataAddtoCart);
-  console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
+  // console.log("dataAddtoCart", dataAddtoCart);
+  // console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
+  console.log("roleRedux", roleRedux);
 
   return (
     <div className="row container-viewdetail2">
@@ -154,22 +163,27 @@ function ViewDetail2() {
                 <input className="jmlinput" type="number" name="jumlah" placeholder=" Quantity" defaultValue="1" onChange={onJumlahChange} />
               </div>
 
-              {dataAddtoCart.size !== undefined && dataAddtoCart.jumlah > 0 ? (
+              {dataAddtoCart.size !== undefined && dataAddtoCart.jumlah > 0 && roleRedux == 2 ? (
                 <div className={classes.root}>
                   <Button variant="contained" onClick={addtoCartClick}>
-                    {/* <ShoppingCartIcon />  */}
                     Add to Cart
                   </Button>
                 </div>
               ) : (
                 <div className={classes.root}>
                   <Button variant="contained" onClick={addtoCartClick} disabled>
-                    {/* <ShoppingCartIcon />  */}
                     Add to Cart
                   </Button>
                 </div>
               )}
             </div>
+            {roleRedux === 1 ? (
+              <div className={classes.root2}>
+                <Alert variant="filled" severity="error">
+                  Admin cannot make a transaction!
+                </Alert>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

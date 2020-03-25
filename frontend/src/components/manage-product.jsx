@@ -52,7 +52,7 @@ function ManageProduct() {
   const [modaledit, setmodaledit] = useState(false);
   const toggleedit = () => {
     setmodaledit(!modaledit);
-    console.log("dataEditRedux", dataEditRedux);
+    // console.log("dataEditRedux", dataEditRedux);
   };
   const onchangeEditdata = e => {
     const { name, value } = e.target;
@@ -75,13 +75,15 @@ function ManageProduct() {
     }
   };
   // =================================================== delete ========================================
-  // const [modaldelete, setmodaldelete] = useState(false);
-  // const [deletestatus, setdeletestatus] = useState(false);
-
   const opentogelDelete = index => {
     dispatch(OpenToggleDeleteRedux(index));
 
-    console.log(dataEditBackend[index]);
+    // const[modalDelete,setmodalDelete]=useState(false)
+    // const toggleDelete = () => {
+    //   setmodalDelete(!modalDelete);
+    //   console.log("dataEditRedux", dataEditRedux);
+    // };
+    // console.log(dataEditBackend[index]);
   };
 
   // ================================================ use effect/ didmount ==============
@@ -115,31 +117,6 @@ function ManageProduct() {
   //   }
   // }, [deletestatus]);
 
-  //   ======================================================= render product ================
-  const renderProduct = () => {
-    // console.log("state dataproduk", dataproduct);
-    // console.log("state datacategory", datacategory);
-    // console.log("state dataEditBackend", dataEditBackend);
-    return dataProductRedux.map((val, index) => {
-      return (
-        <TableRow key={val.id}>
-          <TableCell>{index + 1}</TableCell>
-          <TableCell>{val.namaProduk}</TableCell>
-          <TableCell>
-            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" />
-          </TableCell>
-          <TableCell>
-            <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-          </TableCell>
-          <TableCell>{val.category}</TableCell>
-          <TableCell>
-            <button onClick={() => opentogelEdit(index)}> edit</button>
-            <button onClick={() => opentogelDelete(val.id)}> delete</button>
-          </TableCell>
-        </TableRow>
-      );
-    });
-  };
   // ============================================================= function crud =======================
 
   // ============ add data ===========
@@ -203,25 +180,36 @@ function ManageProduct() {
     var idProduct = idProductDeleteRedux;
     console.log(idProduct);
     dispatch(AdminDeleteProduct(idProduct));
-    // Axios.delete(`${APIURL}product/deletedata/${idProduct}`)
-    //   .then(() => {
-    //     setdeletestatus(true)
-    //     setmodaldelete(!modaldelete);
-    //     Axios.get(`${APIURL}product/getproduct`)======
-    //       .then(res => {
-
-    //         setdataproduct(res.data.dataProduct);
-    //         setdatacategory(res.data.dataCategory);
-    //         console.log('data product setelah delete',dataproduct)
-    //       })
-    //       .catch(err1 => {
-    //         console.log("error get data setelah delete", err1);
-    //       });
-    //   })
-    //   .catch(err => {
-    //     console.log("error di axios delete", err);
-    //   });
   };
+  //   ======================================================= render product ================
+  const renderProduct = () => {
+    // console.log("state dataProductRedux", dataProductRedux);
+    // console.log("state dataCategoryRedux", dataCategoryRedux);
+    // console.log("state dataEditRedux", dataEditRedux);
+    return dataProductRedux.map((val, index) => {
+      return (
+        <TableRow key={val.id}>
+          <TableCell>{index + 1}</TableCell>
+          <TableCell>{val.namaProduk}</TableCell>
+          <TableCell>
+            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" />
+          </TableCell>
+          <TableCell>
+            <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+          </TableCell>
+          <TableCell>{val.category}</TableCell>
+          <TableCell>
+            <button onClick={() => opentogelEdit(index)}> edit</button>
+            <button onClick={() => opentogelDelete(val.id)}> delete</button>
+          </TableCell>
+        </TableRow>
+      );
+    });
+  };
+
+  console.log("state dataProductRedux", dataProductRedux);
+  console.log("state dataCategoryRedux", dataCategoryRedux);
+  console.log("state dataEditRedux", dataEditRedux);
 
   if (dataProductRedux.length === 0 || dataCategoryRedux.length === 0 || dataEditRedux.length === 0) {
     return <div>loading</div>;

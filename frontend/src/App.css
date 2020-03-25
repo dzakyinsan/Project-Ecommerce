@@ -69,11 +69,19 @@ html {
   margin-top: 19px;
   margin-left: auto;
 }
+.username-login-admin {
+  font-family: "Press Start 2P";
+  color: whitesmoke;
+  font-size: 16px;
+  margin-top: 19px;
+  /* margin-left: 100px; */
+}
 .manage-product {
   width: 280px;
   height: 60px;
   background-color: whitesmoke;
 }
+
 .isi-manage-product {
   font-family: "Press Start 2P";
   color: black;
@@ -642,6 +650,12 @@ border-bottom-left-radius: 15px; */
   font-size: 50px;
   color: #cc0000;
 }
+.admin-alert {
+  background-color: red;
+  text-align: center;
+  font-size: 20px;
+  font-family: "Poppins";
+}
 /* ====================================== cart page ==================== */
 .btn-delete-cart {
   border-radius: 20%;
@@ -715,8 +729,68 @@ border-bottom-left-radius: 15px; */
   border: 5px solid red;
   padding: 10px;
 }
+
+/* ================================================ payment-request ============= */
+.container-1-paymentReq {
+  /* border: 2px solid black; */
+  background-color: whitesmoke;
+  /* margin-bottom: 30px; */
+  margin: 30px 50px 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.container-2-paymentReq {
+  /* border: 2px solid black; */
+  font-size: 20px;
+  margin: 25px;
+  padding: 20px;
+}
+.container-2-paymentReq h5 {
+  font-family: "Poppins";
+  font-weight: bold;
+}
+.icon-username {
+  color: #c48236;
+}
+.PR-kiri {
+  margin: 0 10px 0 10px;
+  /* border: 1px solid black; */
+  display: flex;
+}
+.PR-kanan {
+  /* border: 1px solid black; */
+  font-family: "Poppins";
+}
+.PR-kanan h5 {
+  font-family: "Poppins";
+  /* text-align: center; */
+  margin-top: 50px;
+  margin-left: 250px;
+  /* color: sienna; */
+}
+.PR-kanan-bawah {
+  /* border: 1px solid black; */
+  font-family: "Poppins";
+  display: flex;
+}
+.PR-kanan-bawah h4 {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: red;
+}
+.PR-kanan-bawah h5 {
+  padding-top: 5px;
+  padding-left: 110px;
+}
+.PR-kanan-bawah button {
+  margin-top: 20px;
+  margin-left: 10px;
+  /* width: 150px; */
+}
+
 /* ============================================= footer ========================= */
 .footer {
   border-top: 2px solid black;
   font-family: "Poppins";
+  /* width: ; */
 }

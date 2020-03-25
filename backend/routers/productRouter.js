@@ -5,6 +5,9 @@ const router = express.Router();
 
 router.get("/gethotitems", productControllers.getHotItems);
 router.get("/getproduct", productControllers.getProduct);
+router.get("/getproductFootball", productControllers.getProductFootball);
+router.get("/getproductBasketball", productControllers.getProductBasketball);
+router.get("/getproductRunning", productControllers.getProductRunning);
 router.post("/postproduct", productControllers.postProduct);
 router.put("/editdata/:id", productControllers.editProduct);
 router.delete("/deletedata/:productid", productControllers.deleteProduct);
@@ -16,11 +19,16 @@ router.post("/posttransaction", productControllers.postTransaction);
 // ========================================== cart ==============================
 router.get("/getCart/:id", productControllers.getCart);
 router.delete("/deletecart/:id/:idUser", productControllers.deleteCart);
-router.put("/checkoutcart/:id", productControllers.editCheckbox);
+router.put("/checkoutcart/:id", productControllers.editCheckout);
 
 // ============================================ checkout ========================
 router.get("/getCheckout/:id", productControllers.getCheckout);
 router.post("/postCheckout/:id", productControllers.postCheckout);
 router.put("/waitingpayment/:id", productControllers.editWaitingpayment);
+
+// ============================================== payment Request Admin ===========
+router.get("/getpaymentrequest", productControllers.getPaymentRequest);
+router.get("/geteachdata", productControllers.getEachDataPayment);
+router.put("/editpayentrequest/:id", productControllers.editPaymentRequest);
 
 module.exports = router;

@@ -13,12 +13,12 @@ import cartPage from "./pages/cartPage";
 import ViewDetail from "./pages/viewdetail";
 import ViewDetail2 from "./pages/viewdetail2";
 import ViewDetail3 from "./pages/viewdetail3";
-import checkout from "./pages/checkout"
-import orderComplete from "./pages/orderComplete"
+import checkout from "./pages/checkout";
+import orderComplete from "./pages/orderComplete";
 import Axios from "axios";
 import { APIURL } from "./helper/ApiUrl";
 import { connect } from "react-redux";
-import { onUserloginRepeat,CartGetProduct,CheckOutGetProduct } from "./redux/Actions";
+import { onUserloginRepeat, CartGetProduct, CheckOutGetProduct, GetPaymentRequest } from "./redux/Actions";
 
 class App extends Component {
   state = {
@@ -46,8 +46,9 @@ class App extends Component {
       return <div>loading...</div>;
     }
     {
-      this.props.CartGetProduct()
-      this.props.CheckOutGetProduct()
+      this.props.CartGetProduct();
+      // this.props.CheckOutGetProduct();
+      // this.props.GetPaymentRequest();
     }
 
     console.log(this.props.Login);
@@ -80,4 +81,4 @@ const MapStateToProps = state => {
   };
 };
 
-export default connect(MapStateToProps, { onUserloginRepeat,CartGetProduct,CheckOutGetProduct })(App);
+export default connect(MapStateToProps, { onUserloginRepeat, CartGetProduct, CheckOutGetProduct, GetPaymentRequest })(App);

@@ -196,12 +196,17 @@ const Header = props => {
             </Fade>
           </NavbarBrand>
 
-        
           <Nav className="loginlogo-header" navbar>
-           
-            {loginOk === true ? (
+            {loginOk === true && roleId === 2 ? (
               <Fade right>
                 <div className="username-login" style={{ marginLeft: "800px" }}>
+                  <a>Hello,{usernameRedux}</a>
+                </div>
+              </Fade>
+            ) : null}
+            {loginOk === true && roleId === 1 ? (
+              <Fade right>
+                <div className="username-login-admin" style={{ marginLeft: "800px" }}>
                   <a>Hello,{usernameRedux}</a>
                 </div>
               </Fade>

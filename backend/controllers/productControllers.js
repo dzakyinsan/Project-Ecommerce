@@ -17,27 +17,37 @@ module.exports = {
     });
   },
   getProduct: (req, res) => {
-    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
+    mysqldb.query(`select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`, (err, result4) => {
       if (err) res.status(500).send(err);
-      mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=2`, (err, result2) => {
+      mysqldb.query(`select * from category`, (err, result5) => {
         if (err) res.status(500).send(err);
-        mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`, (err, result3) => {
+        mysqldb.query(`select * from products order by categoryId`, (err, result6) => {
+          //select p.* from products p left join category c on p.categoryId=c.id order by c.id
           if (err) res.status(500).send(err);
-          mysqldb.query(`select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`, (err, result4) => {
-            if (err) res.status(500).send(err);
-            mysqldb.query(`select * from category`, (err, result5) => {
-              if (err) res.status(500).send(err);
-              mysqldb.query(`select * from products order by categoryId`, (err, result6) => {
-                //select p.* from products p left join category c on p.categoryId=c.id order by c.id
-                if (err) res.status(500).send(err);
-                res.status(200).send({ dataRunning: result, dataBasketball: result2, dataFootball: result3, dataProduct: result4, dataCategory: result5, ForDataEdit: result6 });
-              });
-            });
-          });
+          res.status(200).send({ dataProduct: result4, dataCategory: result5, ForDataEdit: result6 });
         });
       });
     });
   },
+  getProductFootball: (req, res) => {
+    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send({ dataFootball: result });
+    });
+  },
+  getProductBasketball: (req, res) => {
+    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=2`, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send({ dataBasketball: result });
+    });
+  },
+  getProductRunning: (req, res) => {
+    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send({ dataRunning: result });
+    });
+  },
+
   getDetail: (req, res) => {
     const detailId = req.params.id;
     mysqldb.query(
@@ -83,6 +93,30 @@ module.exports = {
     mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send(err);
       res.status(200).send({ dataCheckout: result });
+    });
+  },
+  getPaymentRequest: (req, res) => {
+    var sql = `select u.username,ta.* from transaction_address ta 
+    join users u on ta.userId=u.id where ta.status="oncheck"`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        console.log("error backend");
+        res.status(500).send(err);
+      }
+      res.status(200).send({ dataPaymentRequest: result });
+      console.log("berhasil");
+    });
+  },
+  getEachDataPayment: (req, res) => {
+    var sql = `select t.id,p.namaProduk,t.size,t.jumlah,t.harga,t.totalHarga,t.updatedAt,t.idTransactionAddress,p.gambar from transaction t 
+    join products p on t.productId=p.id`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        console.log("error backend");
+        res.status(500).send(err);
+      }
+      res.status(200).send({ dataEachProduct: result });
+      console.log("berhasil");
     });
   },
   // =========================================================== POST ================================================
@@ -155,18 +189,12 @@ module.exports = {
           return res.status(500).send(err);
         }
         const IdUserRedux = req.params.id;
-        // console.log(IdUserRedux);
-        // console.log("masuk backend");
-        // console.log("req.body.data", req.body.data);
+
         const { image } = req.files;
         // console.log("image", image);
         const imagePath = image ? path + "/" + image[0].filename : null; //filenamenya dari uploader
         const data = JSON.parse(req.body.data);
-        data.gambar = imagePath;
-
-        // console.log("req.body.PostCheckout", req.body.PostCheckout);
-
-        // console.log("data", data.nama);
+        data.gambarBukti = imagePath;
         const { nama, alamat, provinsi, kota, telepon, shipping, payment } = data;
         // console.log("nama.length", nama, alamat, provinsi);
         // console.log("req.body.data", req.body.data);
@@ -179,8 +207,6 @@ module.exports = {
           console.log("masuk backend else if");
           res.status(200).send({ validation: false, message: "Shipping dan payment wajib diisi" });
         } else {
-          //   var data = req.body.PostCheckout;
-          //   data.tanggal = new Date();
           var sql = "INSERT INTO transaction_address SET ?";
           console.log("masuk backend else");
           mysqldb.query(sql, data, (err, result) => {
@@ -188,16 +214,36 @@ module.exports = {
               fs.unlinkSync("./public" + imagePath);
               return res.status(500).send(err);
             }
-            //     console.log(result);
+            var tambahan = {
+              idTransactionAddress: result.insertId,
+              status: "waiting approval"
+            };
+
+            sql = `UPDATE transaction set ? where userId=${IdUserRedux} and status='checkout'`;
+            mysqldb.query(sql, tambahan, (err, result3) => {
+              if (err) res.status(500).send(err);
+              res.status(200).send(result3);
+            });
+
+            console.log("result dari insert Trans_ad", result);
+
             var sql = `select tr.*,p.namaProduk,p.gambar from transaction as tr left join products p on tr.productId=p.id where tr.userId=${IdUserRedux} and tr.status='checkout'`;
             mysqldb.query(sql, (err, result2) => {
-              if (err) res.status(500).send(err);
-              res.status(200).send({ dataCheckout: result2 });
+              if (err) {
+                console.log("error get checkout terakhir");
+                res.status(500).send(err);
+              }
+              console.log("berhasil get checkout terakhir");
+              console.log("result2", result2);
+              // res.status(200).send({ message:'berhasil' });
             });
           });
         }
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log("error try, go to catch");
+      return res.status(500).send(err);
+    }
   },
   // ============================================================== PUT / EDIT ========================================
   editProduct: (req, res) => {
@@ -229,7 +275,7 @@ module.exports = {
             mysqldb.query(sql, data, (err1, result1) => {
               console.log("result1 edit gambar", result1);
               if (err1) {
-                console.log("isi data", data);
+                console.log(" error isi data", data);
 
                 if (imagePath) {
                   fs.unlinkSync("./public" + imagePath);
@@ -242,6 +288,18 @@ module.exports = {
                   fs.unlinkSync("./public" + result[0].gambar);
                 }
               }
+              console.log("berhasil edit");
+              console.log("isi data", data);
+
+              // var sql = `select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`;
+              // mysqldb.query(sql, (err, result2) => {
+              //   if (err) res.status(500).send(err);
+              //   mysqldb.query(`select * from category`, (err, result3) => {
+              //     if (err) res.status(500).send(err);
+              //     res.status(200).send({ dataProduct: result2, dataCategory: result3 });
+              //   });
+              // });
+
               var sql = `select p.*,c.category from products p left join category c on p.categoryId=c.id order by c.id`;
               mysqldb.query(sql, (err, result2) => {
                 if (err) res.status(500).send(err);
@@ -259,7 +317,7 @@ module.exports = {
       }
     });
   },
-  editCheckbox: (req, res) => {
+  editCheckout: (req, res) => {
     let productId = req.params.id;
 
     console.log("productId", productId);
@@ -289,6 +347,25 @@ module.exports = {
       mysqldb.query(sql, data, (err, results2) => {
         if (err) res.status(500).send(err);
         res.status(200).send({ waitingpayment: true });
+      });
+    });
+  },
+  editPaymentRequest: (req, res) => {
+    var data = {
+      status: "approved"
+    };
+    let productId = req.params.id;
+    var sql = ` select u.username,ta.* from transaction_address ta 
+    join users u on ta.userId=u.id
+    where ta.status="oncheck" and ta.id=${productId}`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      sql = `update transaction_address set ? where id=${productId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        res.status(200).send({ paymentApproved: true });
       });
     });
   },

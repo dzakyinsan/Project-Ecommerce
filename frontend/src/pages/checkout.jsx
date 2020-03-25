@@ -32,10 +32,11 @@ function CheckOut() {
   const dataCheckoutRedux = useSelector(state => state.CheckoutReducer.dataCheckoutRedux);
   const dataTotalHarga = useSelector(state => state.CheckoutReducer.dataTotalHarga);
   const messageRedux = useSelector(state => state.CheckoutReducer.message);
-  const checkoutValid = useSelector(state => state.CheckoutReducer.checkoutValid);
+  const loading = useSelector(state => state.CheckoutReducer.loadingData);
+  const goToCompletePage = useSelector(state => state.CheckoutReducer.goToCompletePage);
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
-  const [goToCompletePage, setgoToCompletePage] = useState(false);
+  // const [goToCompletePage, setgoToCompletePage] = useState(false);
   const [AddImageFile, setAddImageFile] = useState({
     imageName: "No File Chosen",
     imageFile: undefined
@@ -48,9 +49,16 @@ function CheckOut() {
   useEffect(() => {
     // console.log(IdUserRedux);
     var userid = localStorage.getItem("userId");
-    setPostCheckout({ ...PostCheckout, userId: userid, term: false });
+    setPostCheckout({ ...PostCheckout, userId: userid, status: "oncheck" });
     dispatch(CheckOutGetProduct());
   }, []);
+
+  // useEffect(() => {
+  //   // console.log(IdUserRedux);
+  //   var userid = localStorage.getItem("userId");
+  //   setPostCheckout({ ...PostCheckout,userId: userid, term: false,totalHarga:dataTotalHarga });
+  //   // dispatch(CheckOutGetProduct());
+  // }, [dataCheckoutRedux]);
 
   const onAddImageFile = e => {
     console.log("e.target.files[0]", e.target.files[0]);
@@ -64,12 +72,12 @@ function CheckOut() {
 
   const onChangeCheckout = e => {
     const { name, value } = e.target;
-    setPostCheckout({ ...PostCheckout, [name]: value });
+    setPostCheckout({ ...PostCheckout, [name]: value, totalHarga: dataTotalHarga });
+    // setPostCheckout({...PostCheckout,totalHarga:dataTotalHarga})
   };
 
   const FinishCheckout = () => {
-    dispatch(PostCheckoutProduct(PostCheckout, AddImageFile, dataCheckoutRedux));
-    // setgoToCompletePage(true);
+    dispatch(PostCheckoutProduct(PostCheckout, AddImageFile));
     dispatch(CheckOutGetProduct());
   };
 
@@ -99,17 +107,21 @@ function CheckOut() {
   };
   // console.log("checkoutValid", checkoutValid);
   console.log("dataCheckoutRedux.length", dataCheckoutRedux.length);
-  const { nama, alamat, provinsi, kota, telepon, shipping, payment } = PostCheckout;
-  console.log("typeof shipping", typeof shipping);
+  // console.log("typeof shipping", typeof shipping);
+  console.log("dataTotalHarga", dataTotalHarga);
 
-  if (dataCheckoutRedux.length === 0) {
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
+  if (dataCheckoutRedux === undefined || dataCheckoutRedux.length === 0) {
     return (
       <div style={{ marginTop: "100px" }}>
         <h1>tidak ada barang di checkout</h1>
       </div>
     );
   }
-  if (goToCompletePage) {
+  if (goToCompletePage && dataCheckoutRedux.length === 0) {
     return <Redirect to={"/ordercomplete"} />;
   }
   console.log("PostCheckout", PostCheckout);

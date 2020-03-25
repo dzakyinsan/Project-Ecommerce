@@ -22,17 +22,20 @@ export const CheckOutGetProduct = () => {
         var dataTotalHarga = 0;
         res.data.dataCheckout.forEach(val => {
           dataTotalHarga += val.totalHarga;
-
           dispatch({ type: GET_CHECKOUT_SUCCESS, payload: { dataCheckout: res.data.dataCheckout, dataTotalHarga } });
+          // window.location.reload()
         });
       })
       .catch(err => {
         console.log(err);
         dispatch({ type: GET_CHECKOUT_ERROR });
-      });
+      })
+      .finally(final=>{
+        dispatch({type:"LOADING_DATA"})
+      })
   };
 };
-export const PostCheckoutProduct = (PostCheckout, AddImageFile, dataCheckoutRedux) => {
+export const PostCheckoutProduct = (PostCheckout, AddImageFile) => {
   return dispatch => {
     var IdUserRedux = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
@@ -46,9 +49,9 @@ export const PostCheckoutProduct = (PostCheckout, AddImageFile, dataCheckoutRedu
     };
     formdata.append("image", AddImageFile.imageFile);
     formdata.append("data", JSON.stringify(PostCheckout));
-    console.log("AddImageFile.imageFile", AddImageFile.imageFile);
-    console.log("PostCheckout", PostCheckout);
-    console.log("formdata", formdata);
+    // console.log("AddImageFile.imageFile", AddImageFile.imageFile);
+    // console.log("PostCheckout", PostCheckout);
+    // console.log("formdata", formdata);
     Axios.post(`${APIURL}product/postCheckout/${IdUserRedux}`, formdata, Headers)
       .then(res => {
         if (res.data.validation === false) {
@@ -60,12 +63,14 @@ export const PostCheckoutProduct = (PostCheckout, AddImageFile, dataCheckoutRedu
             title: `Thank you. Your order has been received.`,
             showConfirmButton: false,
             timer: 2500
+          }).then(res2 => {
+            dispatch({ type: POST_CHECKOUT_SUCCESS });
+            dispatch(CheckOutGetProduct());
+            window.location.reload()
           });
-          dispatch({ type: POST_CHECKOUT_SUCCESS, payload: res.data.dataCheckout });
           dispatch(CheckOutGetProduct());
-          dispatch(PutCheckoutProduct(dataCheckoutRedux));
+          // dispatch(PutCheckoutProduct(dataCheckoutRedux));
         }
-        //   console.log("berhasil", res.data.dataCheckout);
       })
       .catch(err => {
         console.log("error onclick checkout", err);
@@ -73,29 +78,30 @@ export const PostCheckoutProduct = (PostCheckout, AddImageFile, dataCheckoutRedu
       });
   };
 };
-export const PutCheckoutProduct = dataCheckoutRedux => {
-  return dispatch => {
-    dispatch({ type: PUT_CHECKOUT_LOADING });
-    for (var i = 0; i < dataCheckoutRedux.length; i++) {
-      var data = {
-        id: dataCheckoutRedux[i].id,
-        userId: dataCheckoutRedux[i].userId,
-        productId: dataCheckoutRedux[i].productId,
-        size: dataCheckoutRedux[i].size,
-        jumlah: dataCheckoutRedux[i].jumlah,
-        harga: dataCheckoutRedux[i].harga,
-        totalHarga: dataCheckoutRedux[i].totalHarga,
-        status: "waiting payment"
-      };
-      var id = data.id;
-      Axios.put(`${APIURL}product/waitingpayment/${id}`, { data })
-        .then(res => {
-          dispatch({ type: PUT_CHECKOUT_SUCCESS });
-          dispatch(CheckOutGetProduct());
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-};
+// export const PutCheckoutProduct = dataCheckoutRedux => {
+//   return dispatch => {
+//     dispatch({ type: PUT_CHECKOUT_LOADING });
+//     for (var i = 0; i < dataCheckoutRedux.length; i++) {
+//       var data = {
+//         id: dataCheckoutRedux[i].id,
+//         userId: dataCheckoutRedux[i].userId,
+//         productId: dataCheckoutRedux[i].productId,
+//         size: dataCheckoutRedux[i].size,
+//         jumlah: dataCheckoutRedux[i].jumlah,
+//         harga: dataCheckoutRedux[i].harga,
+//         totalHarga: dataCheckoutRedux[i].totalHarga,
+//         status: "waiting approval"
+//       };
+//       var id = data.id;
+//       Axios.put(`${APIURL}product/waitingpayment/${id}`, { data })
+//         .then(res => {
+//           dispatch({ type: PUT_CHECKOUT_SUCCESS });
+//           dispatch(CheckOutGetProduct());
+//         })
+//         .catch(err => {
+//           console.log(err);
+//           dispatch({type:PUT_CHECKOUT_ERROR})
+//         });
+//     }
+//   };
+// };

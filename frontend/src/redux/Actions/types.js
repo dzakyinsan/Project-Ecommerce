@@ -52,3 +52,14 @@ export const GET_BASKETBALL_SUCCESS = "GET_BASKETBALL_SUCCESS";
 export const GET_RUNNING_SUCCESS = "GET_RUNNING_SUCCESS";
 export const GET_HOME_ERROR = "GET_HOME_ERROR";
 export const GET_HOME_LOADING = "GET_HOME_LOADING";
+
+// ==================================================== payment request
+export const GET_PAYREQ_SUCCESS = "GET_PAYREQ_SUCCESS";
+export const GET_PAYREQ_ERROR = "GET_PAYREQ_ERROR";
+export const GET_PAYREQ_LOADING = "GET_PAYREQ_LOADING";
+export const GET_EACH_SUCCESS = "GET_EACH_SUCCESS";
+export const GET_EACH_ERROR = "GET_EACH_ERROR";
+export const GET_EACH_LOADING = "GET_EACH_LOADING";
+export const PUT_APPROVE_SUCCESS = "PUT_APPROVE_SUCCESS";
+export const PUT_APPROVE_ERROR = "PUT_APPROVE_ERROR";
+export const PUT_APPROVE_LOADING = "PUT_APPROVE_LOADING";

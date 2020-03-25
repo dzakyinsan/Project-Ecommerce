@@ -7,13 +7,14 @@ import Modal from "./../components/modal";
 import { DeleteCartAction, CartGetProduct } from "./../redux/Actions";
 import NumberFormat from "react-number-format";
 import { Redirect } from "react-router-dom";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 function CartPage() {
   // ================================== Global state ==========================
   const dataCartRedux = useSelector(state => state.CartReducer.dataCartRedux);
   const IdUserRedux = useSelector(state => state.auth.id);
   const dataTotalHarga = useSelector(state => state.CartReducer.dataTotalHarga);
+
   // ================================== Local state ==========================
   const [modalDelete, setmodalDelete] = useState(false);
   const [idDelete, setidDelete] = useState(0);
@@ -34,7 +35,7 @@ function CartPage() {
   };
   const Deletedata = () => {
     dispatch(DeleteCartAction(idDelete, IdUserRedux));
-    setmodalDelete(!modalDelete)
+    setmodalDelete(!modalDelete);
   };
   // ==============================================================================================
   const onCheckOutClick = () => {
@@ -95,20 +96,21 @@ function CartPage() {
             <NumberFormat value={val.totalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
           </TableCell>
           <TableCell>
-            <button className='btn-delete-cart' onClick={() => OpenToggleDelete(val.id)}> 
-            <DeleteIcon/> 
+            <button className="btn-delete-cart" onClick={() => OpenToggleDelete(val.id)}>
+              <DeleteIcon />
             </button>
           </TableCell>
         </TableRow>
       );
     });
   };
+  
   if (Redirectcheckout === true) {
     return <Redirect to={"/checkout"} />;
   }
   return (
     <div className="cart-page" style={{ paddingTop: "80px" }}>
-      <div className="checkout-title" >
+      <div className="checkout-title">
         <h3>
           <center>Cart</center>
         </h3>

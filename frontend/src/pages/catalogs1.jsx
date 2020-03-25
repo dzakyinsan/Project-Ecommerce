@@ -13,7 +13,7 @@ class Catalogs extends Component {
   };
 
   componentDidMount() {
-    Axios.get(`${APIURL}product/getproduct`)
+    Axios.get(`${APIURL}product/getproductRunning`)
       .then(res => {
         this.setState({ dataRunning: res.data.dataRunning });
       })
@@ -44,7 +44,7 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div className='catalog-page'>
+      <div className="catalog-page">
         <img className="d-block w-100" src="https://content.nike.com/content/dam/one-nike/en_hk/SU16/Cities/NRC-header.jpg.transform/full-screen/NRC-header.jpg" alt="catalog1" />
         <div className="row">
           <div className="col-md-2"></div>

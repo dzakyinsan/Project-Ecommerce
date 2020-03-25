@@ -13,6 +13,9 @@ import {
 
 const INITIAL_STATE = {
   dataProductRedux: [],
+  dataRunning: [],
+  dataBasketball: [],
+  dataFootball: [],
   dataCategoryRedux: [],
   dataEditRedux: [],
   loading: false,
@@ -24,7 +27,13 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_PRODUCT_SUCCESS:
-      return { ...state, dataProductRedux: action.payload };
+      return {
+        ...state,
+        dataProductRedux: action.payload.dataProduct,
+        dataRunning: action.payload.dataRunning,
+        dataBasketball: action.payload.dataBasketball,
+        dataFootball: action.payload.dataFootball
+      };
     case GET_PRODUCT_LOADING:
       return { ...state, loading: true };
     case GET_PRODUCT_ERROR:

@@ -14,11 +14,10 @@ class Catalogs extends Component {
   };
 
   componentDidMount() {
-    Axios.get(`${APIURL}product/getproduct`)
+    Axios.get(`${APIURL}product/getproductBasketball`)
       .then(res => {
         this.setState({ dataBasketball: res.data.dataBasketball });
-        console.log('databasketball', this.state.dataBasketball)
-
+        console.log("databasketball", this.state.dataBasketball);
       })
       .catch(err => {
         console.log(err);
@@ -30,7 +29,7 @@ class Catalogs extends Component {
       return (
         <div className="col-md-3">
           <Card className="mt-5 card-container">
-            <Link to={"/viewdetail/"+val.id}>
+            <Link to={"/viewdetail/" + val.id}>
               <Card.Img variant="top" src={APIURLimage + val.gambar} onMouseOver={e => (e.currentTarget.src = val.gambar)} onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)} />
             </Link>
             <Card.Body style={{ textAlign: "center" }}>
@@ -47,7 +46,7 @@ class Catalogs extends Component {
   render() {
     console.log("isi props", this.props);
     return (
-      <div className='catalog-page'>
+      <div className="catalog-page">
         <img className="d-block w-100" style={{ height: "500px" }} src="https://pbs.twimg.com/media/D9izHHpXkAA45vl.jpg" alt="catalog1" />
         <div className="row">
           <div className="col-md-2"></div>
