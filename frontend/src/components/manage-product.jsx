@@ -7,6 +7,7 @@ import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/c
 import { AdminDeleteProduct, OpenToggleDeleteRedux, AdminGetProduct } from "./../redux/Actions";
 import Modal from "./../components/modal";
 import NumberFormat from "react-number-format";
+import Swal from "sweetalert2";
 
 // import { MODAL_ADD } from "./../redux/Actions/types";
 
@@ -135,7 +136,14 @@ function ManageProduct() {
     console.log("formdata", formdata);
     Axios.post(`${APIURL}product/postproduct`, formdata, Headers)
       .then(res => {
-        console.log(res);
+        console.log("berhasil add", res);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `New product has been added `,
+          showConfirmButton: false,
+          timer: 2500
+        });
         dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);
@@ -165,6 +173,13 @@ function ManageProduct() {
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
       .then(res => {
         console.log(res);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `the product has been edited`,
+          showConfirmButton: false,
+          timer: 2500
+        });
         dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);

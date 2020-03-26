@@ -4,7 +4,6 @@ import {
   GET_PRODUCT_SUCCESS,
   GET_CATEGORY_SUCCESS,
   GET_DATAEDIT_SUCCESS,
-  // DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_ERROR,
   DELETE_PRODUCT_LOADING,
   MODAL_DELETE,
@@ -13,9 +12,7 @@ import {
 
 const INITIAL_STATE = {
   dataProductRedux: [],
-  dataRunning: [],
-  dataBasketball: [],
-  dataFootball: [],
+
   dataCategoryRedux: [],
   dataEditRedux: [],
   loading: false,
@@ -29,10 +26,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_PRODUCT_SUCCESS:
       return {
         ...state,
-        dataProductRedux: action.payload.dataProduct,
-        dataRunning: action.payload.dataRunning,
-        dataBasketball: action.payload.dataBasketball,
-        dataFootball: action.payload.dataFootball
+        dataProductRedux: action.payload
       };
     case GET_PRODUCT_LOADING:
       return { ...state, loading: true };
@@ -41,7 +35,6 @@ export default (state = INITIAL_STATE, action) => {
     case GET_CATEGORY_SUCCESS:
       return { ...state, dataCategoryRedux: action.payload };
     case GET_DATAEDIT_SUCCESS:
-      console.log(action.payload);
       return { ...state, dataEditRedux: action.payload };
     case DELETE_PRODUCT_LOADING:
       return { ...state, loading: true };

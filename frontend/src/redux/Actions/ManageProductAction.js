@@ -12,48 +12,23 @@ import {
 } from "./types";
 import { APIURL } from "./../../helper/ApiUrl";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 // =============================== function get product =====================
-export const AdminGetProduct = () => {
+export const AdminGetProduct = page => {
   return dispatch => {
     dispatch({ type: GET_PRODUCT_LOADING });
-    Axios.get(`${APIURL}product/getproductFootball`)
-      .then(resfootball => {
-        Axios.get(`${APIURL}product/getproductBasketball`).then(resbasketball => {
-          Axios.get(`${APIURL}product/getproductRunning`).then(resrunning => {
-            Axios.get(`${APIURL}product/getproduct`).then(resdataproduct => {
-              dispatch({
-                type: GET_PRODUCT_SUCCESS,
-                payload: {
-                  dataProduct: resdataproduct.data.dataProduct,
-                  dataRunning: resrunning.data.dataRunning,
-                  dataBasketball: resbasketball.data.dataBasketball,
-                  dataFootball: resfootball.data.dataFootball
-                }
-              });
-              dispatch({ type: GET_CATEGORY_SUCCESS, payload: resdataproduct.data.dataCategory });
-              dispatch({ type: GET_DATAEDIT_SUCCESS, payload: resdataproduct.data.ForDataEdit });
-            });
-          });
-        });
+    Axios.get(`${APIURL}product/getproduct`)
+      .then(res => {
+        dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data.dataProduct });
+        dispatch({ type: GET_CATEGORY_SUCCESS, payload: res.data.dataCategory });
+        dispatch({ type: GET_DATAEDIT_SUCCESS, payload: res.data.ForDataEdit });
       })
+
       .catch(err => {
         console.log(err);
         dispatch({ type: GET_PRODUCT_ERROR });
       });
-    // Axios.get(`${APIURL}product/getproduct`)
-    //   .then(res => {
-    //     dispatch({
-    //       type: GET_PRODUCT_SUCCESS,
-    //       payload: { dataProduct: res.data.dataProduct, dataRunning: res.data.dataRunning, dataBasketball: res.data.dataBasketball, dataFootball: res.data.dataFootball }
-    //     });
-    //     dispatch({ type: GET_CATEGORY_SUCCESS, payload: res.data.dataCategory });
-    //     dispatch({ type: GET_DATAEDIT_SUCCESS, payload: res.data.ForDataEdit });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     dispatch({ type: GET_PRODUCT_ERROR });
-    //   });
   };
 };
 
@@ -65,10 +40,28 @@ export const AdminDeleteProduct = idProduct => {
       .then(res => {
         dispatch(AdminGetProduct());
         dispatch(OpenToggleDeleteRedux());
-
-        // dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data.dataProduct });
-        // dispatch({ type: GET_CATEGORY_SUCCESS, payload: res.data.dataCategory });
-        // dispatch({ type: MODAL_DELETE });
+        let timerInterval;
+        Swal.fire({
+          title: "Deleting",
+          html: " <b></b> ",
+          timer: 2000,
+          timerProgressBar: true,
+          onBeforeOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent();
+              if (content) {
+                const b = content.querySelector("b");
+                if (b) {
+                  b.textContent = Swal.getTimerLeft();
+                }
+              }
+            }, 100);
+          },
+          onClose: () => {
+            clearInterval(timerInterval);
+          }
+        });
       })
       .catch(err => {
         console.log(err);

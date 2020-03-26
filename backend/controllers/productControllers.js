@@ -1,6 +1,7 @@
 const { mysqldb } = require("./../connection");
 const { uploader } = require("./../helper/uploader");
 const fs = require("fs");
+const paginate = require("jw-paginate");
 
 module.exports = {
   // ========================================================= GET ============================================
@@ -30,22 +31,93 @@ module.exports = {
     });
   },
   getProductFootball: (req, res) => {
-    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`, (err, result) => {
+    const sqlCount = `SELECT COUNT(*) as count from products p join category c on p.categoryId=c.id where categoryId=3`;
+
+    let dataCount;
+    mysqldb.query(sqlCount, (err, result) => {
       if (err) res.status(500).send(err);
-      res.status(200).send({ dataFootball: result });
+      dataCount = result[0].count;
+      //trigger pindah page
+      const page = parseInt(req.params.page); //isinya 1 dari parameter yg dikirim frontend
+      const pageSize = 8;
+      const pager = paginate(dataCount, page, pageSize); //50,1,8
+
+      let offset;
+      if (page === 1) {
+        offset = 0;
+      } else {
+        offset = pageSize * (page - 1);
+      }
+
+      let sql = `select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3 LIMIT ? OFFSET ?`;
+      mysqldb.query(sql, [pageSize, offset], (err, result1) => {
+        if (err) res.status(500).send(err);
+        const pageOfData = result1;
+        return res.status(200).send({ pageOfData, pager });
+      });
     });
   },
   getProductBasketball: (req, res) => {
-    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=2`, (err, result) => {
+    const sqlCount = `SELECT COUNT(*) as count from products p join category c on p.categoryId=c.id where categoryId=2`;
+
+    let dataCount;
+    mysqldb.query(sqlCount, (err, result) => {
       if (err) res.status(500).send(err);
-      res.status(200).send({ dataBasketball: result });
+      dataCount = result[0].count;
+      //trigger pindah page
+      const page = parseInt(req.params.page); //isinya 1 dari parameter yg dikirim frontend
+      const pageSize = 8;
+      const pager = paginate(dataCount, page, pageSize); //50,1,8
+
+      let offset;
+      if (page === 1) {
+        offset = 0;
+      } else {
+        offset = pageSize * (page - 1);
+      }
+
+      let sql = `select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=2 LIMIT ? OFFSET ?`;
+      mysqldb.query(sql, [pageSize, offset], (err, result1) => {
+        if (err) res.status(500).send(err);
+        const pageOfData = result1;
+        return res.status(200).send({ pageOfData, pager });
+      });
     });
+    // mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=2`, (err, result) => {
+    //   if (err) res.status(500).send(err);
+    //   res.status(200).send({ dataBasketball: result });
+    // });
   },
   getProductRunning: (req, res) => {
-    mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
+    const sqlCount = `SELECT COUNT(*) as count from products p join category c on p.categoryId=c.id where categoryId=1`;
+
+    let dataCount;
+    mysqldb.query(sqlCount, (err, result) => {
       if (err) res.status(500).send(err);
-      res.status(200).send({ dataRunning: result });
+      dataCount = result[0].count;
+      //trigger pindah page
+      const page = parseInt(req.params.page); //isinya 1 dari parameter yg dikirim frontend
+      const pageSize = 8;
+      const pager = paginate(dataCount, page, pageSize); //50,1,8
+
+      let offset;
+      if (page === 1) {
+        offset = 0;
+      } else {
+        offset = pageSize * (page - 1);
+      }
+
+      let sql = `select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1 LIMIT ? OFFSET ?`;
+      mysqldb.query(sql, [pageSize, offset], (err, result1) => {
+        if (err) res.status(500).send(err);
+        const pageOfData = result1;
+        return res.status(200).send({ pageOfData, pager });
+      });
     });
+    // mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=1`, (err, result) => {
+    //   if (err) res.status(500).send(err);
+    //   res.status(200).send({ dataRunning: result });
+    // });
   },
 
   getDetail: (req, res) => {
@@ -117,6 +189,14 @@ module.exports = {
       }
       res.status(200).send({ dataEachProduct: result });
       console.log("berhasil");
+    });
+  },
+  getOrderComplete: (req, res) => {
+    const IdUserRedux = req.params.id;
+    var sql = `select * from transaction_address where userId=${IdUserRedux} and status="oncheck"`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send(result);
     });
   },
   // =========================================================== POST ================================================
@@ -195,6 +275,7 @@ module.exports = {
         const imagePath = image ? path + "/" + image[0].filename : null; //filenamenya dari uploader
         const data = JSON.parse(req.body.data);
         data.gambarBukti = imagePath;
+        data.tanggal = new Date();
         const { nama, alamat, provinsi, kota, telepon, shipping, payment } = data;
         // console.log("nama.length", nama, alamat, provinsi);
         // console.log("req.body.data", req.body.data);
@@ -350,7 +431,31 @@ module.exports = {
       });
     });
   },
-  editPaymentRequest: (req, res) => {
+  RejectPayment: (req, res) => {
+    var data = {
+      status: "rejected"
+    };
+    let productId = req.params.id;
+    var sql = ` select u.username,ta.* from transaction_address ta 
+    join users u on ta.userId=u.id
+    where ta.status="oncheck" and ta.id=${productId}`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      sql = `update transaction_address set ? where id=${productId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        res.status(200).send({ paymentRejected: true });
+      });
+      sql = `update transaction set ? where idTransactionAddress=${productId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        // res.status(200).send({ paymentRejected: true });
+      });
+    });
+  },
+  ApprovePayment: (req, res) => {
     var data = {
       status: "approved"
     };
@@ -366,6 +471,11 @@ module.exports = {
       mysqldb.query(sql, data, (err, result2) => {
         if (err) res.status(500).send(err);
         res.status(200).send({ paymentApproved: true });
+      });
+      sql = `update transaction set ? where idTransactionAddress=${productId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        // res.status(200).send({ paymentApproved: true });
       });
     });
   },

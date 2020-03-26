@@ -23,16 +23,15 @@ export const CheckOutGetProduct = () => {
         res.data.dataCheckout.forEach(val => {
           dataTotalHarga += val.totalHarga;
           dispatch({ type: GET_CHECKOUT_SUCCESS, payload: { dataCheckout: res.data.dataCheckout, dataTotalHarga } });
-          // window.location.reload()
         });
       })
       .catch(err => {
         console.log(err);
         dispatch({ type: GET_CHECKOUT_ERROR });
       })
-      .finally(final=>{
-        dispatch({type:"LOADING_DATA"})
-      })
+      .finally(final => {
+        dispatch({ type: "LOADING_DATA" });
+      });
   };
 };
 export const PostCheckoutProduct = (PostCheckout, AddImageFile) => {
@@ -65,10 +64,10 @@ export const PostCheckoutProduct = (PostCheckout, AddImageFile) => {
             timer: 2500
           }).then(res2 => {
             dispatch({ type: POST_CHECKOUT_SUCCESS });
-            dispatch(CheckOutGetProduct());
-            window.location.reload()
+            // window.location.reload()
           });
           dispatch(CheckOutGetProduct());
+          // dispatch(CheckOutGetProduct());
           // dispatch(PutCheckoutProduct(dataCheckoutRedux));
         }
       })

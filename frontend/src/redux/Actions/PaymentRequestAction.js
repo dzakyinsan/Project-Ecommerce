@@ -36,11 +36,55 @@ export const GetEachDataPayment = () => {
 export const ApproveTransaction = id => {
   return dispatch => {
     dispatch({ type: PUT_APPROVE_LOADING });
-    Axios.put(`${APIURL}product/editpayentrequest/${id}`)
+    Axios.put(`${APIURL}product/approvepayment/${id}`)
       .then(res => {
         let timerInterval;
         Swal.fire({
-          title: "Approved",
+          title: "Approving",
+          html: " <b></b> ",
+          timer: 2000,
+          timerProgressBar: true,
+          onBeforeOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent();
+              if (content) {
+                const b = content.querySelector("b");
+                if (b) {
+                  b.textContent = Swal.getTimerLeft();
+                }
+              }
+            }, 100);
+          },
+          onClose: () => {
+            clearInterval(timerInterval);
+          }
+        })
+          .then(result => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log("I was closed by the timer");
+            }
+          })
+          .then(res2 => {
+            dispatch(GetPaymentRequest());
+            dispatch(GetEachDataPayment());
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+export const RejectTransaction = id => {
+  return dispatch => {
+    // dispatch({ type: PUT_APPROVE_LOADING });
+    Axios.put(`${APIURL}product/rejectpayment/${id}`)
+      .then(res => {
+        let timerInterval;
+        Swal.fire({
+          title: "Rejecting",
           html: " <b></b> ",
           timer: 2000,
           timerProgressBar: true,

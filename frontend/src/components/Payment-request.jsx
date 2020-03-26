@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { ApproveTransaction } from "./../redux/Actions";
+import { ApproveTransaction, RejectTransaction } from "./../redux/Actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,9 +37,14 @@ function PaymentRequest() {
   const [ModalDetail, setModalDetail] = useState([]);
   const [modalOpen, setmodalOpen] = useState(false);
   const toggleModal = () => setmodalOpen(!modalOpen);
+  // ======== modal approve ===============
   const [modalOpen2, setmodalOpen2] = useState(false);
   const toggleModal2 = () => setmodalOpen2(!modalOpen2);
   const [idDataApprove, setidDataApprove] = useState(0);
+  // =========== modal reject ===============
+  const [modalOpen3, setmodalOpen3] = useState(false);
+  const toggleModal3 = () => setmodalOpen3(!modalOpen3);
+  const [idDataReject, setidDataReject] = useState(0);
 
   // ======================================== useeffect =============================
   // get data nya di page adminPage
@@ -53,10 +58,18 @@ function PaymentRequest() {
     setmodalOpen2(true);
     setidDataApprove(index);
   };
+  const openToggleReject = index => {
+    setmodalOpen3(true);
+    setidDataReject(index);
+  };
 
   const ApproveData = () => {
     dispatch(ApproveTransaction(idDataApprove));
     setmodalOpen2(false);
+  };
+  const RejectData = () => {
+    dispatch(RejectTransaction(idDataReject));
+    setmodalOpen3(false);
   };
 
   if (dataPaymentReq.length === 0) {
@@ -93,6 +106,8 @@ function PaymentRequest() {
         </Modal>
         {/* ================================================= modal approve =========================================== */}
         <Modal2 title={`is the data correct?`} toggle={toggleModal2} modal={modalOpen2} actionfunc={ApproveData} btnTitle="Approve"></Modal2>
+        {/* ================================================= modal reject =========================================== */}
+        <Modal2 title={`Reject data?`} toggle={toggleModal3} modal={modalOpen3} actionfunc={RejectData} btnTitle="Reject"></Modal2>
 
         <div className="container-2-paymentReq">
           <div>
@@ -138,7 +153,7 @@ function PaymentRequest() {
             <div className="PR-kanan-bawah col-md-3">
               <div className={classes.root}>
                 <Button onClick={() => openToggleModal(index)}>detail</Button>
-                <Button>reject</Button>
+                <Button onClick={() => openToggleReject(val.id)}>reject</Button>
                 <Button onClick={() => openToggleApprove(val.id)}>approve</Button>
               </div>
             </div>

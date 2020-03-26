@@ -10,6 +10,7 @@ import NumberFormat from "react-number-format";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import { CustomInput } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,6 +80,7 @@ function CheckOut() {
   const FinishCheckout = () => {
     dispatch(PostCheckoutProduct(PostCheckout, AddImageFile));
     dispatch(CheckOutGetProduct());
+    window.location.reload();
   };
 
   const messageErrorNotif = () => {
@@ -108,7 +110,7 @@ function CheckOut() {
   // console.log("checkoutValid", checkoutValid);
   console.log("dataCheckoutRedux.length", dataCheckoutRedux.length);
   // console.log("typeof shipping", typeof shipping);
-  console.log("dataTotalHarga", dataTotalHarga);
+  console.log("goToCompletePage", goToCompletePage);
 
   if (loading) {
     return <div>loading...</div>;
@@ -116,15 +118,20 @@ function CheckOut() {
 
   if (dataCheckoutRedux === undefined || dataCheckoutRedux.length === 0) {
     return (
-      <div style={{ marginTop: "100px" }}>
-        <h1>tidak ada barang di checkout</h1>
+      <div className="checkout-page" style={{ paddingTop: "300px", textAlign: "center" }}>
+        <h1 style={{ fontSize: "100px" }}>tidak ada barang di checkout</h1>
+        <div className="checkorder-button">
+          <Link to={"/ordercomplete"}>
+            <Button variant="contained">Check you order</Button>
+          </Link>
+        </div>
       </div>
     );
   }
   if (goToCompletePage && dataCheckoutRedux.length === 0) {
     return <Redirect to={"/ordercomplete"} />;
   }
-  console.log("PostCheckout", PostCheckout);
+  // console.log("PostCheckout", PostCheckout);
 
   return (
     <div className="checkout-page" style={{ paddingTop: "80px" }}>
@@ -329,73 +336,6 @@ function CheckOut() {
               </div>
             </div>
           ) : null}
-          {/* ==================================================== payment box try =============================== */}
-          {/* <div className="payment-box">
-            <div className="checkout-right-box-dalam">
-              <div>
-                <div className="detailPembayaran-title">Detail Pembayaran</div>
-                <div className="nama-bank">
-                  <td>Convenience Store :&nbsp; </td>
-                  <th>Alfamart / Indomaret </th>
-                </div>
-                <div className="nama-bank">
-                  <td>Nama Tujuan :&nbsp; </td>
-                  <th>FootBoots2020 </th>
-                </div>
-                <div className="nama-bank">
-                  <td>Nomor Rekening :&nbsp; </td>
-                  <th>0221133144 </th>
-                </div>
-              </div>
-              <div>
-                <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
-                  Order Detail
-                </div>
-                <div className="yourorder-checkout">
-                  <td>Shipping</td>
-                  <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
-                </div>
-                <hr />
-                <div className="yourorder-checkout">
-                  <td>Payment Method</td>
-                  <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
-                </div>
-                <hr />
-              </div>
-              <div>
-                <div className="yourorder-checkout">
-                  <td>Subtotal</td>
-                  <th style={{ marginLeft: "auto" }}>
-                    <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-                  </th>
-                </div>
-                <hr />
-                <div className="detailPembayaran-title">Bukti Pembayaran</div>
-                {AddImageFile.imageFile !== undefined ? (
-                  <div className="bukti-pembayaran-berhasil">
-                    <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
-                  </div>
-                ) : (
-                  <div className="bukti-pembayaran-gagal">
-                    <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
-                  </div>
-                )}
-              </div>
-              {AddImageFile.imageFile !== undefined ? (
-                <div className={classes.root}>
-                  <Button variant="contained" onClick={FinishCheckout}>
-                    Selesaikan Belanja
-                  </Button>
-                </div>
-              ) : (
-                <div className={classes.root}>
-                  <Button variant="contained" onClick={FinishCheckout} disabled>
-                    Selesaikan Belanja
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div> */}
         </div>
         {/* =================================================================== your order ================== */}
         <div className="col-md-4 checkout-right-box">
@@ -442,17 +382,10 @@ function CheckOut() {
               <img src="https://www.reclays.id/wp-content/plugins/nicepay_cvs/alfa-indo.png" width="500px" height="80px" />
             </div>
             <hr />
-            {/* <input type="checkbox" /> I have read and agree to the website terms and conditions */}
-            {/* <div className={classes.root}>
-              <Button variant="contained" onClick={FinishCheckout}>
-                Selesaikan Belanja
-              </Button>
-            </div> */}
           </div>
         </div>
         <div className="col-md-2" />
       </div>
-      {/* <h1 style={{paddingTop:'300px'}}><center>checkout</center></h1> */}
     </div>
   );
 }

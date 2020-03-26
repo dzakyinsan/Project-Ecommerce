@@ -561,7 +561,16 @@ border-bottom-left-radius: 15px; */
 .catalog-page {
   min-height: 950px;
 }
-
+.pagination {
+  margin: 50px 0 50px 850px;
+  /* border: 2px solid red; */
+}
+.card-img {
+  min-height: 409px;
+}
+.card-img-home {
+  min-height: 314px;
+}
 /* ==================== view detail 2 ==================== */
 .container-viewdetail2 {
   /* margin-top: 100px; */
@@ -689,6 +698,24 @@ border-bottom-left-radius: 15px; */
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.orderComplete-title {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 15px;
+  /* margin: 0 250px 80px 300px; */
+  /* border: 2px solid black; */
+  padding: 20px 0 20px 0;
+}
+.orderComplete-option button {
+  height: 68px;
+  width: 300px;
+  /* border: 2px solid black; */
+  margin: 60px 0 100px 50px;
+
+  /* margin: 0 200px 80px 200px; */
+  /* padding: 20px 0 20px 0; */
+  /* border-radius: 15px; */
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
 .checkout-right-box {
   border: 2px solid black;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -728,6 +755,14 @@ border-bottom-left-radius: 15px; */
 .bukti-pembayaran-gagal {
   border: 5px solid red;
   padding: 10px;
+}
+.checkorder-button button {
+  background-color: black;
+  color: white;
+  height: 80px;
+  width: 300px;
+  font-size: 20px;
+  margin-top: 100px;
 }
 
 /* ================================================ payment-request ============= */

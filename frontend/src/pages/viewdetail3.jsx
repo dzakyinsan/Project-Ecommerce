@@ -6,7 +6,7 @@ import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 // import AddIcon from "@material-ui/icons/Add";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { CartGetProduct } from "./../redux/Actions";
 import Swal from "sweetalert2";
@@ -42,6 +42,7 @@ function ViewDetail2() {
   // ============================================================= local state =================
   const [dataDetail, setdataDetail] = useState([]);
   const [dataAddtoCart, setdataAddtoCart] = useState([]);
+  const [RedirectToCatalog3, setRedirectToCatalog3] = useState(false);
 
   // ===================================================================== useParam (buat ambil parameter dari app.js) ===========
   const { idDetail } = useParams();
@@ -98,12 +99,19 @@ function ViewDetail2() {
       })
       .catch(err => {
         console.log("backendnya error", err);
+      })
+      .then(res2 => {
+        setRedirectToCatalog3(true);
       });
   };
   // console.log("dataAddtoCart", dataAddtoCart);
   // console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
   console.log("roleRedux", roleRedux);
+  console.log("RedirectToCatalog3", RedirectToCatalog3);
 
+  if (RedirectToCatalog3) {
+    return <Redirect to={"/catalogs3"} />;
+  }
   return (
     <div className="row container-viewdetail2">
       <div className="col-md-1" />
@@ -113,13 +121,13 @@ function ViewDetail2() {
             <img src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src="https://c.static-nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/46e725fc-c61c-40f2-8171-80e3814c8b57/air-vapormax-360-womens-shoe-hr1kMz.jpg" />
+            <img src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src="https://c.static-nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/597bb435-2ec3-4888-b0cd-9bb4c4ce2402/air-vapormax-360-womens-shoe-hr1kMz.jpg" />
+            <img src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src="https://c.static-nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/cc222cb0-4e03-4cba-92b8-0a79656d307c/air-vapormax-360-womens-shoe-hr1kMz.jpg" />
+            <img src={APIURLimage + dataDetail.gambar} />
           </div>
         </div>
       </div>

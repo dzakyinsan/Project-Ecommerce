@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminGetProduct, GetPaymentRequest,GetEachDataPayment } from "./../redux/Actions";
+import { AdminGetProduct, GetPaymentRequest, GetEachDataPayment } from "./../redux/Actions";
 // import Axios from "axios";
 // import {APIURL, APIURLimage} from './../helper/ApiUrl'
 import { Tab, TabPanel, Tabs, TabList } from "react-web-tabs";
@@ -14,14 +14,17 @@ import FootballManaged from "../components/Football-managed";
 function AdminPage() {
   //===================== set dispatch =========================
   const dispatch = useDispatch();
+  // ======================== global state ====================
   const dataPaymentReq = useSelector(state => state.PaymentReqReducer.dataPaymentRequest);
   console.log("dataPaymentReq di page nya", dataPaymentReq);
 
   // ======================= component didmount ===================
   useEffect(() => {
+    // ======= all product ==========
     dispatch(AdminGetProduct()); //ini buat jalanin function di action redux
+    // ===== payment request =========
     dispatch(GetPaymentRequest()); //ini buat jalanin function di action redux
-    dispatch(GetEachDataPayment())
+    dispatch(GetEachDataPayment());
   }, []);
   return (
     <Tabs defaultTab="payment-request" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
