@@ -4,7 +4,7 @@ import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
 import Modal from "./../components/modal";
-import { DeleteCartAction, CartGetProduct } from "./../redux/Actions";
+import { DeleteCartAction, CartGetProduct, CheckOutGetProduct } from "./../redux/Actions";
 import NumberFormat from "react-number-format";
 import { Redirect } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -56,6 +56,8 @@ function CartPage() {
       Axios.put(`${APIURL}product/checkoutcart/${id}`, { data })
         .then(res => {
           dispatch(CartGetProduct());
+          dispatch(CheckOutGetProduct());
+
           //  <Redirect to={"/checkout"} />;
         })
         .catch(err => {
@@ -104,7 +106,7 @@ function CartPage() {
       );
     });
   };
-  
+
   if (Redirectcheckout === true) {
     return <Redirect to={"/checkout"} />;
   }

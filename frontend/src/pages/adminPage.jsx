@@ -28,16 +28,12 @@ function AdminPage() {
   }, []);
   return (
     <Tabs defaultTab="payment-request" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
-      <TabList>
+      <TabList className="left-tabs">
         {/* <Tab tabFor="Football-managed">Football</Tab> */}
         <Tab tabFor="manage-product">All Product</Tab>
         <Tab tabFor="manage-category">Category</Tab>
         <Tab tabFor="payment-request">Payment request</Tab>
       </TabList>
-
-      {/* <TabPanel tabId="Football-managed" style={{ width: "100%" }}>
-        <FootballManaged />
-      </TabPanel> */}
 
       <TabPanel tabId="manage-product" style={{ width: "100%" }}>
         <ManageProduct />

@@ -8,8 +8,35 @@ import { AdminDeleteProduct, OpenToggleDeleteRedux, AdminGetProduct } from "./..
 import Modal from "./../components/modal";
 import NumberFormat from "react-number-format";
 import Swal from "sweetalert2";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
-// import { MODAL_ADD } from "./../redux/Actions/types";
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "85ch",
+      // marginTop: "25px",
+      // fontSize: "30px",
+      fontWeight: "bold"
+    }
+  },
+  root2: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "200px",
+      height: "50px",
+      backgroundColor: "black",
+      color: "white",
+      fontSize: "15px"
+    }
+  }
+}));
 
 function ManageProduct() {
   // ======================== global state redux ================
@@ -18,6 +45,7 @@ function ManageProduct() {
 
   //========================= set dispatch (buat masukin data ke redux) ======================
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   // ============================ local state =====================
   const [addDataProduct, setaddDataProduct] = useState([]);
@@ -31,6 +59,18 @@ function ManageProduct() {
     imageEditFileName: "select image...",
     imageEditFile: undefined
   });
+
+  const [search, setsearch] = useState("");
+  const [filtereddataProductRedux, setfiltereddataProductRedux] = useState([]);
+
+  // =================================== useEffect search =====================
+  useEffect(() => {
+    setfiltereddataProductRedux(
+      dataProductRedux.filter(dataproduk => {
+        return dataproduk.namaProduk.toLowerCase().includes(search.toLowerCase());
+      })
+    );
+  }, [search, dataProductRedux]);
 
   // ============================================== add  ===================================
   const [modaladd, setmodaladd] = useState(false);
@@ -78,45 +118,7 @@ function ManageProduct() {
   // =================================================== delete ========================================
   const opentogelDelete = index => {
     dispatch(OpenToggleDeleteRedux(index));
-
-    // const[modalDelete,setmodalDelete]=useState(false)
-    // const toggleDelete = () => {
-    //   setmodalDelete(!modalDelete);
-    //   console.log("dataEditRedux", dataEditRedux);
-    // };
-    // console.log(dataEditBackend[index]);
   };
-
-  // ================================================ use effect/ didmount ==============
-  // useEffect(() => {
-  //   Axios.get(`${APIURL}product/getproduct`)
-  //     .then(res => {
-  //       console.log("use effect");
-  //       setdataproduct(res.data.dataProduct);
-  //       setdatacategory(res.data.dataCategory);
-  //       setdataEditBackend(res.data.ForDataEdit);
-
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  // ======================================================== use effect/did update =================
-  // useEffect(() => {
-  //   if (deletestatus) {
-  //     Axios.get(`${APIURL}product/getproduct`)
-  //       .then(res => {
-  //         console.log("use effect");
-  //         setdataproduct(res.data.dataProduct);
-  //         setdatacategory(res.data.dataCategory);
-  //         setdataEditBackend(res.data.ForDataEdit);
-  //         setdeletestatus(false);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [deletestatus]);
 
   // ============================================================= function crud =======================
 
@@ -201,7 +203,7 @@ function ManageProduct() {
     // console.log("state dataProductRedux", dataProductRedux);
     // console.log("state dataCategoryRedux", dataCategoryRedux);
     // console.log("state dataEditRedux", dataEditRedux);
-    return dataProductRedux.map((val, index) => {
+    return filtereddataProductRedux.map((val, index) => {
       return (
         <TableRow key={val.id}>
           <TableCell>{index + 1}</TableCell>
@@ -214,8 +216,12 @@ function ManageProduct() {
           </TableCell>
           <TableCell>{val.category}</TableCell>
           <TableCell>
-            <button onClick={() => opentogelEdit(index)}> edit</button>
-            <button onClick={() => opentogelDelete(val.id)}> delete</button>
+            <button className="btn-delete-cart" onClick={() => opentogelEdit(index)}>
+              <EditIcon />
+            </button>
+            <button className="btn-delete-cart" onClick={() => opentogelDelete(val.id)}>
+              <DeleteIcon />
+            </button>
           </TableCell>
         </TableRow>
       );
@@ -231,10 +237,6 @@ function ManageProduct() {
   }
   return (
     <Fragment>
-      <button style={{ marginTop: "10px" }} onClick={toggleadd}>
-        {" "}
-        add data
-      </button>
       {/* ========= modal add =========== */}
       <Modal title="add data" toggle={toggleadd} modal={modaladd} actionfunc={adddata} btnTitle="save">
         <input type="text" name="namaProduk" placeholder="nama produk" className="form-control" onChange={onchangeAdddata} />
@@ -269,6 +271,30 @@ function ManageProduct() {
       </Modal>
       {/* ============= modal delete ========= */}
       <Modal title={`delete product`} toggle={opentogelDelete} modal={modalDeleteRedux} actionfunc={Deletedata} btnTitle="delete"></Modal>
+      <div style={{ display: "flex", marginTop: "50px" }}>
+        <div className={classes.root}>
+          <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              )
+            }}
+            id="outlined-basic"
+            // label="Search..."
+            placeholder="Search..."
+            variant="outlined"
+            type="text"
+            onChange={e => setsearch(e.target.value)}
+          />
+        </div>
+        <div className={classes.root2}>
+          <Button variant="contained" onClick={toggleadd}>
+            Add Data
+          </Button>
+        </div>
+      </div>
       <Table hover style={{ marginBottom: "500px" }}>
         <TableHead>
           <TableRow>

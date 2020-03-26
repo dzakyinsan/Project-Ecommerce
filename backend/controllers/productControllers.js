@@ -326,6 +326,18 @@ module.exports = {
       return res.status(500).send(err);
     }
   },
+  postCategory: (req, res) => {
+    console.log("dataAddCategory", req.body.dataAddCategory);
+    var data = req.body.dataAddCategory;
+    var sql = `INSERT INTO category SET ?`;
+    mysqldb.query(sql, data, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      console.log(result);
+      res.status(200).send(result);
+    });
+  },
   // ============================================================== PUT / EDIT ========================================
   editProduct: (req, res) => {
     const productId = req.params.id; // id ini sesuai dengan parameter yg ada di productRouter
@@ -476,6 +488,22 @@ module.exports = {
       mysqldb.query(sql, data, (err, result2) => {
         if (err) res.status(500).send(err);
         // res.status(200).send({ paymentApproved: true });
+      });
+    });
+  },
+  editCategory: (req, res) => {
+    let categoryId = req.params.id;
+    var sql = `select * from category where id=${categoryId}`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      const data = req.body.dataEdit;
+      sql = `Update category set ? where id=${categoryId}`;
+      mysqldb.query(sql, data, (err, result2) => {
+        if (err) res.status(500).send(err);
+        console.log("berhasil edit");
+        res.status(200).send(result2);
       });
     });
   },

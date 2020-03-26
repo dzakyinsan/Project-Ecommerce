@@ -15,7 +15,7 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 
 // =============================== function get product =====================
-export const AdminGetProduct = page => {
+export const AdminGetProduct = () => {
   return dispatch => {
     dispatch({ type: GET_PRODUCT_LOADING });
     Axios.get(`${APIURL}product/getproduct`)

@@ -2,17 +2,32 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
-// import { connect } from "react-redux";
-// import { Image, Reveal } from "semantic-ui-react";
-// import Header from "./../components/header";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
+import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
-// const url = "http://localhost:2001/";
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "85ch",
+      marginTop: "25px",
+      // fontSize: "30px",
+      fontWeight: "bold"
+    }
+  }
+}));
 
 const Catalogs = () => {
+  const classes = useStyles();
+
   const [dataFootball, setdataFootball] = useState([]);
   const [page, setPage] = useState(1);
   const [pager, setpager] = useState({});
+  const [search, setsearch] = useState("");
+  const [filteredDataFootball, setfilteredDataFootball] = useState([]);
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductFootball/${page}`)
@@ -35,10 +50,22 @@ const Catalogs = () => {
         console.log(err);
       });
   }, [page]);
+  // =================================== useEffect search =====================
+  useEffect(() => {
+    setfilteredDataFootball(
+      dataFootball.filter(football => {
+        return football.namaProduk.toLowerCase().includes(search.toLowerCase());
+      })
+    );
+  }, [search, dataFootball]);
+
+  // const filteredDataFootball = dataFootball.filter(football => {
+  //   return football.namaProduk.toLowerCase().includes(search.toLowerCase());
+  // });
 
   const renderProducts = () => {
     console.log("dataFootball", dataFootball);
-    return dataFootball.map((val, index) => {
+    return filteredDataFootball.map((val, index) => {
       return (
         <div className="col-md-3">
           <Card className="mt-5 card-container">
@@ -61,8 +88,8 @@ const Catalogs = () => {
       );
     });
   };
-  console.log("page", page);
-  console.log("pager.pages", pager.pages);
+  // console.log("page", page);
+  // console.log("pager.pages", pager.pages);
 
   return (
     <div>
@@ -71,7 +98,24 @@ const Catalogs = () => {
         <div className="row">
           <div className="col-md-2"></div>{" "}
           <div className="col-md-8 ">
-            <div className="row mt-5">{renderProducts()}</div>{" "}
+            <div className={classes.root}>
+              <TextField
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  )
+                }}
+                id="outlined-basic"
+                // label="Search..."
+                placeholder="Search..."
+                variant="outlined"
+                type="text"
+                onChange={e => setsearch(e.target.value)}
+              />
+            </div>
+            <div className="row ">{renderProducts()}</div>{" "}
           </div>
           <div className="col-md-2"></div>{" "}
         </div>{" "}

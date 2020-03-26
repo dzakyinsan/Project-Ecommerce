@@ -124,12 +124,12 @@ const Header = props => {
                       Password<span style={{ color: "red" }}>*</span>
                     </label>
                     <input type="password" name="passwordLogin" className="form-control" onChange={loginHandle} />
-                    <p className="font-small black-text d-flex justify-content-start mt-3">
+                    {/* <p className="font-small black-text d-flex justify-content-start mt-3">
                       Forgot
                       <a href="#!" className="dark-grey-text font-weight-bold ml-1">
                         Password?
                       </a>
-                    </p>
+                    </p> */}
                     <div className="mt-3">{renderNotifLogin()}</div>
                     <div className="text-center" style={{ marginTop: "130px" }}>
                       <button className="btn btn-light" style={{ backgroundColor: "#c48236" }} onClick={() => dispatch(onUserlogin(dataLogin.usernameLogin, dataLogin.passwordLogin))}>

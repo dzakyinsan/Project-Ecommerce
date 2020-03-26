@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import { CustomInput } from "reactstrap";
 import { Link } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,13 +54,6 @@ function CheckOut() {
     setPostCheckout({ ...PostCheckout, userId: userid, status: "oncheck" });
     dispatch(CheckOutGetProduct());
   }, []);
-
-  // useEffect(() => {
-  //   // console.log(IdUserRedux);
-  //   var userid = localStorage.getItem("userId");
-  //   setPostCheckout({ ...PostCheckout,userId: userid, term: false,totalHarga:dataTotalHarga });
-  //   // dispatch(CheckOutGetProduct());
-  // }, [dataCheckoutRedux]);
 
   const onAddImageFile = e => {
     console.log("e.target.files[0]", e.target.files[0]);
@@ -190,72 +184,74 @@ function CheckOut() {
           PostCheckout.telepon !== undefined &&
           PostCheckout.shipping !== undefined &&
           PostCheckout.payment === "Bank Mandiri Bni" ? (
-            <div className="payment-box">
-              <div className="checkout-right-box-dalam">
-                <div>
-                  <div className="detailPembayaran-title">Detail Pembayaran</div>
-                  <div className="nama-bank">
-                    <td>Nama Bank : &nbsp;</td>
-                    <th>Bank Mandiri / Bank BNI </th>
+            <Fade bottom>
+              <div className="payment-box">
+                <div className="checkout-right-box-dalam">
+                  <div>
+                    <div className="detailPembayaran-title">Detail Pembayaran</div>
+                    <div className="nama-bank">
+                      <td>Nama Bank : &nbsp;</td>
+                      <th>Bank Mandiri / Bank BNI </th>
+                    </div>
+                    <div className="nama-bank">
+                      <td>Nama Pemilik : &nbsp; </td>
+                      <th>M. dzaky Insan </th>
+                    </div>
+                    <div className="nama-bank">
+                      <td>Nomor Rekening : &nbsp; </td>
+                      <th>0221133144 </th>
+                    </div>
                   </div>
-                  <div className="nama-bank">
-                    <td>Nama Pemilik : &nbsp; </td>
-                    <th>M. dzaky Insan </th>
+                  <div>
+                    <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
+                      Order Detail
+                    </div>
+                    <div className="yourorder-checkout">
+                      <td>Shipping</td>
+                      <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
+                    </div>
+                    <hr />
+                    <div className="yourorder-checkout">
+                      <td>Payment Method</td>
+                      <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
+                    </div>
+                    <hr />
                   </div>
-                  <div className="nama-bank">
-                    <td>Nomor Rekening : &nbsp; </td>
-                    <th>0221133144 </th>
+                  <div>
+                    <div className="yourorder-checkout">
+                      <td>Subtotal</td>
+                      <th style={{ marginLeft: "auto" }}>
+                        <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
+                      </th>
+                    </div>
+                    <hr />
+                    <div className="detailPembayaran-title">Bukti Pembayaran</div>
+                    {AddImageFile.imageFile !== undefined ? (
+                      <div className="bukti-pembayaran-berhasil">
+                        <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                      </div>
+                    ) : (
+                      <div className="bukti-pembayaran-gagal">
+                        <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                      </div>
+                    )}{" "}
                   </div>
-                </div>
-                <div>
-                  <div className="detailPembayaran-title" style={{ marginTop: "15px" }}>
-                    Order Detail
-                  </div>
-                  <div className="yourorder-checkout">
-                    <td>Shipping</td>
-                    <th style={{ marginLeft: "auto" }}>{PostCheckout.shipping}</th>
-                  </div>
-                  <hr />
-                  <div className="yourorder-checkout">
-                    <td>Payment Method</td>
-                    <th style={{ marginLeft: "auto" }}>{PostCheckout.payment}</th>
-                  </div>
-                  <hr />
-                </div>
-                <div>
-                  <div className="yourorder-checkout">
-                    <td>Subtotal</td>
-                    <th style={{ marginLeft: "auto" }}>
-                      <NumberFormat value={dataTotalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-                    </th>
-                  </div>
-                  <hr />
-                  <div className="detailPembayaran-title">Bukti Pembayaran</div>
                   {AddImageFile.imageFile !== undefined ? (
-                    <div className="bukti-pembayaran-berhasil">
-                      <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                    <div className={classes.root}>
+                      <Button variant="contained" onClick={FinishCheckout}>
+                        Selesaikan Belanja
+                      </Button>
                     </div>
                   ) : (
-                    <div className="bukti-pembayaran-gagal">
-                      <CustomInput type="file" label={AddImageFile.imageName} id="addImagePayment" className="form-control" onChange={onAddImageFile} />
+                    <div className={classes.root}>
+                      <Button variant="contained" onClick={FinishCheckout} disabled>
+                        Selesaikan Belanja
+                      </Button>
                     </div>
-                  )}{" "}
+                  )}
                 </div>
-                {AddImageFile.imageFile !== undefined ? (
-                  <div className={classes.root}>
-                    <Button variant="contained" onClick={FinishCheckout}>
-                      Selesaikan Belanja
-                    </Button>
-                  </div>
-                ) : (
-                  <div className={classes.root}>
-                    <Button variant="contained" onClick={FinishCheckout} disabled>
-                      Selesaikan Belanja
-                    </Button>
-                  </div>
-                )}
               </div>
-            </div>
+            </Fade>
           ) : null}
           {/* ========================================= */}
           {PostCheckout.nama !== undefined &&

@@ -550,13 +550,6 @@ border-bottom-left-radius: 15px; */
   /* border: 2px solid red; */
 }
 
-/* .home-menu-basketball .text {
-  font-family: "Bangers";
-  background-color: #c48236;
-  color: white;
-  font-size: 30px;
-  padding: 16px 32px;
-} */
 /* ===================== catalog ====================== */
 .catalog-page {
   min-height: 950px;
@@ -822,7 +815,12 @@ border-bottom-left-radius: 15px; */
   margin-left: 10px;
   /* width: 150px; */
 }
+/* ============================================== admin page ==================== */
 
+.left-tabs {
+  /* border: 2px solid red; */
+  font-family: "Poppins";
+}
 /* ============================================= footer ========================= */
 .footer {
   border-top: 2px solid black;

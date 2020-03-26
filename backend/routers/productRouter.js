@@ -4,13 +4,17 @@ const { productControllers } = require("../controllers");
 const router = express.Router();
 
 router.get("/gethotitems", productControllers.getHotItems);
+// ======================================= Home =================================
 router.get("/getproduct", productControllers.getProduct);
 router.get("/getproductFootball/:page", productControllers.getProductFootball);
 router.get("/getproductBasketball/:page", productControllers.getProductBasketball);
 router.get("/getproductRunning/:page", productControllers.getProductRunning);
+// ========================================= Manage product c& category ===============
 router.post("/postproduct", productControllers.postProduct);
 router.put("/editdata/:id", productControllers.editProduct);
 router.delete("/deletedata/:productid", productControllers.deleteProduct);
+router.post("/postcategory", productControllers.postCategory);
+router.put("/editcategory/:id", productControllers.editCategory);
 
 // ====================================== view details =========================
 router.get("/getDetail/:id", productControllers.getDetail);

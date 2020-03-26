@@ -192,6 +192,13 @@ function ViewDetail2() {
                 </Alert>
               </div>
             ) : null}
+            {dataAddtoCart.size !== undefined && roleRedux === 0 ? (
+              <div className={classes.root2}>
+                <Alert variant="filled" severity="warning">
+                  You Need to Login First
+                </Alert>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

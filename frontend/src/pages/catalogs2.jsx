@@ -2,16 +2,32 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
-// import { connect } from "react-redux";
-// import { Image, Reveal } from "semantic-ui-react";
-// import Header from "./../components/header";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
-// const url = "http://localhost:2001/";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "85ch",
+      marginTop: "25px",
+      // fontSize: "30px",
+      fontWeight: "bold"
+    }
+  }
+}));
 
 const Catalogs = () => {
+  const classes = useStyles();
+
   const [dataBasketball, setdataBasketball] = useState([]);
   const [page, setPage] = useState(1);
   const [pager, setpager] = useState({});
+  const [search, setsearch] = useState("");
+  const [filtereddataBasketball, setfiltereddataBasketball] = useState([]);
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductBasketball/${page}`)
@@ -35,9 +51,18 @@ const Catalogs = () => {
       });
   }, [page]);
 
+  // =================================== useEffect search =====================
+  useEffect(() => {
+    setfiltereddataBasketball(
+      dataBasketball.filter(basketball => {
+        return basketball.namaProduk.toLowerCase().includes(search.toLowerCase());
+      })
+    );
+  }, [search, dataBasketball]);
+
   const renderProducts = () => {
     console.log("dataBasketball", dataBasketball);
-    return dataBasketball.map((val, index) => {
+    return filtereddataBasketball.map((val, index) => {
       return (
         <div className="col-md-3">
           <Card className="mt-5 card-container">
@@ -70,7 +95,24 @@ const Catalogs = () => {
         <div className="row">
           <div className="col-md-2"></div>{" "}
           <div className="col-md-8 ">
-            <div className="row mt-5">{renderProducts()}</div>{" "}
+            <div className={classes.root}>
+              <TextField
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  )
+                }}
+                id="outlined-basic"
+                // label="Search..."
+                placeholder="Search..."
+                variant="outlined"
+                type="text"
+                onChange={e => setsearch(e.target.value)}
+              />
+            </div>
+            <div className="row ">{renderProducts()}</div>{" "}
           </div>
           <div className="col-md-2"></div>{" "}
         </div>{" "}
