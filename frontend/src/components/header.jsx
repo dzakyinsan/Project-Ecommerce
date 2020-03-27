@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from "reactstrap";
-// import PersonIcon from "@material-ui/icons/Person";
-// import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-// import Badge from "@material-ui/core/Badge";
-// import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
-import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
-// import { Tooltip, Zoom } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { onUserRegister, onUserlogin, onUserlogOut } from "./../redux/Actions";
@@ -32,7 +27,7 @@ const Header = props => {
   const registerRedux = useSelector(state => state.auth.register);
   const errorRedux = useSelector(state => state.auth.error);
   const errorLoginRedux = useSelector(state => state.auth.errorlogin);
-  const statusRedux = useSelector(state => state.auth.status);
+  // const statusRedux = useSelector(state => state.auth.status);
   const loginOk = useSelector(state => state.auth.login);
   const Modal = useSelector(state => state.auth.modalOpen);
   const usernameRedux = useSelector(state => state.auth.username);
@@ -95,9 +90,6 @@ const Header = props => {
     } else {
       return <div style={{ height: "48px" }}></div>;
     }
-    //  else if (statusRedux.length > 0) {
-    //   return <p className="alert alert-success">{statusRedux}</p>;
-    // }
   };
 
   //ini var yg dikirim ke redux

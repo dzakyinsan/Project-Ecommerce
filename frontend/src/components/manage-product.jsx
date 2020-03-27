@@ -54,7 +54,7 @@ function ManageProduct() {
     imageFile: undefined
   });
   const [editDataProduct, seteditDataProduct] = useState([]);
-  const [dataEditBackend, setdataEditBackend] = useState([]);
+  // const [dataEditBackend, setdataEditBackend] = useState([]);
   const [editimagefile, seteditimagefile] = useState({
     imageEditFileName: "select image...",
     imageEditFile: undefined
@@ -62,6 +62,7 @@ function ManageProduct() {
 
   const [search, setsearch] = useState("");
   const [filtereddataProductRedux, setfiltereddataProductRedux] = useState([]);
+  const [filtereddataEditRedux, setfiltereddataEditRedux] = useState([]);
 
   // =================================== useEffect search =====================
   useEffect(() => {
@@ -71,6 +72,13 @@ function ManageProduct() {
       })
     );
   }, [search, dataProductRedux]);
+  useEffect(() => {
+    setfiltereddataEditRedux(
+      dataEditRedux.filter(dataedit => {
+        return dataedit.namaProduk.toLowerCase().includes(search.toLowerCase());
+      })
+    );
+  }, [search, dataEditRedux]);
 
   // ============================================== add  ===================================
   const [modaladd, setmodaladd] = useState(false);
@@ -101,7 +109,7 @@ function ManageProduct() {
     console.log("editDataProduct", editDataProduct);
   };
   const opentogelEdit = index => {
-    seteditDataProduct(dataEditRedux[index]);
+    seteditDataProduct(filtereddataEditRedux[index]);
     setmodaledit(true);
     console.log("data edit redux", dataEditRedux);
   };

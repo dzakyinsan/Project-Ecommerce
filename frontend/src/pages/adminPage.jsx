@@ -9,7 +9,7 @@ import "react-web-tabs/dist/react-web-tabs.css";
 import ManageProduct from "../components/manage-product";
 import ManageCategory from "../components/manage-category";
 import PaymentRequest from "../components/Payment-request";
-import FootballManaged from "../components/Football-managed";
+// import FootballManaged from "../components/Football-managed";
 
 function AdminPage() {
   //===================== set dispatch =========================
@@ -27,7 +27,7 @@ function AdminPage() {
     dispatch(GetEachDataPayment());
   }, []);
   return (
-    <Tabs defaultTab="payment-request" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
+    <Tabs defaultTab="manage-product" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
       <TabList className="left-tabs">
         {/* <Tab tabFor="Football-managed">Football</Tab> */}
         <Tab tabFor="manage-product">All Product</Tab>

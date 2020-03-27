@@ -22,14 +22,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.GetHotItems();
-    // Axios.get(`${APIURL}product/getproduct`)
-    //   .then(res => {
-    //     this.setState({ dataFootball: res.data.dataFootball });
-    //     console.log("dataFootball", this.state.dataFootball);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   }
 
   renderFootball = () => {

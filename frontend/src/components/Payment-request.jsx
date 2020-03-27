@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import Axios from "axios";
-import { APIURL, APIURLimage } from "./../helper/ApiUrl";
+import { APIURLimage } from "./../helper/ApiUrl";
 // import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
 import Modal from "./../components/modalPaymentReq";
 import Modal2 from "./../components/modal";
 import NumberFormat from "react-number-format";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,6 +31,8 @@ function PaymentRequest() {
   // ========================================= Global state =========================
   const dataPaymentReq = useSelector(state => state.PaymentReqReducer.dataPaymentRequest);
   const dataEachProductRedux = useSelector(state => state.PaymentReqReducer.dataEachProductRedux);
+  const loading = useSelector(state => state.PaymentReqReducer.loading);
+
   console.log("dataPaymentReq", dataPaymentReq);
   console.log("dataEachProductRedux", dataEachProductRedux);
   // =========================================== state ================================
@@ -71,7 +73,13 @@ function PaymentRequest() {
     dispatch(RejectTransaction(idDataReject));
     setmodalOpen3(false);
   };
-
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   if (dataPaymentReq.length === 0) {
     return (
       <div>
@@ -162,49 +170,5 @@ function PaymentRequest() {
       </div>
     );
   });
-  //   return (
-  //     <div className="container-1-paymentReq">
-  //       <div className="container-2-paymentReq">
-  //         <div>
-  //           <h4>
-  //             <AccountBoxIcon fontSize="large" className="icon-username" /> Request username : Asyiap
-  //           </h4>
-  //         </div>
-  //         <hr />
-  //         <div className="row">
-  //           <div className="PR-kiri col-md-8" >
-  //             <img src="https://ncrsport.com/img/storage/large/AO3266-060-1.jpg" alt="1" width="100px" height="100px" />
-  //             <div style={{ margin: "10px" }}>
-  //               <h5> Nama Produk</h5>
-  //               <h6>size : </h6>
-  //               <h6>quntity :</h6>
-  //               <h6>pay at :</h6>
-  //             </div>
-  //           </div>
-  //           <div className="PR-kanan col-md-3">
-  //             <h5>
-  //               <NumberFormat value="10000" displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-  //             </h5>
-  //           </div>
-  //         </div>
-  //         <div className="row">
-  //           <div className="PR-kiri col-md-6" />
-  //           <div className="PR-kanan-bawah col-md-5">
-  //             <h6>Total Pesanan :</h6>
-  //             <h4>
-  //               <NumberFormat value="20000" displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-  //             </h4>
-  //           </div>
-  //         </div>
-  //         <div className="row">
-  //           <div className="PR-kiri col-md-6" />
-  //           <div className="PR-kanan-bawah col-md-5">
-  //             <button>detail</button>
-  //             <button>approve</button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
 }
 export default PaymentRequest;

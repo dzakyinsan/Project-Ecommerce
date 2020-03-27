@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Axios from "axios";
-import { APIURL, APIURLimage } from "./../helper/ApiUrl";
-import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
-import Modal from "./../components/modal";
+// import Axios from "axios";
+// import { APIURL, APIURLimage } from "./../helper/ApiUrl";
+// import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
+// import Modal from "./../components/modal";
 import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";

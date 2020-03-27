@@ -132,8 +132,6 @@ function ManageProduct() {
       .then(res => {
         console.log(res);
         dispatch(AdminGetProduct());
-        // setdataproduct(res.data.dataProduct);
-        // setdatacategory(res.data.dataCategory);
         setmodaladd(!modaladd);
         console.log("masuk add data");
       })
@@ -161,8 +159,6 @@ function ManageProduct() {
       .then(res => {
         console.log(res);
         dispatch(AdminGetProduct());
-        // setdataproduct(res.data.dataProduct);
-        // setdatacategory(res.data.dataCategory);
         setmodaledit(!modaledit);
       })
       .catch(err => {

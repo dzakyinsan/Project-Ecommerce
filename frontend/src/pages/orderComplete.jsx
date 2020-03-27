@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
-import Modal from "./../components/modal";
-import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
-import { makeStyles } from "@material-ui/core/styles";
+import Modal from "./../components/modalPaymentReq";
+// import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
+// import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
 import Button from "@material-ui/core/Button";
 
 function OrderComplete() {
   const [dataOrderComplete, setdataOrderComplete] = useState([]);
+  const [ModalDetail, setModalDetail] = useState([]);
+  const [modalOpen, setmodalOpen] = useState(false);
+  const toggleModal = () => setmodalOpen(!modalOpen);
+
+  const openToggleModal = index => {
+    setModalDetail(dataOrderComplete[index]);
+    setmodalOpen(true);
+  };
 
   useEffect(() => {
     var IdUserRedux = localStorage.getItem("userId");
@@ -39,7 +47,9 @@ function OrderComplete() {
             <NumberFormat value={val.totalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
           </TableCell>
           <TableCell>
-            <button className="btn-delete-cart">View</button>
+            <button className="btn-delete-cart" onClick={() => openToggleModal(index)}>
+              View
+            </button>
           </TableCell>
         </TableRow>
       );
@@ -48,6 +58,13 @@ function OrderComplete() {
 
   return (
     <div className="cart-page" style={{ paddingTop: "80px" }}>
+      <Modal toggle={toggleModal} modal={modalOpen} style={{ marginTop: "200px" }}>
+        <div>
+          <div>
+            <img src={APIURLimage + ModalDetail.gambarBukti} alt="1" width="470px" height="400px" />
+          </div>
+        </div>
+      </Modal>
       <div className="row">
         <div className="col-md-2" />
         <div className="col-md-8">

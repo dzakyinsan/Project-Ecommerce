@@ -1,27 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBMask,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBView,
-  MDBContainer,
-  MDBFormInline,
-  MDBAnimation
-} from "mdbreact";
+import { MDBMask, MDBRow, MDBCol, MDBView, MDBContainer, MDBAnimation } from "mdbreact";
 import Fade from "react-reveal";
-import Header from "./header";
-import SearchIcon from "@material-ui/icons/Search";
-
-// import "./index.css";
 
 class AppPage extends React.Component {
   state = {
@@ -62,15 +41,7 @@ class AppPage extends React.Component {
                   </MDBCol>
                   <MDBCol md="3" />
 
-                  <MDBCol md="3" xl="3">
-                    {/* <MDBAnimation type="fadeInRight" delay=".5s">
-                    <img 
-                      src="https://66.media.tumblr.com/b0f99962c9e734df9f91bdbfab02609e/tumblr_myw2cuw1Hp1svwlszo1_1280.gifv"
-                      alt=""
-                      className="img-fluid"
-                    />
-                  </MDBAnimation> */}
-                  </MDBCol>
+                  <MDBCol md="3" xl="3"></MDBCol>
                 </MDBRow>
                 <MDBAnimation type="fadeInRight" delay=".5s">
                   {/* <div className='search-box' >

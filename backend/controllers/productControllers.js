@@ -52,6 +52,7 @@ module.exports = {
       let sql = `select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3 LIMIT ? OFFSET ?`;
       mysqldb.query(sql, [pageSize, offset], (err, result1) => {
         if (err) res.status(500).send(err);
+        mysqldb.query(`select p.*,c.category from products p join category c on p.categoryId=c.id where categoryId=3`, (err, result2) => {});
         const pageOfData = result1;
         return res.status(200).send({ pageOfData, pager });
       });

@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_PAYREQ_SUCCESS:
       // console.log("action.payload", action.payload);
-      return { ...state, dataPaymentRequest: action.payload };
+      return { ...state, dataPaymentRequest: action.payload, loading: false };
     case GET_PAYREQ_ERROR:
       return { ...state, message: action.payload };
     case GET_PAYREQ_LOADING:
