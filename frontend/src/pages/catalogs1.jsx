@@ -3,25 +3,25 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { APIURL, APIURLimage } from "../helper/ApiUrl";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "85ch",
-      marginTop: "25px",
-      // fontSize: "30px",
-      fontWeight: "bold"
-    }
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     "& > *": {
+//       margin: theme.spacing(1),
+//       width: "85ch",
+//       marginTop: "25px",
+//       // fontSize: "30px",
+//       fontWeight: "bold"
+//     }
+//   }
+// }));
 
 const Catalogs = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const [dataRunning, setdataRunning] = useState([]);
   const [page, setPage] = useState(1);
@@ -100,7 +100,7 @@ const Catalogs = () => {
         <div className="row">
           <div className="col-md-2"></div>{" "}
           <div className="col-md-8 ">
-            <div className={classes.root}>
+            {/* <div className={classes.root}>
               <TextField
                 InputProps={{
                   startAdornment: (
@@ -116,7 +116,7 @@ const Catalogs = () => {
                 type="text"
                 onChange={e => setsearch(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className="row">{renderProducts()}</div>{" "}
           </div>
           <div className="col-md-2"></div>{" "}

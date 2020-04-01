@@ -15,6 +15,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -241,7 +242,12 @@ function ManageProduct() {
   console.log("state dataEditRedux", dataEditRedux);
 
   if (dataProductRedux.length === 0 || dataCategoryRedux.length === 0 || dataEditRedux.length === 0) {
-    return <div>loading</div>;
+    return (
+      <div style={{ minHeight: "1000px", paddingTop: "300px", paddingLeft: "700px" }}>
+        <h1 style={{ fontSize: "100px", color: "#c48236" }}>FOOTBOOTS2020</h1>
+        <h1 style={{ fontSize: "80px", marginLeft: "250px" }}>loading...</h1>
+      </div>
+    );
   }
   return (
     <Fragment>

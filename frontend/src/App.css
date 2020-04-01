@@ -559,7 +559,8 @@ border-bottom-left-radius: 15px; */
   /* border: 2px solid red; */
 }
 .card-img {
-  min-height: 409px;
+  min-height: 464px;
+  /* min-width: ; */
 }
 .card-img-home {
   min-height: 314px;
@@ -572,8 +573,8 @@ border-bottom-left-radius: 15px; */
   font-family: "Poppins";
 }
 .image-viewdetail2 img {
-  height: 465px;
-  width: 465px;
+  height: 600px;
+  width: 500px;
   margin-top: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -757,6 +758,14 @@ border-bottom-left-radius: 15px; */
   font-size: 20px;
   margin-top: 100px;
 }
+.checkorder-button-user button {
+  background-color: black;
+  color: white;
+  height: 50px;
+  width: 200px;
+  font-size: 12px;
+  margin-top: 50px;
+}
 
 /* ================================================ payment-request ============= */
 .container-1-paymentReq {
@@ -820,6 +829,24 @@ border-bottom-left-radius: 15px; */
 .left-tabs {
   /* border: 2px solid red; */
   font-family: "Poppins";
+}
+/* =============================================== account details ================= */
+.title-account-detail {
+  font-size: 15px;
+  color: grey;
+  margin-left: 20px;
+  font-weight: bold;
+}
+.dashboard {
+  font-size: 18px;
+  color: black;
+  margin-left: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.title-account-detail :hover {
+  color: #c48236;
+  cursor: pointer;
 }
 /* ============================================= footer ========================= */
 .footer {

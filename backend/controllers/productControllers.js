@@ -192,9 +192,17 @@ module.exports = {
       console.log("berhasil");
     });
   },
-  getOrderComplete: (req, res) => {
+  getWaitingApproval: (req, res) => {
     const IdUserRedux = req.params.id;
     var sql = `select * from transaction_address where userId=${IdUserRedux} and status="oncheck"`;
+    mysqldb.query(sql, (err, result) => {
+      if (err) res.status(500).send(err);
+      res.status(200).send(result);
+    });
+  },
+  getCompletePurchased: (req, res) => {
+    const IdUserRedux = req.params.id;
+    var sql = `select * from transaction_address where userId=${IdUserRedux} and status!="oncheck"`;
     mysqldb.query(sql, (err, result) => {
       if (err) res.status(500).send(err);
       res.status(200).send(result);

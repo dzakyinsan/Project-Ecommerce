@@ -1,39 +1,20 @@
 import axios from "axios";
-import { USER_REGIS_SUCCESS,USER_LOGIN_SUCCESS, AUTH_SYSTEM_REGIS_ERROR,AUTH_SYSTEM_LOGIN_ERROR, AUTH_LOADING, USER_LOGOUT } from "./types";
+import { USER_REGIS_SUCCESS, USER_LOGIN_SUCCESS, AUTH_SYSTEM_REGIS_ERROR, AUTH_SYSTEM_LOGIN_ERROR, AUTH_LOADING, USER_LOGOUT } from "./types";
 import { APIURL } from "./../../helper/ApiUrl";
 import Swal from "sweetalert2";
-
-
-// const Toast = Swal.mixin({
-//   toast: true,
-//   position: 'central',
-//   showConfirmButton: "top",
-//   timer: 3000,
-//   timerProgressBar: true,
-//   onOpen: (toast) => {
-//     toast.addEventListener('mouseenter', Swal.stopTimer)
-//     toast.addEventListener('mouseleave', Swal.resumeTimer)
-//   }
-// })
-
-// Toast.fire({
-//   icon: 'success',
-//   title: 'Signed in successfully'
-// })
 
 export const onUserRegister = (username, email, password, confirmpass) => {
   console.log("masuk username", username);
   return dispatch => {
     dispatch({ type: AUTH_LOADING });
-    if (username === "" || email === "" || password === ""||confirmpass==="") {
-      dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "form regis wajib diisi"});
-    }
-    else if(password!==confirmpass){
-      dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "confirm pass tidak sesuai"});
-    }
-     else {
-        console.log('masuk axios post')
-      axios.post(`${APIURL}auth/registerver`, {
+    if (username === "" || email === "" || password === "" || confirmpass === "") {
+      dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "form regis wajib diisi" });
+    } else if (password !== confirmpass) {
+      dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "confirm pass tidak sesuai" });
+    } else {
+      console.log("masuk axios post");
+      axios
+        .post(`${APIURL}auth/registerver`, {
           username,
           email,
           password
@@ -53,40 +34,40 @@ export const onUserRegister = (username, email, password, confirmpass) => {
     }
   };
 };
-export const onUserlogin = (usernameLogin,passwordLogin ) => {
+export const onUserlogin = (usernameLogin, passwordLogin) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING });
 
-    console.log('username', usernameLogin);
-    console.log('password', passwordLogin);
-    
-    
+    console.log("username", usernameLogin);
+    console.log("password", passwordLogin);
+
     if (usernameLogin === "" || passwordLogin === "") {
       dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: "form login wajib diisi!" });
     } else {
-      axios.get(APIURL + "auth/login", {
+      axios
+        .get(APIURL + "auth/login", {
           params: {
-            username:usernameLogin,
-            password:passwordLogin
+            username: usernameLogin,
+            password: passwordLogin
           }
         })
         .then(res => {
           console.log(res);
-          if(res.data.status==="notmatch"){
+          if (res.data.status === "notmatch") {
             dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: res.data.error });
-          }else if (res.data.status === "success") {
+          } else if (res.data.status === "success") {
             console.log(res.data.token);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.id);
             dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
             Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Signed in successfully',
+              position: "center",
+              icon: "success",
+              title: "Signed in successfully",
               showConfirmButton: false,
               timer: 1500
-            })
-          } 
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -96,17 +77,17 @@ export const onUserlogin = (usernameLogin,passwordLogin ) => {
   };
 };
 
-export const onUserloginRepeat = ( resdata ) => {
-  return dispatch=>{
+export const onUserloginRepeat = resdata => {
+  return dispatch => {
     localStorage.setItem("token", resdata.token);
     localStorage.setItem("userId", resdata.id);
     dispatch({ type: USER_LOGIN_SUCCESS, payload: resdata });
-  }
-}
+  };
+};
 
-export const onUserlogOut =()=>{
-  return dispatch =>{
-    localStorage.clear()
-    dispatch({type:USER_LOGOUT})
-  }
-}
+export const onUserlogOut = () => {
+  return dispatch => {
+    localStorage.clear();
+    dispatch({ type: USER_LOGOUT });
+  };
+};

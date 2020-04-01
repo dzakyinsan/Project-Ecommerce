@@ -191,7 +191,7 @@ const Header = props => {
           <Nav className="loginlogo-header" navbar>
             {loginOk === true && roleId === 2 ? (
               <Fade right>
-                <Link to={"/ordercomplete"} style={{ color: "white" }}>
+                <Link to={"/waitingAdminApproval"} style={{ color: "white" }}>
                   <div className="username-login" style={{ marginLeft: "800px" }}>
                     <a>Hello,{usernameRedux}</a>
                   </div>

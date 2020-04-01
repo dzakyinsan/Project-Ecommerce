@@ -107,7 +107,12 @@ function CheckOut() {
   console.log("goToCompletePage", goToCompletePage);
 
   if (loading) {
-    return <div>loading...</div>;
+    return (
+      <div style={{ minHeight: "1000px", paddingTop: "300px", paddingLeft: "700px" }}>
+        <h1 style={{ fontSize: "100px", color: "#c48236" }}>FOOTBOOTS2020</h1>
+        <h1 style={{ fontSize: "80px", marginLeft: "250px" }}>loading...</h1>
+      </div>
+    );
   }
 
   if (dataCheckoutRedux === undefined || dataCheckoutRedux.length === 0) {
@@ -115,7 +120,7 @@ function CheckOut() {
       <div className="checkout-page" style={{ paddingTop: "300px", textAlign: "center" }}>
         <h1 style={{ fontSize: "100px" }}>tidak ada barang di checkout</h1>
         <div className="checkorder-button">
-          <Link to={"/ordercomplete"}>
+          <Link to={"/waitingAdminApproval"}>
             <Button variant="contained">Check you order</Button>
           </Link>
         </div>
@@ -123,7 +128,7 @@ function CheckOut() {
     );
   }
   if (goToCompletePage && dataCheckoutRedux.length === 0) {
-    return <Redirect to={"/ordercomplete"} />;
+    return <Redirect to={"/waitingAdminApproval"} />;
   }
   // console.log("PostCheckout", PostCheckout);
 

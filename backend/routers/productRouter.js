@@ -37,5 +37,6 @@ router.put("/approvepayment/:id", productControllers.ApprovePayment);
 router.put("/rejectpayment/:id", productControllers.RejectPayment);
 
 // ================================================ order complete =================
-router.get("/getordercomplete/:id", productControllers.getOrderComplete);
+router.get("/getwaitingapproval/:id", productControllers.getWaitingApproval);
+router.get("/getcompletepurchased/:id", productControllers.getCompletePurchased);
 module.exports = router;

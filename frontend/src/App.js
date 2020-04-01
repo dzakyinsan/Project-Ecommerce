@@ -14,7 +14,9 @@ import ViewDetail from "./pages/viewdetail";
 import ViewDetail2 from "./pages/viewdetail2";
 import ViewDetail3 from "./pages/viewdetail3";
 import checkout from "./pages/checkout";
-import orderComplete from "./pages/orderComplete";
+import waitingAdmin from "./pages/waitingAdminApproval";
+import CompletePurchased from "./pages/completePurchased";
+import AccountDetails from "./pages/accountDetails";
 import Axios from "axios";
 import { APIURL } from "./helper/ApiUrl";
 import { connect } from "react-redux";
@@ -67,7 +69,9 @@ class App extends Component {
           <Route path={"/adminpage"} exact component={adminPage} />
           <Route path={"/cartPage"} exact component={cartPage} />
           <Route path={"/checkout"} exact component={checkout} />
-          <Route path={"/ordercomplete"} exact component={orderComplete} />
+          <Route path={"/waitingAdminApproval"} exact component={waitingAdmin} />
+          <Route path={"/completePurchased"} exact component={CompletePurchased} />
+          <Route path={"/accountDetails"} exact component={AccountDetails} />
         </Switch>
         <Footer />
       </div>
