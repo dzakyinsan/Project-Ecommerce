@@ -36,6 +36,7 @@ function CheckOut() {
   const messageRedux = useSelector(state => state.CheckoutReducer.message);
   const loading = useSelector(state => state.CheckoutReducer.loadingData);
   const goToCompletePage = useSelector(state => state.CheckoutReducer.goToCompletePage);
+  const dataUserDetailRedux = useSelector(state => state.AccountDetailsReducer.dataUserDetailRedux);
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
   // const [goToCompletePage, setgoToCompletePage] = useState(false);
@@ -49,11 +50,17 @@ function CheckOut() {
   const dispatch = useDispatch();
   // ==================================component didmount ==========================
   useEffect(() => {
-    // console.log(IdUserRedux);
-    var userid = localStorage.getItem("userId");
-    setPostCheckout({ ...PostCheckout, userId: userid, status: "oncheck" });
+    // var userid = localStorage.getItem("userId");
+    // setPostCheckout({ ...PostCheckout, userId: userid, status: "oncheck" });
     dispatch(CheckOutGetProduct());
   }, []);
+
+  useEffect(() => {
+    // console.log("dataUserDetailRedux", dataUserDetailRedux);
+    var userid = localStorage.getItem("userId");
+    const { namaLengkap, alamat, kota, provinsi, telepon } = dataUserDetailRedux;
+    setPostCheckout({ ...PostCheckout, nama: namaLengkap, alamat: alamat, kota: kota, provinsi: provinsi, telepon: telepon, userId: userid, status: "oncheck" });
+  }, [dataUserDetailRedux]);
 
   const onAddImageFile = e => {
     console.log("e.target.files[0]", e.target.files[0]);
@@ -101,10 +108,6 @@ function CheckOut() {
       );
     });
   };
-  // console.log("checkoutValid", checkoutValid);
-  console.log("dataCheckoutRedux.length", dataCheckoutRedux.length);
-  // console.log("typeof shipping", typeof shipping);
-  console.log("goToCompletePage", goToCompletePage);
 
   if (loading) {
     return (
@@ -146,35 +149,35 @@ function CheckOut() {
 
           <div className="form-group">
             <label for="inputNamaLengkap">
-              Nama Lengkap<span style={{ color: "red" }}>*</span>
+              Nama Lengkap &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="text" name="nama" className="form-control" placeholder="Nama Pengirim" onChange={onChangeCheckout} />
+            <input type="text" name="nama" className="form-control" placeholder="Nama Pengirim" defaultValue={PostCheckout.nama} onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="inputAlamatLengkap">
-              Alamat Pengiriman<span style={{ color: "red" }}>*</span>
+              Alamat Pengiriman &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="text" name="alamat" className="form-control" placeholder="Alamat yang akan dituju" onChange={onChangeCheckout} />
+            <input type="text" name="alamat" className="form-control" placeholder="Alamat yang akan dituju" defaultValue={PostCheckout.alamat} onChange={onChangeCheckout} />
           </div>
           <div className="form-group row">
             <div className="col-md-6">
               <label for="inputProvinsi">
-                Provinsi<span style={{ color: "red" }}>*</span>
+                Provinsi &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
-              <input type="text" name="provinsi" className="form-control" placeholder="Provinsi" onChange={onChangeCheckout} />
+              <input type="text" name="provinsi" className="form-control" placeholder="Provinsi" defaultValue={PostCheckout.provinsi} onChange={onChangeCheckout} />
             </div>
             <div className="col-md-6">
               <label for="inputKota">
-                Kota<span style={{ color: "red" }}>*</span>
+                Kota &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
-              <input type="text" name="kota" className="form-control" placeholder="Kota" onChange={onChangeCheckout} />
+              <input type="text" name="kota" className="form-control" placeholder="Kota" defaultValue={PostCheckout.kota} onChange={onChangeCheckout} />
             </div>
           </div>
           <div className="form-group">
             <label for="inputNomorHp">
-              Telepon/WA<span style={{ color: "red" }}>*</span>
+              Telepon/WA &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="number" name="telepon" className="form-control" placeholder="Nomor telepon" onChange={onChangeCheckout} />
+            <input type="number" name="telepon" className="form-control" placeholder="Nomor telepon" defaultValue={PostCheckout.telepon} onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="catatan">Catatan(optional)</label>

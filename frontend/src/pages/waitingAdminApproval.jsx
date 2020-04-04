@@ -63,7 +63,7 @@ function OrderComplete() {
     <div className="cart-page" style={{ paddingTop: "80px" }}>
       <div className="row">
         <div className="col-md-3">
-          <div style={{ padding: "10px", marginLeft: "100px", marginRight: "50px" }}>
+          <div className="left-box-apaya-bingung">
             <div style={{ display: "flex" }}>
               <span style={{ fontSize: "80px", marginLeft: "10px", color: "grey" }}>
                 <i className="fas fa-user-circle"></i>
@@ -73,18 +73,12 @@ function OrderComplete() {
                 <h6 style={{ color: "grey" }}> #FTS{idUser}</h6>
               </div>
             </div>
-            <hr />
             <div className="dashboard">DASHBOARD</div>
             <hr />
             <div className="title-account-detail">
               <Link to={"/accountDetails"} style={{ color: "#b7b7b7" }}>
                 <div>ACCOUNT DETAILS</div>
               </Link>
-              <hr />
-              <Link to={"/"} style={{ color: "#b7b7b7" }}>
-                <div>ADDRESS</div>
-              </Link>
-
               <hr />
               <Link to={"/waitingAdminApproval"} style={{ color: "#c48236" }}>
                 <div>WAITING ADMIN APPROVAL</div>

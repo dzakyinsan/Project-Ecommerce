@@ -77,30 +77,3 @@ export const PostCheckoutProduct = (PostCheckout, AddImageFile) => {
       });
   };
 };
-// export const PutCheckoutProduct = dataCheckoutRedux => {
-//   return dispatch => {
-//     dispatch({ type: PUT_CHECKOUT_LOADING });
-//     for (var i = 0; i < dataCheckoutRedux.length; i++) {
-//       var data = {
-//         id: dataCheckoutRedux[i].id,
-//         userId: dataCheckoutRedux[i].userId,
-//         productId: dataCheckoutRedux[i].productId,
-//         size: dataCheckoutRedux[i].size,
-//         jumlah: dataCheckoutRedux[i].jumlah,
-//         harga: dataCheckoutRedux[i].harga,
-//         totalHarga: dataCheckoutRedux[i].totalHarga,
-//         status: "waiting approval"
-//       };
-//       var id = data.id;
-//       Axios.put(`${APIURL}product/waitingpayment/${id}`, { data })
-//         .then(res => {
-//           dispatch({ type: PUT_CHECKOUT_SUCCESS });
-//           dispatch(CheckOutGetProduct());
-//         })
-//         .catch(err => {
-//           console.log(err);
-//           dispatch({type:PUT_CHECKOUT_ERROR})
-//         });
-//     }
-//   };
-// };

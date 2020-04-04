@@ -20,7 +20,7 @@ import AccountDetails from "./pages/accountDetails";
 import Axios from "axios";
 import { APIURL } from "./helper/ApiUrl";
 import { connect } from "react-redux";
-import { onUserloginRepeat, CartGetProduct, CheckOutGetProduct, GetPaymentRequest } from "./redux/Actions";
+import { onUserloginRepeat, CartGetProduct, GetUserDetails } from "./redux/Actions";
 
 class App extends Component {
   state = {
@@ -49,8 +49,7 @@ class App extends Component {
     }
     {
       this.props.CartGetProduct();
-      // this.props.CheckOutGetProduct();
-      // this.props.GetPaymentRequest();
+      this.props.GetUserDetails();
     }
 
     console.log(this.props.Login);
@@ -85,4 +84,4 @@ const MapStateToProps = state => {
   };
 };
 
-export default connect(MapStateToProps, { onUserloginRepeat, CartGetProduct, CheckOutGetProduct, GetPaymentRequest })(App);
+export default connect(MapStateToProps, { onUserloginRepeat, CartGetProduct, GetUserDetails })(App);

@@ -766,6 +766,10 @@ border-bottom-left-radius: 15px; */
   font-size: 12px;
   margin-top: 50px;
 }
+.form-group {
+  font-weight: bold;
+  font-size: 15px;
+}
 
 /* ================================================ payment-request ============= */
 .container-1-paymentReq {
@@ -848,9 +852,23 @@ border-bottom-left-radius: 15px; */
   color: #c48236;
   cursor: pointer;
 }
+.left-box-apaya-bingung {
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5%; */
+  padding: 10px;
+  margin: 0 50px 0 100px;
+}
+.container-accountdetails {
+  margin: 50px 0 0 20px;
+}
+.container-changepass {
+  margin: 50px 0 100px 20px;
+}
 /* ============================================= footer ========================= */
 .footer {
-  border-top: 2px solid black;
+  /* border-top: 2px solid black; */
   font-family: "Poppins";
+  background-color: #363636;
+  color: white;
   /* width: ; */
 }
