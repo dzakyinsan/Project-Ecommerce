@@ -253,9 +253,9 @@ function ManageProduct() {
     <Fragment>
       {/* ========= modal add =========== */}
       <Modal title="add data" toggle={toggleadd} modal={modaladd} actionfunc={adddata} btnTitle="save">
-        <input type="text" name="namaProduk" placeholder="nama produk" className="form-control" onChange={onchangeAdddata} />
-        <input type="text" name="harga" placeholder="harga" className="form-control" onChange={onchangeAdddata} />
-        <select name="categoryId" className="form-control" onChange={onchangeAdddata}>
+        <input type="text" name="namaProduk" placeholder="nama produk" className="form-control adminadd" onChange={onchangeAdddata} />
+        <input type="text" name="harga" placeholder="harga" className="form-control adminadd" onChange={onchangeAdddata} />
+        <select name="categoryId" className="form-control adminadd" onChange={onchangeAdddata}>
           <option hidden>piliih category</option>
           {dataCategoryRedux.map((val, index) => {
             return (
@@ -269,9 +269,9 @@ function ManageProduct() {
       </Modal>
       {/* ===========  modal edit ======== */}
       <Modal title={`edit product ${editDataProduct.namaProduk}`} toggle={toggleedit} modal={modaledit} actionfunc={Editdata} btnTitle="update">
-        <input type="text" name="namaProduk" value={editDataProduct.namaProduk} className="form-control" onChange={onchangeEditdata} />
-        <input type="text" name="harga" value={editDataProduct.harga} className="form-control" onChange={onchangeEditdata} />
-        <select name="categoryId" value={editDataProduct.categoryId} className="form-control" onChange={onchangeEditdata}>
+        <input type="text" name="namaProduk" value={editDataProduct.namaProduk} className="form-control adminadd" onChange={onchangeEditdata} />
+        <input type="text" name="harga" value={editDataProduct.harga} className="form-control adminadd" onChange={onchangeEditdata} />
+        <select name="categoryId" value={editDataProduct.categoryId} className="form-control adminadd" onChange={onchangeEditdata}>
           <option hidden>piliih category</option>
           {dataCategoryRedux.map((val, index) => {
             return (

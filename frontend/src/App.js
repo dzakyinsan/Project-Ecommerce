@@ -55,7 +55,7 @@ class App extends Component {
     console.log(this.props.Login);
 
     return (
-      <div style={{ backgroundColor: "#f5f5f5" }}>
+      <div className='Appjs' >
         <Header />
         <Switch>
           <Route path={"/"} exact component={Home} />

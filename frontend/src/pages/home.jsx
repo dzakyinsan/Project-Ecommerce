@@ -17,7 +17,7 @@ import { GetHotItems } from "./../redux/Actions";
 
 class Home extends Component {
   state = {
-    dataFootball: []
+    dataFootball: [],
   };
 
   componentDidMount() {
@@ -35,8 +35,8 @@ class Home extends Component {
                 <Card.Img
                   variant="top"
                   src={APIURLimage + val.gambar}
-                  onMouseOver={e => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
-                  onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+                  onMouseOver={(e) => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
+                  onMouseOut={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
                   className="card-img-home"
                 />
               </Link>
@@ -61,8 +61,8 @@ class Home extends Component {
                 <Card.Img
                   variant="top"
                   src={APIURLimage + val.gambar}
-                  onMouseOver={e => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
-                  onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+                  onMouseOver={(e) => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
+                  onMouseOut={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
                   className="card-img-home"
                 />
               </Link>
@@ -87,8 +87,8 @@ class Home extends Component {
                 <Card.Img
                   variant="top"
                   src={APIURLimage + val.gambar}
-                  onMouseOver={e => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
-                  onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+                  onMouseOver={(e) => (e.currentTarget.src = "https://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Ecommerce%20Buy.png")}
+                  onMouseOut={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
                   className="card-img-home"
                 />
               </Link>
@@ -109,9 +109,17 @@ class Home extends Component {
       <div className="home">
         {/* <Carousel /> */}
         <Carouselgambar />
-
         {/* <CarouselIklan /> */}
         {/* <PilihanHome /> */}
+        {/* =================== custom ================== */}
+        {/* <div className="row" style={{ paddingTop: "100px",backgroundColor:'white' }}>
+          <div className="col-md-5 desc-img" >
+            <h1>THE GREATNESS HAS NO PEAK</h1>
+          </div>
+          <div className="col-md-7" >
+            <img className="home-img" src="https://media-assets-05.thedrum.com/cache/images/thedrum-prod/public-drum_basic_article-95736-main_images-wayne-rooney--2x1--940.jpg" />
+          </div>
+        </div> */}
         {/* =========================== pilihan menu ================== */}
         <Fade bottom>
           <div className="row">
@@ -262,11 +270,11 @@ class Home extends Component {
     );
   }
 }
-const MapStateToProps = state => {
+const MapStateToProps = (state) => {
   return {
     HotItemsFootball: state.HomeReducer.HotItemsFootball,
     HotItemsBasketball: state.HomeReducer.HotItemsBasketball,
-    HotItemsRunning: state.HomeReducer.HotItemsRunning
+    HotItemsRunning: state.HomeReducer.HotItemsRunning,
   };
 };
 export default connect(MapStateToProps, { GetHotItems })(Home);

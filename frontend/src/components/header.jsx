@@ -200,7 +200,7 @@ const Header = props => {
             ) : null}
             {loginOk === true && roleId === 1 ? (
               <Fade right>
-                <div className="username-login-admin" style={{ marginLeft: "800px" }}>
+                <div className="username-login-admin" style={{ marginLeft: "600px" }}>
                   <a>Hello,{usernameRedux}</a>
                 </div>
               </Fade>
@@ -238,7 +238,7 @@ const Header = props => {
               <Fade right>
                 <div className="login-regis" style={{ marginLeft: "1150px" }}>
                   <div className="text-login-regis" onClick={() => dispatch({ type: USER_MODAL_OPEN })}>
-                    <b>Join Us</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
+                    <b>Join Now</b> <KeyboardArrowDownIcon fontSize="large" style={{ marginLeft: "50px", marginBottom: "10px" }} />
                   </div>
                 </div>
               </Fade>

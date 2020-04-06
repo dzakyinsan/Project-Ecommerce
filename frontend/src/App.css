@@ -4,7 +4,9 @@ html {
 .App {
   text-align: center;
 }
-
+.Appjs {
+  background-color: #f5f5f5;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -67,13 +69,14 @@ html {
   color: whitesmoke;
   font-size: 16px;
   margin-top: 19px;
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 .username-login-admin {
   font-family: "Press Start 2P";
   color: whitesmoke;
   font-size: 16px;
   margin-top: 19px;
+  /* border: 2px solid red; */
   /* margin-left: 100px; */
 }
 .manage-product {
@@ -158,6 +161,8 @@ html {
 @import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Thambi+2&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap');
 /* ============== css gambar-carousel mdb ========= */
 
 .carousel-gambar {
@@ -379,6 +384,19 @@ border-bottom-left-radius: 15px; */
 }
 
 /* ================== Home football ==================== */
+.home-img {
+  width: 100%;
+  background-color: white;
+}
+.desc-img{
+  text-align: center;
+}
+.desc-img h1{
+  font-size: 100px;
+  font-weight: bold;
+  padding-left: 100px;
+  padding-top: 120px;
+}
 .home-menu-football {
   background-color: black;
   padding-top: 100px;
@@ -833,6 +851,9 @@ border-bottom-left-radius: 15px; */
 .left-tabs {
   /* border: 2px solid red; */
   font-family: "Poppins";
+}
+.adminadd{
+  margin: 10px 0 10px 0;
 }
 /* =============================================== account details ================= */
 .title-account-detail {

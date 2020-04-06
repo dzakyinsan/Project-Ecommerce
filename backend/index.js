@@ -11,7 +11,7 @@ app.use(BodyParser.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  return res.status(200).send("<h1>Selamat datang di kontoru mekdonaru </h1>");
+  return res.status(200).send("<h1>Selamat datang di backend</h1>");
 });
 
 const { AuthRouter,productRouter } = require("./routers");
