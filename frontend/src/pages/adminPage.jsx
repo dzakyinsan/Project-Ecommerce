@@ -27,7 +27,7 @@ function AdminPage() {
     dispatch(GetEachDataPayment());
   }, []);
   return (
-    <Tabs defaultTab="manage-product" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
+    <Tabs defaultTab="payment-request" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
       <TabList className="left-tabs">
         {/* <Tab tabFor="Football-managed">Football</Tab> */}
         <Tab tabFor="manage-product">All Product</Tab>

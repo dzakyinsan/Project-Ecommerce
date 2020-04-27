@@ -52,7 +52,13 @@ function ManageProduct() {
   const [addDataProduct, setaddDataProduct] = useState([]);
   const [addimagefile, setaddimagefile] = useState({
     imageFileName: "select image...",
-    imageFile: undefined
+    imageFile: undefined,
+    imageFileName2: "select image 2...",
+    imageFile2: undefined,
+    imageFileName3: "select image 3...",
+    imageFile3: undefined,
+    imageFileName4: "select image 4...",
+    imageFile4: undefined
   });
   const [editDataProduct, seteditDataProduct] = useState([]);
   // const [dataEditBackend, setdataEditBackend] = useState([]);
@@ -88,14 +94,15 @@ function ManageProduct() {
     const { name, value } = e.target;
     setaddDataProduct({ ...addDataProduct, [name]: value });
   };
-  const onAddImageFileChange = event => {
-    console.log("event.target.files[0]", event.target.files[0]); //ini isinya nama dari img yg kita ambil
-    var file = event.target.files[0];
+  const onAddImageFileChange = e => {
+    console.log("e.target.files[0]", e.target.files[0]); //ini isinya nama dari img yg kita ambil
+    var file = e.target.files[0];
+    var name=e.target.name
 
     if (file) {
-      setaddimagefile({ ...addimagefile, ImageFileName: file.name, imageFile: event.target.files[0] });
+      setaddimagefile({ ...addimagefile, ImageFileName: file.name, [name]: e.target.files[0] });
     } else {
-      setaddimagefile({ ...addimagefile, ImageFileName: "Select Image...", ImageFile: undefined });
+      setaddimagefile({ ...addimagefile, ImageFileName: "Select Image...", [name]: undefined });
     }
   };
   // ================================================ edit  =============================
@@ -217,8 +224,8 @@ function ManageProduct() {
         <TableRow key={val.id}>
           <TableCell>{index + 1}</TableCell>
           <TableCell>{val.namaProduk}</TableCell>
-          <TableCell>
-            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" />
+          <TableCell >
+            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" style={{border:'2px solid black'}} />
           </TableCell>
           <TableCell>
             <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
@@ -237,9 +244,10 @@ function ManageProduct() {
     });
   };
 
-  console.log("state dataProductRedux", dataProductRedux);
-  console.log("state dataCategoryRedux", dataCategoryRedux);
-  console.log("state dataEditRedux", dataEditRedux);
+  // console.log("state dataProductRedux", dataProductRedux);
+  // console.log("state dataCategoryRedux", dataCategoryRedux);
+  // console.log("state dataEditRedux", dataEditRedux);
+  console.log('addimagefile',addimagefile)
 
   if (dataProductRedux.length === 0 || dataCategoryRedux.length === 0 || dataEditRedux.length === 0) {
     return (
@@ -265,8 +273,12 @@ function ManageProduct() {
             );
           })}
         </select>
-        <CustomInput type="file" label={addimagefile.imageFileName} id="addImagePost1" className="form-control" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name='imageFile' label={addimagefile.imageFileName} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name='imageFile2' label={addimagefile.imageFileName2} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name='imageFile3' label={addimagefile.imageFileName3} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name='imageFile4' label={addimagefile.imageFileName4} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
       </Modal>
+
       {/* ===========  modal edit ======== */}
       <Modal title={`edit product ${editDataProduct.namaProduk}`} toggle={toggleedit} modal={modaledit} actionfunc={Editdata} btnTitle="update">
         <input type="text" name="namaProduk" value={editDataProduct.namaProduk} className="form-control adminadd" onChange={onchangeEditdata} />
@@ -283,6 +295,7 @@ function ManageProduct() {
         </select>
         <CustomInput type="file" label={editimagefile.imageEditFileName} id="editImagePost1" className="form-control" onChange={onEditImageFileChange} />
       </Modal>
+
       {/* ============= modal delete ========= */}
       <Modal title={`delete product`} toggle={opentogelDelete} modal={modalDeleteRedux} actionfunc={Deletedata} btnTitle="delete"></Modal>
       <div style={{ display: "flex", marginTop: "50px" }}>
@@ -309,7 +322,7 @@ function ManageProduct() {
           </Button>
         </div>
       </div>
-      <Table hover style={{ marginBottom: "500px" }}>
+      <Table hover >
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>

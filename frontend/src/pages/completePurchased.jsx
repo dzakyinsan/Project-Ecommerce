@@ -67,11 +67,11 @@ function OrderComplete() {
         <div className="col-md-3 ">
           <div className="left-box-apaya-bingung">
             <div style={{ display: "flex" }}>
-              <span style={{ fontSize: "80px", marginLeft: "10px", color: "grey" }}>
+              <span style={{ fontSize: "50px", marginLeft: "10px", color: "grey" }}>
                 <i className="fas fa-user-circle"></i>
               </span>
-              <div style={{ marginTop: "30px", marginLeft: "20px" }}>
-                <h2>{username}</h2>
+              <div style={{ marginTop: "13px", marginLeft: "20px" }}>
+                <h4>{username}</h4>
                 <h6 style={{ color: "grey" }}> #FTS{idUser}</h6>
               </div>
             </div>
@@ -103,7 +103,7 @@ function OrderComplete() {
               <center>Complete Transaction</center>
             </h6>
           </div>
-          <div className="cart-page" style={{ paddingTop: "80px" }}>
+          <div className="cart-page" style={{ paddingTop: "30px" }}>
             <Modal toggle={toggleModal} modal={modalOpen} style={{ marginTop: "200px" }}>
               <div>
                 <div>

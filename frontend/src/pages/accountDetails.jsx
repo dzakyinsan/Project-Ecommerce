@@ -74,11 +74,11 @@ function OrderComplete() {
         <div className="col-md-3">
           <div className="left-box-apaya-bingung">
             <div style={{ display: "flex" }}>
-              <span style={{ fontSize: "80px", marginLeft: "10px", color: "grey" }}>
+              <span style={{ fontSize: "50px", marginLeft: "10px", color: "grey" }}>
                 <i className="fas fa-user-circle"></i>
               </span>
-              <div style={{ marginTop: "30px", marginLeft: "20px" }}>
-                <h2>{username}</h2>
+              <div style={{ marginTop: "13px", marginLeft: "20px" }}>
+                <h4>{username}</h4>
                 <h6 style={{ color: "grey" }}> #FTS{idUser}</h6>
               </div>
             </div>
@@ -103,16 +103,16 @@ function OrderComplete() {
 
         <div className="col-md-8">
           <div className="orderComplete-title">
-            <h3>
+            <h4>
               <center>Your Account</center>
-            </h3>
+            </h4>
             <h6>
               <center>Account Details</center>
             </h6>
           </div>
           <div className="container-accountdetails">
             <div className="form-group ">
-              <label for="inputNamaLengkap">
+              <label className='label-AD' for="inputNamaLengkap">
                 Nama Lengkap &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input
@@ -125,27 +125,27 @@ function OrderComplete() {
               />
             </div>
             <div className="form-group ">
-              <label for="inputAlamatLengkap">
+              <label className='label-AD' for="inputAlamatLengkap">
                 Alamat &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input type="text" name="alamat" className="form-control" placeholder="example: jl.Kunai barat no.6" defaultValue={dataUserDetailRedux.alamat} onChange={onChangeUserDetails} />
             </div>
             <div className="form-group  row">
               <div className="col-md-6">
-                <label for="inputKota">
+                <label className='label-AD' for="inputKota">
                   Kota &nbsp;<span style={{ color: "red" }}>*</span>
                 </label>
                 <input type="text" name="kota" className="form-control" placeholder="example: Konoha" defaultValue={dataUserDetailRedux.kota} onChange={onChangeUserDetails} />
               </div>
               <div className="col-md-6">
-                <label for="inputProvinsi">
+                <label className='label-AD' for="inputProvinsi">
                   Provinsi &nbsp;<span style={{ color: "red" }}>*</span>
                 </label>
                 <input type="text" name="provinsi" className="form-control" placeholder="example: Gakure" defaultValue={dataUserDetailRedux.provinsi} onChange={onChangeUserDetails} />
               </div>
             </div>
             <div className="form-group ">
-              <label for="inputNomorHp">
+              <label className='label-AD' for="inputNomorHp">
                 Telepon/WA &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input type="number" name="telepon" className="form-control" placeholder="example: 14045" defaultValue={dataUserDetailRedux.telepon} onChange={onChangeUserDetails} />
@@ -167,19 +167,19 @@ function OrderComplete() {
             <div style={{ fontWeight: "bold" }}>PASSWORD CHANGE </div>
             <hr />
             <div className="form-group ">
-              <label for="inputCurretPassword">
+              <label className='label-AD' for="inputCurretPassword">
                 Current Password &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input type="password" name="passwordLama" onChange={onChangePass} className="form-control" />
             </div>
             <div className="form-group ">
-              <label for="inputNewPassword">
+              <label className='label-AD' for="inputNewPassword">
                 New Password &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input type="password" name="passwordBaru" onChange={onChangePass} className="form-control" />
             </div>
             <div className="form-group ">
-              <label for="inputCofirmNewPass">
+              <label className='label-AD' for="inputCofirmNewPass">
                 Confirm New Password &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
               <input type="text" name="password" onChange={onChangePass} className="form-control" />

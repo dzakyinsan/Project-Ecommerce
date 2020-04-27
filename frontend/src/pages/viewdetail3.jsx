@@ -118,28 +118,30 @@ function ViewDetail2() {
       <div className="col-md-6">
         <div className="row">
           <div className="col-md-6 image-viewdetail2">
-            <img src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
         </div>
       </div>
-      <div className="col-md-4 viewdetail-desc">
-        <div style={{ width: "450px" }}>
-          <h4>{dataDetail.category}</h4>
-          <h1>{dataDetail.namaProduk}</h1>
-          <div className="harga-detail" style={{ marginTop: "40px" }}>
+{/* font-family: "Baloo Paaji 2", cursive; */}
+
+      <div className="col-md-4 viewdetail-cont">
+        <div className='viewdetail-desc'>
+          <h5>{dataDetail.category}</h5>
+          <h2>{dataDetail.namaProduk}</h2>
+          <div className="harga-detail" style={{ marginTop: "20px" }}>
             <NumberFormat value={dataDetail.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
           </div>
-          <div style={{ marginBottom: "50px", marginTop: "80px" }}>
-            <p>select size</p>
+          <div style={{ marginBottom: "50px", marginTop: "20px" }}>
+            <p >select size</p>
             <div className="container-size">
               <label className="size-label">
                 <input type="radio" name="size" value="40" onChange={onSizeChange} />

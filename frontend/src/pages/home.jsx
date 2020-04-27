@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "../components/header";
 import PilihanHome from "./../components/pilihanHome";
 import Carousel from "./../components/carousel";
 import Carouselgambar from "./../components/carousel-gambar";
@@ -14,6 +15,9 @@ import Bounce from "react-reveal/Bounce";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetHotItems } from "./../redux/Actions";
+import NumberFormat from "react-number-format";
+import MouseOutlinedIcon from "@material-ui/icons/MouseOutlined";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 class Home extends Component {
   state = {
@@ -30,7 +34,7 @@ class Home extends Component {
         <div className="col-md-2">
           <Bounce right>
             <Card text="white" style={{ width: "18rem", backgroundColor: "#000000" }}>
-              <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot </Card.Header>
+              {/* <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot </Card.Header> */}
               <Link to={"/viewdetail3/" + val.id}>
                 <Card.Img
                   variant="top"
@@ -42,7 +46,9 @@ class Home extends Component {
               </Link>
               <Card.Body>
                 <Card.Title>{val.namaProduk}</Card.Title>
-                <Card.Text>{val.harga}</Card.Text>
+                <Card.Title>
+                  <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                </Card.Title>
               </Card.Body>
             </Card>
           </Bounce>
@@ -56,7 +62,7 @@ class Home extends Component {
         <div className="col-md-4">
           <Bounce right>
             <Card text="white" style={{ width: "18rem", backgroundColor: "#1c1c1c" }}>
-              <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot</Card.Header>
+              {/* <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot</Card.Header> */}
               <Link to={"/viewdetail2/" + val.id}>
                 <Card.Img
                   variant="top"
@@ -68,7 +74,9 @@ class Home extends Component {
               </Link>
               <Card.Body>
                 <Card.Title>{val.namaProduk}</Card.Title>
-                <Card.Text>{val.harga}</Card.Text>
+                <Card.Title>
+                  <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                </Card.Title>
               </Card.Body>
             </Card>
           </Bounce>
@@ -79,10 +87,10 @@ class Home extends Component {
   renderRunning = () => {
     return this.props.HotItemsRunning.map((val, index) => {
       return (
-        <div className="col-md-2">
+        <div className="col-md-2 mb-4">
           <Bounce right>
             <Card text="white" style={{ width: "18rem", backgroundColor: "#5e5e5e" }}>
-              <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot</Card.Header>
+              {/* <Card.Header style={{ color: "red", textAlign: "center", fontSize: "20px" }}>Still Hot</Card.Header> */}
               <Link to={"/viewdetail/" + val.id}>
                 <Card.Img
                   variant="top"
@@ -94,7 +102,9 @@ class Home extends Component {
               </Link>
               <Card.Body>
                 <Card.Title>{val.namaProduk}</Card.Title>
-                <Card.Text>{val.harga}</Card.Text>
+                <Card.Title>
+                  <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
+                </Card.Title>
               </Card.Body>
             </Card>
           </Bounce>
@@ -107,71 +117,42 @@ class Home extends Component {
     // console.log("isi props", this.props);
     return (
       <div className="home">
-        {/* <Carousel /> */}
-        <Carouselgambar />
-        {/* <CarouselIklan /> */}
-        {/* <PilihanHome /> */}
-        {/* =================== custom ================== */}
-        {/* <div className="row" style={{ paddingTop: "100px",backgroundColor:'white' }}>
-          <div className="col-md-5 desc-img" >
-            <h1>THE GREATNESS HAS NO PEAK</h1>
-          </div>
-          <div className="col-md-7" >
-            <img className="home-img" src="https://media-assets-05.thedrum.com/cache/images/thedrum-prod/public-drum_basic_article-95736-main_images-wayne-rooney--2x1--940.jpg" />
-          </div>
-        </div> */}
-        {/* =========================== pilihan menu ================== */}
-        <Fade bottom>
-          <div className="row">
-            <div className="col-md-4 pilihan-home">
-              <div className="isi-pilihan-home">
-                <div className="animate-flicker">
-                  <div className="text-home">
-                    <a href="#footballPage">FootBall</a>
-                  </div>
-                  <div style={{ textAlign: "center", color: "whitesmoke" }}>
-                    <KeyboardArrowDownIcon fontSize="large" />
+        <Carousel />
+
+        <Fade bottom delay={800}>
+          <div style={{ backgroundColor: "white", minHeight: "150px" }}>
+            <a href="#footballPage">
+              <div className="square">
+                <div className="object">
+                  <MouseOutlinedIcon fontSize="large" />
+                </div>
+                <div className="object2">
+                  <div className="animate-flicker">
+                    <ExpandMoreIcon fontSize="large" />
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-md-4 pilihan-home">
-              <div className="isi-pilihan-home">
-                <div className="animate-flicker">
-                  <div className="text-home">
-                    <a href="#basketballPage">Basketball</a>
-                  </div>
-                  <div style={{ textAlign: "center", color: "whitesmoke" }}>
-                    <KeyboardArrowDownIcon fontSize="large" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 pilihan-home">
-              <div className="isi-pilihan-home">
-                <div className="animate-flicker">
-                  <div className="text-home">
-                    <a href="#runningPage">Running</a>
-                  </div>
-                  <div style={{ textAlign: "center", color: "whitesmoke" }}>
-                    <KeyboardArrowDownIcon fontSize="large" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </Fade>
+
         {/* =========================== football menu =============== */}
         <div className="home-menu-football">
-          <div className="cuma-div-untuk-tujuan-id" id="footballPage"></div>
+          <div className="cuma-div-untuk-tujuan-id" id="footballPage"/>
 
           <div className="category-title">
-            <Zoom>FOOTBALL BOOTS</Zoom>
+            <Zoom>We Created The Best Soccer Shoes In The World</Zoom>
+          </div>
+          <div className="football-desc ">
+            <Zoom>
+              Discover Nike men's football boots for unstoppable playmaking, explosive speed, and deadly agility. Choose from men's styles such as the Phantom, Tiempo, Mercurial, Hypervenom, and
+              FootballX to match your position and style of play.
+            </Zoom>
           </div>
           <div>
             <Zoom>
               <div className="col-md-6 container">
-                <img className="d-block w-100 image" src="https://www.jakpost.travel/wimages/large/96-966766_soccer-nike-electro-boots-wallpaper-2018-in-soccer.jpg" alt="First slide" />
+                <img className="image" src="https://i2.wp.com/www.soccercleats101.com/wp-content/uploads/2017/08/Nike-Future-Pack.jpg" alt="First slide" />
                 <div className="middle">
                   <Link to={"/catalogs3"}>
                     <div className="text"> Buy Now</div>
@@ -180,25 +161,15 @@ class Home extends Component {
               </div>
             </Zoom>
             <div>
-              <div className="football-desc ">
-                <Zoom>
-                  Discover Nike men's football boots for unstoppable playmaking, explosive speed, and deadly agility. Choose from men's styles such as the Phantom, Tiempo, Mercurial, Hypervenom, and
-                  FootballX to match your position and style of play.
-                </Zoom>
-              </div>
               <div className="football-desc-right">
-                <Bounce left>
-                  <hr style={{ backgroundColor: "white" }} />
-                  <h3>Hot Items</h3>
-                  <hr style={{ backgroundColor: "white" }} />
-                </Bounce>
-                <div className="row">{this.renderFootball()}</div>
+                <Bounce left></Bounce>
+                {/* <div className="row">{this.renderFootball()}</div> */}
               </div>
             </div>
           </div>
         </div>
         {/* ============================= basketball menu =================== */}
-        <div className="home-menu-basketball">
+        {/* <div className="home-menu-basketball">
           <div className="cuma-div-untuk-tujuan-id" id="basketballPage"></div>
 
           <div className="category-title-basketball">
@@ -223,18 +194,15 @@ class Home extends Component {
                 </Bounce>
               </div>
               <div className="basketball-desc-right">
-                <Bounce right>
-                  <hr style={{ backgroundColor: "white" }} />
-                  <h3>Hot Items</h3>
-                  <hr style={{ backgroundColor: "white" }} />
+                <Bounce right> 
                 </Bounce>
                 <div className="row">{this.renderBasketball()}</div>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* ============================= running menu =================== */}
-        <div className="home-menu-running">
+        {/* <div className="home-menu-running">
           <div className="cuma-div-untuk-tujuan-id" id="runningPage"></div>
 
           <div className="category-title-running">
@@ -257,15 +225,12 @@ class Home extends Component {
               </div>
               <div className="running-desc-right">
                 <Bounce left>
-                  <hr style={{ backgroundColor: "white" }} />
-                  <h3>Hot Items</h3>
-                  <hr style={{ backgroundColor: "white" }} />
                 </Bounce>
                 <div className="row">{this.renderRunning()}</div>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

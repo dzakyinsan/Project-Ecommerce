@@ -215,7 +215,7 @@ module.exports = {
       const upload = uploader(path, "PRODUCT").fields([{ name: "image" }]);
 
       upload(req, res, err => {
-        if (err) {
+        if (err) { 
           return res.status(500).send(err);
         }
         // foto telah terupload disini

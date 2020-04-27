@@ -7,6 +7,7 @@ import { APIURL, APIURLimage } from "../helper/ApiUrl";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Fade from "react-reveal/Fade";
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -31,22 +32,22 @@ const Catalogs = () => {
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductRunning/${page}`)
-      .then(res => {
+      .then((res) => {
         setdataRunning(res.data.pageOfData);
         setpager(res.data.pager);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductRunning/${page}`)
-      .then(res => {
+      .then((res) => {
         setdataRunning(res.data.pageOfData);
         setpager(res.data.pager);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, [page]);
@@ -54,7 +55,7 @@ const Catalogs = () => {
   // =================================== useEffect search =====================
   useEffect(() => {
     setfiltereddataRunning(
-      dataRunning.filter(running => {
+      dataRunning.filter((running) => {
         return running.namaProduk.toLowerCase().includes(search.toLowerCase());
       })
     );
@@ -64,18 +65,18 @@ const Catalogs = () => {
     console.log("dataRunning", dataRunning);
     return filtereddataRunning.map((val, index) => {
       return (
-        <div className="col-md-3">
+        <div className="col-md-3" >
           <Card className="mt-5 card-container">
             <Link to={"/viewdetail/" + val.id}>
               <Card.Img
                 variant="top"
                 src={APIURLimage + val.gambar}
-                onMouseOver={e => (e.currentTarget.src = APIURLimage + val.gambar)}
-                onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+                onMouseOver={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
+                onMouseOut={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
                 className="card-img"
               />
             </Link>
-            <Card.Body style={{ textAlign: "center" }}>
+            <Card.Body style={{ textAlign: "center", minHeight: "135.5px" }}>
               <Card.Text>New arrival</Card.Text>
               <Card.Title>{val.namaProduk}</Card.Title>
               <Card.Text>Harga Rp.{val.harga}</Card.Text>
@@ -91,36 +92,23 @@ const Catalogs = () => {
   return (
     <div>
       <div className="catalog-page">
-        <img
-          className="d-block w-100"
-          style={{ height: "400px" }}
-          src="https://content.nike.com/content/dam/one-nike/en_hk/SU16/Cities/NRC-header.jpg.transform/full-screen/NRC-header.jpg"
-          alt="catalog1"
-        />{" "}
+        <Fade top>
+          <img
+            className="d-block w-100"
+            style={{ height: "400px" }}
+            src="https://content.nike.com/content/dam/one-nike/en_hk/SU16/Cities/NRC-header.jpg.transform/full-screen/NRC-header.jpg"
+            alt="catalog1"
+          />
+        </Fade>
         <div className="row">
-          <div className="col-md-2"></div>{" "}
-          <div className="col-md-8 ">
-            {/* <div className={classes.root}>
-              <TextField
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  )
-                }}
-                id="outlined-basic"
-                // label="Search..."
-                placeholder="Search..."
-                variant="outlined"
-                type="text"
-                onChange={e => setsearch(e.target.value)}
-              />
-            </div> */}
-            <div className="row">{renderProducts()}</div>{" "}
+          <div className="col-md-1" />
+          <div className="col-md-10 " >
+            <Fade bottom cascade>
+              <div className="row">{renderProducts()}</div>
+            </Fade>
           </div>
-          <div className="col-md-2"></div>{" "}
-        </div>{" "}
+          <div className="col-md-1" />
+        </div>
       </div>
       {pager.pages && pager.pages.length && (
         <ul className="pagination">
@@ -134,7 +122,7 @@ const Catalogs = () => {
               Previous
             </Link>
           </li> */}
-          {pager.pages.map(page => (
+          {pager.pages.map((page) => (
             <li key={page} className={`page-item number-item ${pager.currentPage === page ? "active" : ""}`}>
               <Link style={{ backgroundColor: "#333333", color: "white", fontSize: "20px" }} to={{ search: `?page=${page}` }} className="page-link" onClick={() => setPage(page)}>
                 {page}

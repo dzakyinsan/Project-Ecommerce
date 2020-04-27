@@ -24,7 +24,7 @@ class AppPage extends React.Component {
               <MDBContainer style={{ marginRight: "600px" }}>
                 <MDBRow>
                   <MDBCol md="6" className="white-text text-center text-md-left mt-xl-5 mb-5">
-                    <MDBAnimation style={{ fontSize: "30px" }} type="fadeInLeft" delay=".5s">
+                    {/* <MDBAnimation style={{ fontSize: "30px" }} type="fadeInLeft" delay=".5s">
                       <h3 style={{ letterSpacing: "5px" }} className="h1-responsive font-weight-bold mt-sm-5">
                         WHY NOT FASTER
                       </h3>
@@ -33,11 +33,11 @@ class AppPage extends React.Component {
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor
                         molestiae iste.
                       </h6>
-                      {/* <MDBBtn color="white">SHOP</MDBBtn>
+                      <MDBBtn color="white">SHOP</MDBBtn>
                     <MDBBtn outline color="white">
                       Learn More
-                    </MDBBtn> */}
-                    </MDBAnimation>
+                    </MDBBtn>
+                    </MDBAnimation> */}
                   </MDBCol>
                   <MDBCol md="3" />
 

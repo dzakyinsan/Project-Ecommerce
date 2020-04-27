@@ -9,7 +9,7 @@ router.get("/getproduct", productControllers.getProduct);
 router.get("/getproductFootball/:page", productControllers.getProductFootball);
 router.get("/getproductBasketball/:page", productControllers.getProductBasketball);
 router.get("/getproductRunning/:page", productControllers.getProductRunning);
-// ========================================= Manage product c& category ===============
+// ========================================= Manage product & category ===============
 router.post("/postproduct", productControllers.postProduct);
 router.put("/editdata/:id", productControllers.editProduct);
 router.delete("/deletedata/:productid", productControllers.deleteProduct);

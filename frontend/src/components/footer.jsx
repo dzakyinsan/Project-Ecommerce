@@ -6,7 +6,7 @@ class footer extends Component {
   state = {};
   render() {
     return (
-      <div className='footer'>
+      <div className="footer">
         <div className="row px-5" style={{ height: "250px" }}>
           <div className="col-md-2" style={{}}></div>
           <div className="col-md-2" style={{ height: "250px", marginTop: "10px" }}>
@@ -17,8 +17,11 @@ class footer extends Component {
             </p>
             <p></p>
           </div>
-          <div className="col-md-2" style={{ height: "250px", marginTop: "10px" }}>
-            <h5 className="mt-3 mb-4">Contact Us</h5>
+          <div className="col-md-2" style={{ height: "250px", marginTop: "10px" }} id="contactus">
+            <h5 className="mt-3 mb-4" >
+            {/* <a id="contactus"></a> */}
+              Contact Us</h5>
+
             <p>Jl. Srikusuma No. 11A Bandung, 40254 +62 821 2882 3223 admin@reclays.id Monday – Sunday (10.00 – 20.00 WIB)</p>
             <p></p>
           </div>
@@ -34,23 +37,23 @@ class footer extends Component {
             <h5 className="mt-3 mb-4">Social Media</h5>
             <div>
               {/* <h1 ><FaFacebook/></h1> */}
-              <h1 className="fab fa-facebook-square mr-4"/>
-              <h1 className="fab fa-instagram mr-4"/>
-              <h1 className="fab fa-twitter mr-4"/>
-              <h1 className="fab fa-whatsapp mr-4"/>
+              <h1 className="fab fa-facebook-square mr-4" />
+              <h1 className="fab fa-instagram mr-4" />
+              <h1 className="fab fa-twitter mr-4" />
+              <h1 className="fab fa-whatsapp mr-4" />
             </div>
           </div>
           <div className="col-md-2" style={{}}></div>
         </div>
-        <div style={{ height: "70px", textAlign: "center", paddingTop: "20px" }}>
+        <div style={{ height: "70px", textAlign: "center" }}>
           <hr
             style={{
-              color: 'black',
-              backgroundColor: '#cccccc',
-              height: 1
+              color: "black",
+              backgroundColor: "#cccccc",
+              height: 1,
             }}
           />
-          <p>Copyright © 2020 All Rights by Dzakyinsan</p>
+          <p style={{marginTop:'20px',marginBottom:'20px'}}> Copyright © 2020 All Rights by Dzakyinsan</p>
         </div>
       </div>
     );

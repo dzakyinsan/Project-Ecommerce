@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
-import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import { CustomInput } from "reactstrap";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
@@ -120,14 +120,21 @@ function CheckOut() {
 
   if (dataCheckoutRedux === undefined || dataCheckoutRedux.length === 0) {
     return (
-      <div className="checkout-page" style={{ paddingTop: "300px", textAlign: "center" }}>
-        <h1 style={{ fontSize: "100px" }}>tidak ada barang di checkout</h1>
-        <div className="checkorder-button">
-          <Link to={"/waitingAdminApproval"}>
-            <Button variant="contained">Check you order</Button>
-          </Link>
-        </div>
+      <div className="checkout-page" style={{ paddingTop: "100px", textAlign: "center" }}>
+      <div className="checkout-title">
+      <h3>
+        <center>Checkout</center>
+      </h3>
+    </div>
+    <img src='https://store.topekazoo.org/resources/images/common/empty-cart.png'/>
+      <h1 style={{ marginTop:'50px',fontSize: "30px" }}>No Products Checked out</h1>
+      <div className="checkorder-button">
+        <Link to={"/waitingAdminApproval"}>
+          <Button variant="contained">Check you order</Button>
+        </Link>
       </div>
+      
+    </div>
     );
   }
   if (goToCompletePage && dataCheckoutRedux.length === 0) {
@@ -151,37 +158,37 @@ function CheckOut() {
             <label for="inputNamaLengkap">
               Nama Lengkap &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="text" name="nama" className="form-control" placeholder="Nama Pengirim" defaultValue={PostCheckout.nama} onChange={onChangeCheckout} />
+            <input type="text" name="nama" className="form-control" placeholder="Ex: Uzumaki wibuto" defaultValue={PostCheckout.nama} onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="inputAlamatLengkap">
               Alamat Pengiriman &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="text" name="alamat" className="form-control" placeholder="Alamat yang akan dituju" defaultValue={PostCheckout.alamat} onChange={onChangeCheckout} />
+            <input type="text" name="alamat" className="form-control" placeholder="Ex: Jl.Ninjaku no.7 " defaultValue={PostCheckout.alamat} onChange={onChangeCheckout} />
           </div>
           <div className="form-group row">
             <div className="col-md-6">
               <label for="inputProvinsi">
                 Provinsi &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
-              <input type="text" name="provinsi" className="form-control" placeholder="Provinsi" defaultValue={PostCheckout.provinsi} onChange={onChangeCheckout} />
+              <input type="text" name="provinsi" className="form-control" placeholder="Ex: Saskeh Barat" defaultValue={PostCheckout.provinsi} onChange={onChangeCheckout} />
             </div>
             <div className="col-md-6">
               <label for="inputKota">
                 Kota &nbsp;<span style={{ color: "red" }}>*</span>
               </label>
-              <input type="text" name="kota" className="form-control" placeholder="Kota" defaultValue={PostCheckout.kota} onChange={onChangeCheckout} />
+              <input type="text" name="kota" className="form-control" placeholder="Ex: Sunagakure" defaultValue={PostCheckout.kota} onChange={onChangeCheckout} />
             </div>
           </div>
           <div className="form-group">
             <label for="inputNomorHp">
               Telepon/WA &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="number" name="telepon" className="form-control" placeholder="Nomor telepon" defaultValue={PostCheckout.telepon} onChange={onChangeCheckout} />
+            <input type="number" name="Ex: " className="form-control" placeholder="Ex: 0192837465" defaultValue={PostCheckout.telepon} onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="catatan">Catatan(optional)</label>
-            <textarea className="form-control" name="catatan" rows="3" placeholder="catatan untuk order dan pengiriman" onChange={onChangeCheckout}></textarea>
+            <textarea className="form-control" name="catatan" rows="3" placeholder="Catatan..." onChange={onChangeCheckout}></textarea>
           </div>
           <div className="mt-5">{messageErrorNotif()}</div>
           {/* =============================================================== payment box ===================== */}

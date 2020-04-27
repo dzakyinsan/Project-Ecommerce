@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "100px",
-      height: "50px",
+      width: "80px",
+      height: "40px",
       backgroundColor: "#c48236",
       color: "white",
-      fontSize: "15px"
+      fontSize: "12px"
     }
   }
 }));
@@ -76,7 +76,10 @@ function PaymentRequest() {
   if (loading) {
     return (
       <div>
-        <h1>Loading...</h1>
+        <div style={{ minHeight: "1000px", paddingTop: "300px", paddingLeft: "300px" }}>
+        <h1 style={{ fontSize: "100px", color: "#c48236" }}>FOOTBOOTS2020</h1>
+        <h1 style={{ fontSize: "80px", marginLeft: "250px" }}>loading...</h1>
+      </div>
       </div>
     );
   }
@@ -91,7 +94,7 @@ function PaymentRequest() {
     return (
       <div className="container-1-paymentReq">
         <Modal toggle={toggleModal} modal={modalOpen} style={{ marginTop: "200px" }}>
-          <div className="row t">
+          <div className="row ">
             <div className="col-md-7">
               <img src={APIURLimage + ModalDetail.gambarBukti} alt="1" width="280px" height="400px" />
             </div>
@@ -118,10 +121,10 @@ function PaymentRequest() {
         <Modal2 title={`Reject data?`} toggle={toggleModal3} modal={modalOpen3} actionfunc={RejectData} btnTitle="Reject"></Modal2>
 
         <div className="container-2-paymentReq">
-          <div>
-            <h5>
-              <AccountBoxIcon fontSize="large" className="icon-username" /> Request username : {val.username}
-            </h5>
+          <div className='nama-usernya'>          
+              <i className="far fa-user-circle" style={{fontSize:'20px'}}></i>
+              &nbsp;
+               Request username : {val.username}
           </div>
           <hr />
           {dataEachProductRedux.map((val2, index) => {
@@ -150,10 +153,10 @@ function PaymentRequest() {
           <div className="row">
             <div className="PR-kiri col-md-8" />
             <div className="PR-kanan-bawah col-md-3">
-              <h5>Total Pesanan :</h5>
-              <h4>
+              <h6>Total Pesanan :</h6>
+              <h5>
                 <NumberFormat value={val.totalHarga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
-              </h4>
+              </h5>
             </div>
           </div>
           <div className="row">

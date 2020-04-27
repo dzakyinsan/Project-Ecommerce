@@ -7,18 +7,8 @@ import { APIURL, APIURLimage } from "./../helper/ApiUrl";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Fade from "react-reveal/Fade";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     "& > *": {
-//       margin: theme.spacing(1),
-//       width: "85ch",
-//       marginTop: "25px",
-//       // fontSize: "30px",
-//       fontWeight: "bold"
-//     }
-//   }
-// }));
 
 const Catalogs = () => {
   // const classes = useStyles();
@@ -31,22 +21,22 @@ const Catalogs = () => {
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductBasketball/${page}`)
-      .then(res => {
+      .then((res) => {
         setdataBasketball(res.data.pageOfData);
         setpager(res.data.pager);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
 
   useEffect(() => {
     Axios.get(`${APIURL}product/getproductBasketball/${page}`)
-      .then(res => {
+      .then((res) => {
         setdataBasketball(res.data.pageOfData);
         setpager(res.data.pager);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, [page]);
@@ -54,7 +44,7 @@ const Catalogs = () => {
   // =================================== useEffect search =====================
   useEffect(() => {
     setfiltereddataBasketball(
-      dataBasketball.filter(basketball => {
+      dataBasketball.filter((basketball) => {
         return basketball.namaProduk.toLowerCase().includes(search.toLowerCase());
       })
     );
@@ -70,8 +60,8 @@ const Catalogs = () => {
               <Card.Img
                 variant="top"
                 src={APIURLimage + val.gambar}
-                onMouseOver={e => (e.currentTarget.src = APIURLimage + val.gambar)}
-                onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+                onMouseOver={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
+                onMouseOut={(e) => (e.currentTarget.src = APIURLimage + val.gambar)}
                 className="card-img"
               />
             </Link>
@@ -91,31 +81,18 @@ const Catalogs = () => {
   return (
     <div>
       <div className="catalog-page">
-        <img className="d-block w-100" style={{ height: "400px" }} src="https://pbs.twimg.com/media/D9izHHpXkAA45vl.jpg" alt="catalog2" />{" "}
+        <Fade top>
+          <img className="d-block w-100" style={{ height: "400px" }} src="https://pbs.twimg.com/media/D9izHHpXkAA45vl.jpg" alt="catalog2" />{" "}
+        </Fade>
         <div className="row">
-          <div className="col-md-2"></div>{" "}
-          <div className="col-md-8 ">
-            {/* <div className={classes.root}>
-              <TextField
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  )
-                }}
-                id="outlined-basic"
-                // label="Search..."
-                placeholder="Search..."
-                variant="outlined"
-                type="text"
-                onChange={e => setsearch(e.target.value)}
-              />
-            </div> */}
-            <div className="row ">{renderProducts()}</div>{" "}
+          <div className="col-md-1"/>
+          <div className="col-md-10 ">
+            <Fade bottom cascade>
+              <div className="row ">{renderProducts()}</div>
+            </Fade>
           </div>
-          <div className="col-md-2"></div>{" "}
-        </div>{" "}
+          <div className="col-md-1"/>
+        </div>
       </div>
       {pager.pages && pager.pages.length && (
         <ul className="pagination">
@@ -129,7 +106,7 @@ const Catalogs = () => {
               Previous
             </Link>
           </li> */}
-          {pager.pages.map(page => (
+          {pager.pages.map((page) => (
             <li key={page} className={`page-item number-item ${pager.currentPage === page ? "active" : ""}`}>
               <Link style={{ backgroundColor: "#333333", color: "white", fontSize: "20px" }} to={{ search: `?page=${page}` }} className="page-link" onClick={() => setPage(page)}>
                 {page}
