@@ -122,7 +122,7 @@ const Header = (props) => {
     return dataCartRedux.map((val, index) => {
       return (
         <div className="isi-dropdown-cart" style={{ display: "flex" }}>
-          <div>
+          <div >
             <img src={APIURLimage + val.gambar} alt={index} width="70px" height="70px" />
           </div>
           <div className="namadicart" style={{ minWidth: "150px" }}>
@@ -282,8 +282,8 @@ const Header = (props) => {
                       <ShoppingCartOutlinedIcon style={{ fontSize: "25px", marginLeft: "10px" }} />
                     </Badge>
                     <Fade>
-                      <div className="arrowup" />
                       <div className="parent-dropdown-cart">
+                      <div className="arrowup" />
                         {renderCartHeader()}
                         {dataCartRedux.length !== 0 ? (
                           <Link to={"/cartPage"} style={{ color: "white" }}>

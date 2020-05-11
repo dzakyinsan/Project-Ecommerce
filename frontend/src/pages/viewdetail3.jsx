@@ -140,7 +140,7 @@ function ViewDetail2() {
           <div className="harga-detail" style={{ marginTop: "20px" }}>
             <NumberFormat value={dataDetail.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
           </div>
-          <div style={{ marginBottom: "50px", marginTop: "20px" }}>
+          <div style={{ marginBottom: "30px", marginTop: "20px" }}>
             <p >select size</p>
             <div className="container-size">
               <label className="size-label">
@@ -201,6 +201,10 @@ function ViewDetail2() {
                 </Alert>
               </div>
             ) : null}
+          </div>
+          <div>
+            <p>Description</p>
+            <p style={{textAlign:'justify'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam voluptatum molestias earum modi exercitationem pariatur fuga consectetur dicta magnam quidem illo praesentium repellat doloremque harum, debitis nulla quis. Doloremque, ea!</p>
           </div>
         </div>
       </div>

@@ -113,7 +113,7 @@ const Catalogs = () => {
       {pager.pages && pager.pages.length && (
         <ul className="pagination">
           <li className={`page-item first-item ${pager.currentPage === 1 ? "disabled" : ""}`}>
-            <Link style={{ backgroundColor: "grey", color: "black", fontSize: "20px" }} to={{ search: `?page=1` }} className="page-link" onClick={() => setPage(pager.startPage)}>
+            <Link style={{ backgroundColor: "white", color: "black", fontSize: "20px" }} to={{ search: `?page=1` }} className="page-link" onClick={() => setPage(pager.startPage)}>
               First
             </Link>
           </li>
@@ -124,7 +124,7 @@ const Catalogs = () => {
           </li> */}
           {pager.pages.map((page) => (
             <li key={page} className={`page-item number-item ${pager.currentPage === page ? "active" : ""}`}>
-              <Link style={{ backgroundColor: "#333333", color: "white", fontSize: "20px" }} to={{ search: `?page=${page}` }} className="page-link" onClick={() => setPage(page)}>
+              <Link style={{ color: "blsck", fontSize: "20px" }} to={{ search: `?page=${page}` }} className="page-link" onClick={() => setPage(page)}>
                 {page}
               </Link>
             </li>
@@ -135,7 +135,7 @@ const Catalogs = () => {
             </Link>
           </li> */}
           <li className={`page-item last-item ${pager.currentPage === pager.totalPages ? "disabled" : ""}`}>
-            <Link style={{ backgroundColor: "grey", color: "black", fontSize: "20px" }} to={{ search: `?page=${pager.totalPages}` }} className="page-link" onClick={() => setPage(pager.totalPages)}>
+            <Link style={{ backgroundColor: "white", color: "black", fontSize: "20px" }} to={{ search: `?page=${pager.totalPages}` }} className="page-link" onClick={() => setPage(pager.totalPages)}>
               Last
             </Link>
           </li>

@@ -19,7 +19,6 @@ module.exports = {
       if (results[0]) {
         //pake [0] karena bentuk datanya array
         console.log("username ada");
-
         return res.status(200).send({ status: "error", message: "username has been taken" });
       } else {
         var hashpassword = cryptogenerate(password);
@@ -43,7 +42,7 @@ module.exports = {
           //     to:email,
           //     subject:`verifikasi Email app iniitu`,
           //     html:`tolong klik link ini untuk verifikasi :
-          //             <a href=${LinkVerifikasi}>Join apps ini</a>`
+          //             <a href=${LinkVerifikasi}>Join Footboots2010</a>`
           // }
           // transporter.sendMail(mailoptions,(err2,res2)=>{
           //     if(err2){

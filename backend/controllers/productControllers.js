@@ -211,7 +211,7 @@ module.exports = {
   // =========================================================== POST ================================================
   postProduct: (req, res) => {
     try {
-      const path = "/product/image"; //file save path
+      const path = "/product/image2"; //file save path
       const upload = uploader(path, "PRODUCT").fields([{ name: "image" }]);
 
       upload(req, res, err => {

@@ -12,8 +12,9 @@ import { CartGetProduct } from "./../redux/Actions";
 import Swal from "sweetalert2";
 import NumberFormat from "react-number-format";
 import Alert from "@material-ui/lab/Alert";
+import { Carousel } from "react-responsive-carousel";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
@@ -21,23 +22,23 @@ const useStyles = makeStyles(theme => ({
       height: "50px",
       backgroundColor: "black",
       color: "white",
-      fontSize: "15px"
-    }
+      fontSize: "15px",
+    },
   },
   root2: {
     width: "100%",
     "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
-  }
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 function ViewDetail2() {
   const classes = useStyles();
   // ============================================================ global state ===============
-  const IdUserRedux = useSelector(state => state.auth.id);
-  const stateAuthRedux = useSelector(state => state.auth);
-  const roleRedux = useSelector(state => state.auth.roleId);
+  const IdUserRedux = useSelector((state) => state.auth.id);
+  const stateAuthRedux = useSelector((state) => state.auth);
+  const roleRedux = useSelector((state) => state.auth.roleId);
 
   // ============================================================= local state =================
   const [dataDetail, setdataDetail] = useState([]);
@@ -53,14 +54,14 @@ function ViewDetail2() {
     // setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux });
 
     Axios.get(`${APIURL}product/getDetail/${idDetail}`)
-      .then(res => {
+      .then((res) => {
         const { id, harga } = res.data.dataDetailBasketball;
         setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id, jumlah: 1 });
         setdataDetail(res.data.dataDetailBasketball);
         // console.log("dataDetailBasketball", res.data.dataDetailBasketball);
         console.log("dataAddtoCart", dataAddtoCart);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("error axios");
       });
   }, []);
@@ -75,32 +76,32 @@ function ViewDetail2() {
   // console.log("data add to cart", typeof dataAddtoCart.jumlah);
   console.log("id user redux", IdUserRedux);
 
-  const onSizeChange = e => {
+  const onSizeChange = (e) => {
     const { name, value } = e.target;
     setdataAddtoCart({ ...dataAddtoCart, [name]: parseInt(value) });
   };
-  const onJumlahChange = e => {
+  const onJumlahChange = (e) => {
     const { name, value } = e.target;
     const totalHarga = parseInt(value) * dataDetail.harga;
     setdataAddtoCart({ ...dataAddtoCart, [name]: parseInt(value), totalHarga });
   };
   const addtoCartClick = () => {
     Axios.post(`${APIURL}product/posttransaction`, { dataAddtoCart }) // dataAddtoCart dipakein {} biar waktu di controllersnya manngilnya jadi req.body.dataAddtoCart.nama variable, kalo gapake {} di backend manggilnya langsung req.body.nama variable
-      .then(res => {
+      .then((res) => {
         console.log(res);
         Swal.fire({
           position: "center",
           icon: "success",
           title: `${dataDetail.namaProduk} has been added to your cart`,
           showConfirmButton: false,
-          timer: 2500
+          timer: 2500,
         });
         dispatch(CartGetProduct());
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("backendnya error", err);
       })
-      .then(res2 => {
+      .then((res2) => {
         setRedirectToCatalog2(true);
       });
   };
@@ -115,8 +116,22 @@ function ViewDetail2() {
   return (
     <div className="row container-viewdetail2">
       <div className="col-md-1" />
-      <div className="col-md-6">
-        <div className="row">
+      <div className="col-md-6" >
+
+      <div className="container-carousel">
+        <Carousel infiniteLoop useKeyboardArrows autoPlay stopOnHover>
+          <div>
+            <img src={APIURLimage + dataDetail.gambar} alt="1" />
+          </div>
+          <div>
+            <img src={APIURLimage + dataDetail.gambar} alt="2" />
+          </div>
+          <div>
+            <img src={APIURLimage + dataDetail.gambar} alt="3" />
+          </div>
+        </Carousel>
+      </div>
+        {/* <div className="row">
           <div className="col-md-6 image-viewdetail2">
             <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
@@ -129,16 +144,16 @@ function ViewDetail2() {
           <div className="col-md-6 image-viewdetail2">
             <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="col-md-4 viewdetail-cont">
-        <div className='viewdetail-desc'>
+        <div className="viewdetail-desc">
           <h5>{dataDetail.category}</h5>
           <h2>{dataDetail.namaProduk}</h2>
           <div className="harga-detail" style={{ marginTop: "20px" }}>
             <NumberFormat value={dataDetail.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp. "} />
           </div>
-          <div style={{ marginBottom: "50px", marginTop: "20px" }}>
+          <div style={{ marginBottom: "30px", marginTop: "20px" }}>
             <p>select size</p>
             <div className="container-size">
               <label className="size-label">
@@ -199,6 +214,13 @@ function ViewDetail2() {
                 </Alert>
               </div>
             ) : null}
+          </div>
+          <div>
+            <p>Description</p>
+            <p style={{ textAlign: "justify",paddingRight:'40px' }}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam voluptatum molestias earum modi exercitationem pariatur fuga consectetur dicta magnam quidem illo praesentium repellat
+              doloremque harum, debitis nulla quis. Doloremque, ea!
+            </p>
           </div>
         </div>
       </div>

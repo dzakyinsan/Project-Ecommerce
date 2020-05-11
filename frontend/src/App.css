@@ -164,10 +164,9 @@ html {
   font-family: "Baloo Paaji 2", cursive;
   color: whitesmoke;
   font-size: 18px;
-padding-top: 10px;
-padding-left: 15px;
+  padding-top: 10px;
+  padding-left: 15px;
   /* border: 2px solid red; */
-
 }
 .manage-product {
   /* border: 2px solid red; */
@@ -184,6 +183,7 @@ padding-left: 15px;
   height: 51px;
   padding-top: 11px;
   transition: 500ms;
+  /* border: 2px solid black; */
 }
 .cart:hover {
   /* background-color: purple; */
@@ -197,25 +197,34 @@ padding-left: 15px;
   margin-top: 15px;
 }
 .parent-dropdown-cart {
-  /* border: 2px solid green; */
+  border: 1px solid grey;
+  border-radius: 3%;
   background-color: whitesmoke;
   color: black;
+  margin-top: 25px;
   margin-bottom: 100px;
+  margin-left: -300px;
   padding: 0 10px 10px 10px;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   display: none;
 }
 .arrowup {
-  width: 30px;
-  height: 30px;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 15px solid whitesmoke;
-  margin: 5px 0 0 10px;
-  display: none;
+  -ms-transform: rotate(45deg); /* IE 9 */
+  transform: rotate(45deg);
+  /* border: 2px solid black; */
+  width: 15px;
+  height: 15px;
+  margin-top: -8px;
+  margin-left: 300px;
+  background-color: whitesmoke;
+  border-top: 1px solid grey;
+  border-left: 1px solid grey;
+  /* border-bottom: 15px solid whitesmoke; */
+  /* margin: 5px 0 0 10px; */
+  /* display: none; */
 }
 .parent-dropdown-cart button {
-  margin: 10px 0 0 230px;
+  margin: 15px 0 0 0px;
   background-color: purple;
   color: white;
   font-size: 10px;
@@ -224,7 +233,9 @@ padding-left: 15px;
   display: inline;
 }
 .cart:hover .arrowup {
-  display: inline;
+  /* display: inline; */
+  /* display: block; */
+  
 }
 .isi-dropdown-cart {
   margin: 10px 0 0 0;
@@ -257,7 +268,6 @@ padding-left: 15px;
   padding-top: 11px;
   margin-left: 11px;
   /* border: 2px solid red; */
-
 }
 .text-login-regis-b:hover {
   color: #c48236;
@@ -271,29 +281,27 @@ padding-left: 15px;
   cursor: pointer;
 }
 .text-login-regis-c {
-  
   transition: 500ms;
   margin: 0 20px 0 180px;
 }
-.the-menu{
+.the-menu {
   /* border: 2px solid orange; */
   margin-left: 100px;
 }
-.the-menu-a{
+.the-menu-a {
   /* border: 2px solid red; */
-color: whitesmoke;
-font-size: 20px;
-font-style: italic;
-margin-right: 60px;
-font-family: "Baloo Paaji 2", cursive;
-transition: 500ms;
-cursor: pointer;
+  color: whitesmoke;
+  font-size: 18px;
+  font-style: italic;
+  margin-right: 60px;
+  font-family: "Baloo Paaji 2", cursive;
+  transition: 500ms;
+  cursor: pointer;
 }
-.the-menu-a:hover{
+.the-menu-a:hover {
   color: #c48236;
-  font-size: 25px;
+  /* font-size: 25px; */
   font-weight: bold;
-
 }
 
 .loginlogo-header {
@@ -606,13 +614,12 @@ border-bottom-left-radius: 15px; */
   /* background-color: whitesmoke; */
 }
 .category-title {
-font-family: "Poppins";
+  font-family: "Poppins";
   color: black;
   font-size: 40px;
   /* margin-bottom: 60px; */
   letter-spacing: 2px;
   text-align: center;
-
   /* border: 2px solid red; */
 }
 .football-desc {
@@ -621,10 +628,7 @@ font-family: "Poppins";
   font-size: 16px;
   font-family: "Poppins";
   text-align: center;
-  margin-right: 500px;
-  margin-left: 500px;
-  margin-bottom: 50px;
-  margin-top: 20px;
+  margin: 20px 500px 50px 500px;
 }
 .football-desc h1 {
   margin-bottom: 20px;
@@ -644,7 +648,59 @@ font-family: "Poppins";
   text-align: center;
   font-family: "Bangers";
 }
-
+/* ==================== recomedation container =========== */
+.recommendation-title {
+  color: black;
+  font-size: 30px;
+  font-family: "Poppins";
+  text-align: center;
+}
+.recommend-1 h4 {
+  color: dimgray;
+  font-family: "Poppins";
+  margin: 60px 0 20px 230px;
+}
+.img-recommend-1 {
+  position: relative;
+  margin-right: 50px;
+  /* border: 2px solid rgb(92, 87, 87); */
+}
+.overlay {
+  /* border: 2px solid black; */
+  min-height: 139px;
+  margin-left: 10px;
+  width: 180px;
+  font-family: "Poppins";
+}
+/* .img-recommend-1 .overlay{
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); 
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 15px;
+  padding: 20px;
+  text-align: center;
+  border-bottom-left-radius: 20%;
+  border-bottom-right-radius: 20%;
+}
+.img-recommend-1:hover .overlay{
+  opacity: 1;
+  cursor: pointer;
+} */
+.img-recommend-1 img {
+  /* border: 2px solid black; */
+  display: block;
+  border-radius: 10%;
+}
+.box-img-recommend-1 {
+  /* border: 2px solid red; */
+  padding-left: 230px;
+}
 /* =================== home basketball ================= */
 .home-menu-basketball {
   background-color: #1c1c1c;
@@ -773,6 +829,7 @@ font-family: "Poppins";
   margin: 50px 0 50px 850px;
   /* border: 2px solid red; */
 }
+
 .card-img {
   min-height: 464px;
   /* min-width:514px ; */
@@ -804,7 +861,7 @@ font-family: "Poppins";
 .viewdetail-cont button {
   outline: none !important;
 }
-.viewdetail-desc{
+.viewdetail-desc {
   font-family: "Baloo Paaji 2", cursive;
   /* border: 2px solid red; */
   width: 450px;
@@ -1180,10 +1237,12 @@ font-family: "Poppins";
   color: white;
 }
 /* ============================ coba =============== */
-.zoomImg{
-  transition: transform .2s; /* Animation */
+.zoomImg {
+  transition: transform 0.2s; /* Animation */
 }
-.zoomImg:hover{
-  transform: scale(1.7); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */;
-  
+.zoomImg:hover {
+  transform: scale(1.7); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.container-carousel {
+  border: 4px solid red;
 }
