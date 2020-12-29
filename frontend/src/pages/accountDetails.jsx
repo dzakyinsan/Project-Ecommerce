@@ -40,7 +40,6 @@ function OrderComplete() {
   const messageRedux = useSelector(state => state.AccountDetailsReducer.message);
   const messagePassRedux = useSelector(state => state.AccountDetailsReducer.messagePass);
   // ============================ LOCAL STATE =============================
-  // console.log("dataUserDetailRedux", dataUserDetailRedux);
   const [dataPostDetails, setdataPostDetails] = useState([]);
   const [dataNewPass, setdataNewPass] = useState([]);
 
@@ -65,8 +64,6 @@ function OrderComplete() {
     dispatch(PutChangePass(dataNewPass));
   };
 
-  // console.log("dataPostDetails", dataPostDetails);
-  console.log("dataNewPass", dataNewPass);
 
   return (
     <div className="cart-page" style={{ paddingTop: "80px" }}>

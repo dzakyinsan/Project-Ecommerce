@@ -57,11 +57,8 @@ function ViewDetail2() {
         const { id, harga } = res.data.dataDetailRunning;
         setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id, jumlah: 1 });
         setdataDetail(res.data.dataDetailRunning);
-        // console.log("dataDetailRunning", res.data.dataDetailRunning);
-        console.log("dataAddtoCart", dataAddtoCart);
       })
       .catch(err => {
-        console.log("error axios");
       });
   }, []);
   //  =============================================================================== component did update =====================
@@ -70,10 +67,6 @@ function ViewDetail2() {
     setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: "cart", totalHarga });
   }, [dataDetail]);
 
-  // console.log("state data detail", dataDetail);
-  console.log("data add to cart", dataAddtoCart);
-  // console.log("data add to cart", typeof dataAddtoCart.jumlah);
-  console.log("id user redux", IdUserRedux);
 
   const onSizeChange = e => {
     const { name, value } = e.target;
@@ -87,7 +80,6 @@ function ViewDetail2() {
   const addtoCartClick = () => {
     Axios.post(`${APIURL}product/posttransaction`, { dataAddtoCart }) // dataAddtoCart dipakein {} biar waktu di controllersnya manngilnya jadi req.body.dataAddtoCart.nama variable, kalo gapake {} di backend manggilnya langsung req.body.nama variable
       .then(res => {
-        console.log(res);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -98,16 +90,11 @@ function ViewDetail2() {
         dispatch(CartGetProduct());
       })
       .catch(err => {
-        console.log("backendnya error", err);
       })
       .then(res2 => {
         setRedirectToCatalog1(true);
       });
   };
-  // console.log("dataAddtoCart", dataAddtoCart);
-  // console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
-  console.log("roleRedux", roleRedux);
-  console.log("RedirectToCatalog1", RedirectToCatalog1);
 
   if (RedirectToCatalog1) {
     return <Redirect to={"/catalogs1"} />;
@@ -121,13 +108,13 @@ function ViewDetail2() {
             <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar2} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar3} />
           </div>
           <div className="col-md-6 image-viewdetail2">
-            <img className='zoomImg' src={APIURLimage + dataDetail.gambar} />
+            <img className='zoomImg' src={APIURLimage + dataDetail.gambar4} />
           </div>
         </div>
       </div>

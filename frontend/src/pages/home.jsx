@@ -28,7 +28,10 @@ class Home extends Component {
     return this.props.HotItemsFootball.map((val, index) => {
       return (
         <div className="img-recommend-1">
-          <img src={APIURLimage + val.gambar} width="200" height="250" />
+          <img src={APIURLimage + val.gambar} width="200" height="250" 
+          onMouseOver={e => (e.currentTarget.src = APIURLimage + val.gambar2)}
+          onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+          />
           <div className="overlay">
             <p>{val.namaProduk}</p>
             <p style={{fontWeight:'bold'}}>
@@ -46,7 +49,10 @@ class Home extends Component {
     return this.props.HotItemsBasketball.map((val, index) => {
       return (
         <div className="img-recommend-1">
-          <img src={APIURLimage + val.gambar} width="200" height="250" />
+          <img src={APIURLimage + val.gambar} width="200" height="250" 
+          onMouseOver={e => (e.currentTarget.src = APIURLimage + val.gambar2)}
+          onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+          />
           <div className="overlay">
             <p>{val.namaProduk}</p>
             <p>
@@ -64,7 +70,10 @@ class Home extends Component {
     return this.props.HotItemsRunning.map((val, index) => {
       return (
         <div className="img-recommend-1">
-          <img src={APIURLimage + val.gambar} width="200" height="250" />
+          <img src={APIURLimage + val.gambar} width="200" height="250"
+          onMouseOver={e => (e.currentTarget.src = APIURLimage + val.gambar3)}
+          onMouseOut={e => (e.currentTarget.src = APIURLimage + val.gambar)}
+          />
           <div className="overlay">
             <p>{val.namaProduk}</p>
             <p>
@@ -79,8 +88,6 @@ class Home extends Component {
     });
   };
   render() {
-    console.log("hotitems", this.props.HotItemsBasketball);
-    // console.log("isi props", this.props);
     return (
       <div className="home">
         <Carousel />

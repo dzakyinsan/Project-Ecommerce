@@ -9,18 +9,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Fade from "react-reveal/Fade";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     "& > *": {
-//       margin: theme.spacing(1),
-//       width: "85ch",
-//       marginTop: "25px",
-//       // fontSize: "30px",
-//       fontWeight: "bold"
-//     }
-//   }
-// }));
-
 const Catalogs = () => {
   // const classes = useStyles();
 
@@ -37,7 +25,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -48,7 +35,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, [page]);
 
@@ -62,10 +48,9 @@ const Catalogs = () => {
   }, [search, dataRunning]);
 
   const renderProducts = () => {
-    console.log("dataRunning", dataRunning);
     return filtereddataRunning.map((val, index) => {
       return (
-        <div className="col-md-3" >
+        <div className="col-md-3">
           <Card className="mt-5 card-container">
             <Link to={"/viewdetail/" + val.id}>
               <Card.Img
@@ -86,8 +71,6 @@ const Catalogs = () => {
       );
     });
   };
-  console.log("page", page);
-  console.log("pager.pages", pager.pages);
 
   return (
     <div>
@@ -102,7 +85,7 @@ const Catalogs = () => {
         </Fade>
         <div className="row">
           <div className="col-md-1" />
-          <div className="col-md-10 " >
+          <div className="col-md-10 ">
             <Fade bottom cascade>
               <div className="row">{renderProducts()}</div>
             </Fade>

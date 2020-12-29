@@ -26,7 +26,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -37,7 +36,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, [page]);
   // =================================== useEffect search =====================
@@ -50,7 +48,6 @@ const Catalogs = () => {
   }, [search, dataFootball]);
 
   const renderProducts = () => {
-    console.log("dataFootball", dataFootball);
     return filteredDataFootball.map((val, index) => {
       return (
         <div className="col-md-3">

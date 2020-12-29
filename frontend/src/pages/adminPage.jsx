@@ -16,7 +16,6 @@ function AdminPage() {
   const dispatch = useDispatch();
   // ======================== global state ====================
   const dataPaymentReq = useSelector(state => state.PaymentReqReducer.dataPaymentRequest);
-  console.log("dataPaymentReq di page nya", dataPaymentReq);
 
   // ======================= component didmount ===================
   useEffect(() => {
@@ -27,7 +26,7 @@ function AdminPage() {
     dispatch(GetEachDataPayment());
   }, []);
   return (
-    <Tabs defaultTab="payment-request" vertical className="vertical-tabs" style={{ marginTop: "60px" }}>
+    <Tabs defaultTab="manage-product" vertical className="vertical-tabs" style={{ marginTop: "60px",minHeight:'700px' }}>
       <TabList className="left-tabs">
         {/* <Tab tabFor="Football-managed">Football</Tab> */}
         <Tab tabFor="manage-product">All Product</Tab>

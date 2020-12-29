@@ -12,7 +12,6 @@ import {
 
 const INITIAL_STATE = {
   dataCheckoutRedux: [],
-
   dataTotalHarga: 0,
   message: "",
   loading: false,

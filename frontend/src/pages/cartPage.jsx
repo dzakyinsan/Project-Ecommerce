@@ -53,7 +53,6 @@ function CartPage() {
         status: "checkout",
       };
       var id = data.id;
-      console.log("data", data);
 
       Axios.put(`${APIURL}product/checkoutcart/${id}`, { data })
         .then((res) => {
@@ -63,13 +62,11 @@ function CartPage() {
           //  <Redirect to={"/checkout"} />;
         })
         .catch((err) => {
-          console.log("error axios checkout click ");
         });
     }
     setRedirectcheckout(true);
   };
 
-  // console.log('Redirectcheckout',Redirectcheckout)
 
   const renderCart = () => {
     return dataCartRedux.map((val, index) => {

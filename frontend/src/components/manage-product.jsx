@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
@@ -17,15 +17,15 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Loader from "react-loader-spinner";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
       width: "85ch",
       // marginTop: "25px",
       // fontSize: "30px",
-      fontWeight: "bold"
-    }
+      fontWeight: "bold",
+    },
   },
   root2: {
     "& > *": {
@@ -34,37 +34,42 @@ const useStyles = makeStyles(theme => ({
       height: "50px",
       backgroundColor: "black",
       color: "white",
-      fontSize: "15px"
-    }
-  }
+      fontSize: "15px",
+    },
+  },
 }));
 
 function ManageProduct() {
-  // ======================== global state redux ================
-  const { dataProductRedux, dataCategoryRedux, dataEditRedux, modalDeleteRedux, idProductDeleteRedux, modalAddRedux } = useSelector(state => state.ManageProductReducer);
-  //useSelector buat manggil state dari redux
-
   //========================= set dispatch (buat masukin data ke redux) ======================
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  // ======================== global state redux ================
+  const { dataProductRedux, dataCategoryRedux, dataEditRedux, modalDeleteRedux, idProductDeleteRedux, modalAddRedux } = useSelector((state) => state.ManageProductReducer);
+  //useSelector buat manggil state dari redux
+
   // ============================ local state =====================
   const [addDataProduct, setaddDataProduct] = useState([]);
   const [addimagefile, setaddimagefile] = useState({
-    imageFileName: "select image...",
+    imageFileName: "select image 1...",
     imageFile: undefined,
     imageFileName2: "select image 2...",
     imageFile2: undefined,
     imageFileName3: "select image 3...",
     imageFile3: undefined,
     imageFileName4: "select image 4...",
-    imageFile4: undefined
+    imageFile4: undefined,
   });
   const [editDataProduct, seteditDataProduct] = useState([]);
-  // const [dataEditBackend, setdataEditBackend] = useState([]);
   const [editimagefile, seteditimagefile] = useState({
-    imageEditFileName: "select image...",
-    imageEditFile: undefined
+    imageEditFileName: "select image 1...",
+    imageEditFile: undefined,
+    imageEditFileName2: "select image 2...",
+    imageEditFile2: undefined,
+    imageEditFileName3: "select image 3...",
+    imageEditFile3: undefined,
+    imageEditFileName4: "select image 4...",
+    imageEditFile4: undefined,
   });
 
   const [search, setsearch] = useState("");
@@ -74,14 +79,15 @@ function ManageProduct() {
   // =================================== useEffect search =====================
   useEffect(() => {
     setfiltereddataProductRedux(
-      dataProductRedux.filter(dataproduk => {
+      dataProductRedux.filter((dataproduk) => {
         return dataproduk.namaProduk.toLowerCase().includes(search.toLowerCase());
       })
     );
   }, [search, dataProductRedux]);
+
   useEffect(() => {
     setfiltereddataEditRedux(
-      dataEditRedux.filter(dataedit => {
+      dataEditRedux.filter((dataedit) => {
         return dataedit.namaProduk.toLowerCase().includes(search.toLowerCase());
       })
     );
@@ -90,49 +96,46 @@ function ManageProduct() {
   // ============================================== add  ===================================
   const [modaladd, setmodaladd] = useState(false);
   const toggleadd = () => setmodaladd(!modaladd);
-  const onchangeAdddata = e => {
+  const onchangeAdddata = (e) => {
     const { name, value } = e.target;
     setaddDataProduct({ ...addDataProduct, [name]: value });
   };
-  const onAddImageFileChange = e => {
-    console.log("e.target.files[0]", e.target.files[0]); //ini isinya nama dari img yg kita ambil
+  const onAddImageFileChange = (e) => {
     var file = e.target.files[0];
-    var name=e.target.name
+    var name = e.target.name;
 
     if (file) {
-      setaddimagefile({ ...addimagefile, ImageFileName: file.name, [name]: e.target.files[0] });
+      setaddimagefile({ ...addimagefile, imageFileName: file.name, [name]: file });
     } else {
-      setaddimagefile({ ...addimagefile, ImageFileName: "Select Image...", [name]: undefined });
+      setaddimagefile({ ...addimagefile, imageFileName: "Select Image...", [name]: undefined });
     }
   };
   // ================================================ edit  =============================
   const [modaledit, setmodaledit] = useState(false);
   const toggleedit = () => {
     setmodaledit(!modaledit);
-    // console.log("dataEditRedux", dataEditRedux);
   };
-  const onchangeEditdata = e => {
+  const onchangeEditdata = (e) => {
     const { name, value } = e.target;
     seteditDataProduct({ ...editDataProduct, [name]: value });
-    console.log("editDataProduct", editDataProduct);
   };
-  const opentogelEdit = index => {
+  const opentogelEdit = (index) => {
     seteditDataProduct(filtereddataEditRedux[index]);
     setmodaledit(true);
-    console.log("data edit redux", dataEditRedux);
   };
 
-  const onEditImageFileChange = e => {
-    console.log("e.target.files[0]", editimagefile);
+  const onEditImageFileChange = (e) => {
+
     var file = e.target.files[0];
+    var name = e.target.name;
     if (file) {
-      seteditimagefile({ ...editimagefile, imageEditFileName: file.name, imageEditFile: e.target.files[0] });
+      seteditimagefile({ ...editimagefile, imageEditFileName: file.name, [name]: file });
     } else {
-      seteditimagefile({ ...editimagefile, imageEditFileName: "Select Image...", imageEditFile: undefined });
+      seteditimagefile({ ...editimagefile, imageEditFileName: "Select Image...", [name]: undefined });
     }
   };
   // =================================================== delete ========================================
-  const opentogelDelete = index => {
+  const opentogelDelete = (index) => {
     dispatch(OpenToggleDeleteRedux(index));
   };
 
@@ -145,87 +148,76 @@ function ManageProduct() {
     var Headers = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     };
-
     formdata.append("image", addimagefile.imageFile);
+    formdata.append("image", addimagefile.imageFile2);
+    formdata.append("image", addimagefile.imageFile3);
+    formdata.append("image", addimagefile.imageFile4);
     formdata.append("data", JSON.stringify(addDataProduct));
-    console.log("formdata", formdata);
     Axios.post(`${APIURL}product/postproduct`, formdata, Headers)
-      .then(res => {
-        console.log("berhasil add", res);
+      .then((res) => {
         Swal.fire({
           position: "center",
           icon: "success",
           title: `New product has been added `,
           showConfirmButton: false,
-          timer: 2500
+          timer: 2500,
         });
         dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);
         setmodaladd(!modaladd);
-        console.log("masuk add data");
       })
-      .catch(err => {
-        console.log("post data gagal", err);
+      .catch((err) => {
       });
   };
   // ============ edit data ========
   const Editdata = () => {
-    console.log("editdataproduk", editDataProduct);
-    console.log("editimagefile", editimagefile);
     var formdata = new FormData();
     var Headers = {
       headers: {
-        "Content-Type": "multipart/form-data"
-      }
+        "Content-Type": "multipart/form-data",
+      },
     };
     formdata.append("image", editimagefile.imageEditFile);
+    formdata.append("image", editimagefile.imageEditFile2);
+    formdata.append("image", editimagefile.imageEditFile3);
+    formdata.append("image", editimagefile.imageEditFile4);
     formdata.append("data", JSON.stringify(editDataProduct));
-    console.log("formdata", formdata);
-    console.log("data edit product", editDataProduct);
-    console.log("editimagefile.imageEditFile", editimagefile.imageEditFile);
 
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
-      .then(res => {
-        console.log(res);
+      .then((res) => {
         Swal.fire({
           position: "center",
           icon: "success",
           title: `the product has been edited`,
           showConfirmButton: false,
-          timer: 2500
+          timer: 2500,
         });
         dispatch(AdminGetProduct());
         // setdataproduct(res.data.dataProduct);
         // setdatacategory(res.data.dataCategory);
         setmodaledit(!modaledit);
       })
-      .catch(err => {
-        console.log("error edit data axios", err);
-        console.log(editDataProduct);
+      .catch((err) => {
       });
   };
   // ============== delete data =======
   const Deletedata = () => {
     var idProduct = idProductDeleteRedux;
-    console.log(idProduct);
     dispatch(AdminDeleteProduct(idProduct));
   };
   //   ======================================================= render product ================
   const renderProduct = () => {
-    // console.log("state dataProductRedux", dataProductRedux);
-    // console.log("state dataCategoryRedux", dataCategoryRedux);
-    // console.log("state dataEditRedux", dataEditRedux);
     return filtereddataProductRedux.map((val, index) => {
       return (
         <TableRow key={val.id}>
           <TableCell>{index + 1}</TableCell>
           <TableCell>{val.namaProduk}</TableCell>
-          <TableCell >
-            <img src={APIURLimage + val.gambar} alt={index} width="200px" height="200px" style={{border:'2px solid black'}} />
+          <TableCell>
+            <img src={APIURLimage + val.gambar} alt={index} width="160px" height="160px" />
           </TableCell>
           <TableCell>
             <NumberFormat value={val.harga} displayType={"text"} thousandSeparator={true} prefix={"Rp."} />
@@ -244,11 +236,6 @@ function ManageProduct() {
     });
   };
 
-  // console.log("state dataProductRedux", dataProductRedux);
-  // console.log("state dataCategoryRedux", dataCategoryRedux);
-  // console.log("state dataEditRedux", dataEditRedux);
-  console.log('addimagefile',addimagefile)
-
   if (dataProductRedux.length === 0 || dataCategoryRedux.length === 0 || dataEditRedux.length === 0) {
     return (
       <div style={{ minHeight: "1000px", paddingTop: "300px", paddingLeft: "700px" }}>
@@ -258,7 +245,7 @@ function ManageProduct() {
     );
   }
   return (
-    <Fragment>
+    <div>
       {/* ========= modal add =========== */}
       <Modal title="add data" toggle={toggleadd} modal={modaladd} actionfunc={adddata} btnTitle="save">
         <input type="text" name="namaProduk" placeholder="nama produk" className="form-control adminadd" onChange={onchangeAdddata} />
@@ -273,10 +260,10 @@ function ManageProduct() {
             );
           })}
         </select>
-        <CustomInput type="file" name='imageFile' label={addimagefile.imageFileName} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
-        <CustomInput type="file" name='imageFile2' label={addimagefile.imageFileName2} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
-        <CustomInput type="file" name='imageFile3' label={addimagefile.imageFileName3} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
-        <CustomInput type="file" name='imageFile4' label={addimagefile.imageFileName4} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name="imageFile" label={addimagefile.imageFileName} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} multiple />
+        <CustomInput type="file" name="imageFile2" label={addimagefile.imageFileName2} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name="imageFile3" label={addimagefile.imageFileName3} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
+        <CustomInput type="file" name="imageFile4" label={addimagefile.imageFileName4} id="addImagePost1" className="form-control adminadd" onChange={onAddImageFileChange} />
       </Modal>
 
       {/* ===========  modal edit ======== */}
@@ -293,7 +280,10 @@ function ManageProduct() {
             );
           })}
         </select>
-        <CustomInput type="file" label={editimagefile.imageEditFileName} id="editImagePost1" className="form-control" onChange={onEditImageFileChange} />
+        <CustomInput type="file" name="imageEditFile" label={editimagefile.imageEditFileName} id="editImagePost1" className="form-control adminadd" onChange={onEditImageFileChange} />
+        <CustomInput type="file" name="imageEditFile2" label={editimagefile.imageEditFileName2} id="editImagePost1" className="form-control adminadd" onChange={onEditImageFileChange} />
+        <CustomInput type="file" name="imageEditFile3" label={editimagefile.imageEditFileName3} id="editImagePost1" className="form-control adminadd" onChange={onEditImageFileChange} />
+        <CustomInput type="file" name="imageEditFile4" label={editimagefile.imageEditFileName4} id="editImagePost1" className="form-control adminadd" onChange={onEditImageFileChange} />
       </Modal>
 
       {/* ============= modal delete ========= */}
@@ -306,14 +296,14 @@ function ManageProduct() {
                 <InputAdornment position="start">
                   <SearchIcon />
                 </InputAdornment>
-              )
+              ),
             }}
             id="outlined-basic"
             // label="Search..."
             placeholder="Search..."
             variant="outlined"
             type="text"
-            onChange={e => setsearch(e.target.value)}
+            onChange={(e) => setsearch(e.target.value)}
           />
         </div>
         <div className={classes.root2}>
@@ -322,7 +312,7 @@ function ManageProduct() {
           </Button>
         </div>
       </div>
-      <Table hover >
+      <Table hover>
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>
@@ -335,7 +325,7 @@ function ManageProduct() {
         </TableHead>
         <TableBody>{renderProduct()}</TableBody>
       </Table>
-    </Fragment>
+    </div>
   );
 }
 

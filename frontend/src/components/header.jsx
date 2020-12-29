@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { APIURL, APIURLimage } from "./../helper/ApiUrl";
+import { onUserRegister, onUserlogin, onUserlogOut } from "./../redux/Actions";
+import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Link, Redirect } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { useDispatch, useSelector } from "react-redux";
-import { onUserRegister, onUserlogin, onUserlogOut } from "./../redux/Actions";
-import { USER_MODAL_OPEN, USER_MODAL_CLOSE } from "../redux/Actions/types";
 import Alert from "@material-ui/lab/Alert";
 import Fade from "react-reveal/Fade";
 import Bounce from "react-reveal/Bounce";
@@ -45,6 +45,7 @@ const LightTooltip = withStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const registerRedux = useSelector((state) => state.auth.register);
   const errorRedux = useSelector((state) => state.auth.error);
@@ -57,11 +58,8 @@ const Header = (props) => {
   const roleId = useSelector((state) => state.auth.roleId);
   const dataPaymentReq = useSelector((state) => state.PaymentReqReducer.dataPaymentRequest);
 
-  console.log("dataUserRedux", dataUserRedux);
-
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const dispatch = useDispatch();
 
   const [dataLogin, setDataLogin] = useState({
     usernameLogin: "",
@@ -122,7 +120,7 @@ const Header = (props) => {
     return dataCartRedux.map((val, index) => {
       return (
         <div className="isi-dropdown-cart" style={{ display: "flex" }}>
-          <div >
+          <div>
             <img src={APIURLimage + val.gambar} alt={index} width="70px" height="70px" />
           </div>
           <div className="namadicart" style={{ minWidth: "150px" }}>
@@ -283,7 +281,7 @@ const Header = (props) => {
                     </Badge>
                     <Fade>
                       <div className="parent-dropdown-cart">
-                      <div className="arrowup" />
+                        <div className="arrowup" />
                         {renderCartHeader()}
                         {dataCartRedux.length !== 0 ? (
                           <Link to={"/cartPage"} style={{ color: "white" }}>

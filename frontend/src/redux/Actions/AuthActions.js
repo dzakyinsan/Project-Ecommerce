@@ -4,22 +4,20 @@ import { APIURL } from "./../../helper/ApiUrl";
 import Swal from "sweetalert2";
 
 export const onUserRegister = (username, email, password, confirmpass) => {
-  console.log("masuk username", username);
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: AUTH_LOADING });
     if (username === "" || email === "" || password === "" || confirmpass === "") {
       dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "form regis wajib diisi" });
     } else if (password !== confirmpass) {
       dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "confirm pass tidak sesuai" });
     } else {
-      console.log("masuk axios post");
       axios
         .post(`${APIURL}auth/registerver`, {
           username,
           email,
-          password
+          password,
         })
-        .then(res => {
+        .then((res) => {
           if (res.data.status === "error") {
             dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: res.data.message });
           } else if (res.data.status === "success") {
@@ -27,36 +25,30 @@ export const onUserRegister = (username, email, password, confirmpass) => {
             dispatch({ type: USER_REGIS_SUCCESS });
           }
         })
-        .catch(err => {
-          console.log(err);
+        .catch((err) => {
           dispatch({ type: AUTH_SYSTEM_REGIS_ERROR, payload: "System Error" });
         });
     }
   };
 };
 export const onUserlogin = (usernameLogin, passwordLogin) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: AUTH_LOADING });
-
-    console.log("username", usernameLogin);
-    console.log("password", passwordLogin);
 
     if (usernameLogin === "" || passwordLogin === "") {
       dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: "form login wajib diisi!" });
     } else {
       axios
-        .get(APIURL + "auth/login", {
+        .get(`${APIURL}auth/login`, {
           params: {
             username: usernameLogin,
-            password: passwordLogin
-          }
+            password: passwordLogin,
+          },
         })
-        .then(res => {
-          console.log(res);
+        .then((res) => {
           if (res.data.status === "notmatch") {
             dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: res.data.error });
           } else if (res.data.status === "success") {
-            console.log(res.data.token);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.id);
             dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
@@ -65,20 +57,19 @@ export const onUserlogin = (usernameLogin, passwordLogin) => {
               icon: "success",
               title: "Signed in successfully",
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
             });
           }
         })
-        .catch(err => {
-          console.log(err);
+        .catch((err) => {
           dispatch({ type: AUTH_SYSTEM_LOGIN_ERROR, payload: "System Error" });
         });
     }
   };
 };
 
-export const onUserloginRepeat = resdata => {
-  return dispatch => {
+export const onUserloginRepeat = (resdata) => {
+  return (dispatch) => {
     localStorage.setItem("token", resdata.token);
     localStorage.setItem("userId", resdata.id);
     dispatch({ type: USER_LOGIN_SUCCESS, payload: resdata });
@@ -86,7 +77,7 @@ export const onUserloginRepeat = resdata => {
 };
 
 export const onUserlogOut = () => {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.clear();
     dispatch({ type: USER_LOGOUT });
   };

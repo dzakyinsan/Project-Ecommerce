@@ -26,7 +26,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -37,7 +36,6 @@ const Catalogs = () => {
         setpager(res.data.pager);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, [page]);
 
@@ -51,7 +49,6 @@ const Catalogs = () => {
   }, [search, dataBasketball]);
 
   const renderProducts = () => {
-    console.log("dataBasketball", dataBasketball);
     return filtereddataBasketball.map((val, index) => {
       return (
         <div className="col-md-3">
@@ -75,8 +72,6 @@ const Catalogs = () => {
       );
     });
   };
-  console.log("page", page);
-  console.log("pager.pages", pager.pages);
 
   return (
     <div>

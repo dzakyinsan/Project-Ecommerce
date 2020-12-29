@@ -12,9 +12,8 @@ import {
 
 const INITIAL_STATE = {
   dataProductRedux: [],
-
-  dataCategoryRedux: [],
   dataEditRedux: [],
+  dataCategoryRedux: [],
   loading: false,
   modalDeleteRedux: false,
   modalAddRedux: false,
@@ -24,10 +23,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        dataProductRedux: action.payload
-      };
+      return {...state,dataProductRedux: action.payload};
     case GET_PRODUCT_LOADING:
       return { ...state, loading: true };
     case GET_PRODUCT_ERROR:

@@ -66,7 +66,6 @@ function ManageCategory() {
         setmodalAdd(!modalAdd);
       })
       .catch(err => {
-        console.log("error post category");
       });
   };
 
@@ -85,7 +84,6 @@ function ManageCategory() {
         setmodalEdit(!modalEdit);
       })
       .catch(err => {
-        console.log("error post category");
       });
   };
 
@@ -106,13 +104,12 @@ function ManageCategory() {
     });
   };
 
-  console.log("dataAddCategory", dataAddCategory);
 
   if (dataCategoryRedux.length === 0) {
     return <div>loading</div>;
   }
   return (
-    <Fragment>
+    <div style={{minHeight:'100px'}}>
       <div className={classes.root2}>
         <Button variant="contained" onClick={toggleAdd}>
           Add Catagory
@@ -127,7 +124,7 @@ function ManageCategory() {
       <Modal tittle="edit category" toggle={toggleedit} modal={modalEdit} actionfunc={editcategory} btnTitle="edit">
         <input type="text" name="category" value={dataEdit.category} className="form-control" onChange={onchangeEditCategory} />
       </Modal>
-      <Table hover style={{ marginBottom: "500px" }}>
+      <Table hover>
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>
@@ -137,7 +134,7 @@ function ManageCategory() {
         </TableHead>
         <TableBody>{renderCategory()}</TableBody>
       </Table>
-    </Fragment>
+    </div >
   );
 }
 

@@ -58,11 +58,8 @@ function ViewDetail2() {
         const { id, harga } = res.data.dataDetailBasketball;
         setdataAddtoCart({ ...setdataAddtoCart, harga, productId: id, jumlah: 1 });
         setdataDetail(res.data.dataDetailBasketball);
-        // console.log("dataDetailBasketball", res.data.dataDetailBasketball);
-        console.log("dataAddtoCart", dataAddtoCart);
       })
       .catch((err) => {
-        console.log("error axios");
       });
   }, []);
   //  =============================================================================== component did update =====================
@@ -71,10 +68,6 @@ function ViewDetail2() {
     setdataAddtoCart({ ...dataAddtoCart, userId: IdUserRedux, status: "cart", totalHarga });
   }, [dataDetail]);
 
-  // console.log("state data detail", dataDetail);
-  console.log("data add to cart", dataAddtoCart);
-  // console.log("data add to cart", typeof dataAddtoCart.jumlah);
-  console.log("id user redux", IdUserRedux);
 
   const onSizeChange = (e) => {
     const { name, value } = e.target;
@@ -88,7 +81,6 @@ function ViewDetail2() {
   const addtoCartClick = () => {
     Axios.post(`${APIURL}product/posttransaction`, { dataAddtoCart }) // dataAddtoCart dipakein {} biar waktu di controllersnya manngilnya jadi req.body.dataAddtoCart.nama variable, kalo gapake {} di backend manggilnya langsung req.body.nama variable
       .then((res) => {
-        console.log(res);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -99,16 +91,11 @@ function ViewDetail2() {
         dispatch(CartGetProduct());
       })
       .catch((err) => {
-        console.log("backendnya error", err);
       })
       .then((res2) => {
         setRedirectToCatalog2(true);
       });
   };
-  // console.log("dataAddtoCart", dataAddtoCart);
-  // console.log("typeof jumlah", typeof dataAddtoCart.jumlah);
-  console.log("roleRedux", roleRedux);
-  console.log("RedirectToCatalog2", RedirectToCatalog2);
 
   if (RedirectToCatalog2) {
     return <Redirect to={"/catalogs2"} />;

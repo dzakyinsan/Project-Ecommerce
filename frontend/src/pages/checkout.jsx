@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import Axios from "axios";
-// import { APIURL, APIURLimage } from "./../helper/ApiUrl";
-// import { Table, TableBody, TableHead, TableCell, TableRow } from "@material-ui/core";
-// import Modal from "./../components/modal";
 import { PostCheckoutProduct, CheckOutGetProduct } from "./../redux/Actions";
 import { makeStyles } from "@material-ui/core/styles";
 import NumberFormat from "react-number-format";
@@ -39,31 +35,24 @@ function CheckOut() {
   const dataUserDetailRedux = useSelector(state => state.AccountDetailsReducer.dataUserDetailRedux);
   // ================================== Local state ==========================
   const [PostCheckout, setPostCheckout] = useState({});
-  // const [goToCompletePage, setgoToCompletePage] = useState(false);
   const [AddImageFile, setAddImageFile] = useState({
     imageName: "No File Chosen",
     imageFile: undefined
   });
-  console.log("PostCheckout", PostCheckout);
-  console.log("AddImageFile", AddImageFile);
   // ==================================set dispatch ==========================
   const dispatch = useDispatch();
   // ==================================component didmount ==========================
   useEffect(() => {
-    // var userid = localStorage.getItem("userId");
-    // setPostCheckout({ ...PostCheckout, userId: userid, status: "oncheck" });
     dispatch(CheckOutGetProduct());
   }, []);
 
   useEffect(() => {
-    // console.log("dataUserDetailRedux", dataUserDetailRedux);
     var userid = localStorage.getItem("userId");
     const { namaLengkap, alamat, kota, provinsi, telepon } = dataUserDetailRedux;
     setPostCheckout({ ...PostCheckout, nama: namaLengkap, alamat: alamat, kota: kota, provinsi: provinsi, telepon: telepon, userId: userid, status: "oncheck" });
   }, [dataUserDetailRedux]);
 
   const onAddImageFile = e => {
-    console.log("e.target.files[0]", e.target.files[0]);
     var file = e.target.files[0];
     if (file) {
       setAddImageFile({ ...AddImageFile, imageName: file.name, imageFile: file });
@@ -79,9 +68,9 @@ function CheckOut() {
   };
 
   const FinishCheckout = () => {
-    dispatch(PostCheckoutProduct(PostCheckout, AddImageFile));
-    dispatch(CheckOutGetProduct());
-    window.location.reload();
+   dispatch(PostCheckoutProduct(PostCheckout, AddImageFile));
+   dispatch(CheckOutGetProduct());
+    // window.location.reload();
   };
 
   const messageErrorNotif = () => {
@@ -89,7 +78,6 @@ function CheckOut() {
       return <h4 style={{ color: "red" }}> {messageRedux}</h4>;
     }
   };
-  // console.log("dataCheckoutRedux", dataCheckoutRedux);
 
   const renderCheckout = () => {
     return dataCheckoutRedux.map((val, index) => {
@@ -108,6 +96,7 @@ function CheckOut() {
       );
     });
   };
+
 
   if (loading) {
     return (
@@ -137,10 +126,9 @@ function CheckOut() {
     </div>
     );
   }
-  if (goToCompletePage && dataCheckoutRedux.length === 0) {
+  if (goToCompletePage ) {
     return <Redirect to={"/waitingAdminApproval"} />;
   }
-  // console.log("PostCheckout", PostCheckout);
 
   return (
     <div className="checkout-page" style={{ paddingTop: "80px" }}>
@@ -184,7 +172,7 @@ function CheckOut() {
             <label for="inputNomorHp">
               Telepon/WA &nbsp;<span style={{ color: "red" }}>*</span>
             </label>
-            <input type="number" name="Ex: " className="form-control" placeholder="Ex: 0192837465" defaultValue={PostCheckout.telepon} onChange={onChangeCheckout} />
+            <input type="number" name="telepon" className="form-control" placeholder="Ex: 0192837465" defaultValue={PostCheckout.telepon} onChange={onChangeCheckout} />
           </div>
           <div className="form-group">
             <label for="catatan">Catatan(optional)</label>

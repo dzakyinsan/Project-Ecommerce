@@ -39,7 +39,6 @@ function ManageProduct() {
     setaddDataProduct({ ...addDataProduct, [name]: value });
   };
   const onAddImageFileChange = event => {
-    console.log("event.target.files[0]", event.target.files[0]); //ini isinya nama dari img yg kita ambil
     var file = event.target.files[0];
 
     if (file) {
@@ -52,21 +51,17 @@ function ManageProduct() {
   const [modaledit, setmodaledit] = useState(false);
   const toggleedit = () => {
     setmodaledit(!modaledit);
-    console.log("dataEditRedux", dataEditRedux);
   };
   const onchangeEditdata = e => {
     const { name, value } = e.target;
     seteditDataProduct({ ...editDataProduct, [name]: value });
-    console.log("editDataProduct", editDataProduct);
   };
   const opentogelEdit = index => {
     seteditDataProduct(dataEditRedux[index]);
     setmodaledit(true);
-    console.log("data edit redux", dataEditRedux);
   };
 
   const onEditImageFileChange = e => {
-    console.log("e.target.files[0]", editimagefile);
     var file = e.target.files[0];
     if (file) {
       seteditimagefile({ ...editimagefile, imageEditFileName: file.name, imageEditFile: e.target.files[0] });
@@ -77,7 +72,6 @@ function ManageProduct() {
   // =================================================== delete ========================================
   const opentogelDelete = index => {
     dispatch(OpenToggleDeleteRedux(index));
-    console.log(dataEditBackend[index]);
   };
 
   // ================================================ use effect/ didmount ==============
@@ -86,11 +80,6 @@ function ManageProduct() {
   // }, []);
   //   ======================================================= render product ================
   const renderProduct = () => {
-    // console.log("state dataproduk", dataproduct);
-    // console.log("state datacategory", datacategory);
-    // console.log("state dataEditBackend", dataEditBackend);
-    console.log("dataEditRedux", dataEditRedux);
-    console.log("dataFootball", dataFootball);
 
     return dataFootball.map((val, index) => {
       return (
@@ -127,22 +116,16 @@ function ManageProduct() {
 
     formdata.append("image", addimagefile.imageFile);
     formdata.append("data", JSON.stringify(addDataProduct));
-    console.log("formdata", formdata);
     Axios.post(`${APIURL}product/postproduct`, formdata, Headers)
       .then(res => {
-        console.log(res);
         dispatch(AdminGetProduct());
         setmodaladd(!modaladd);
-        console.log("masuk add data");
       })
       .catch(err => {
-        console.log("post data gagal", err);
       });
   };
   // ============================================================== edit data ========
   const Editdata = () => {
-    console.log("editdataproduk", editDataProduct);
-    console.log("editimagefile", editimagefile);
     var formdata = new FormData();
     var Headers = {
       headers: {
@@ -151,25 +134,18 @@ function ManageProduct() {
     };
     formdata.append("image", editimagefile.imageEditFile);
     formdata.append("data", JSON.stringify(editDataProduct));
-    console.log("formdata", formdata);
-    console.log("data edit product", editDataProduct);
-    console.log("editimagefile.imageEditFile", editimagefile.imageEditFile);
 
     Axios.put(`${APIURL}product/editdata/${editDataProduct.id}`, formdata, Headers)
       .then(res => {
-        console.log(res);
         dispatch(AdminGetProduct());
         setmodaledit(!modaledit);
       })
       .catch(err => {
-        console.log("error edit data axios", err);
-        console.log(editDataProduct);
       });
   };
   // ========================================================== delete data =======
   const Deletedata = () => {
     var idProduct = idProductDeleteRedux;
-    console.log(idProduct);
     dispatch(AdminDeleteProduct(idProduct));
   };
 

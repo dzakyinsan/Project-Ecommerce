@@ -33,8 +33,6 @@ function PaymentRequest() {
   const dataEachProductRedux = useSelector(state => state.PaymentReqReducer.dataEachProductRedux);
   const loading = useSelector(state => state.PaymentReqReducer.loading);
 
-  console.log("dataPaymentReq", dataPaymentReq);
-  console.log("dataEachProductRedux", dataEachProductRedux);
   // =========================================== state ================================
   const [ModalDetail, setModalDetail] = useState([]);
   const [modalOpen, setmodalOpen] = useState(false);

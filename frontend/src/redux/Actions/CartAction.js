@@ -3,45 +3,40 @@ import { APIURL } from "./../../helper/ApiUrl";
 import Axios from "axios";
 
 export const CartGetProduct = () => {
-  return dispatch => {
-    var IdUserRedux=localStorage.getItem('userId')
+  return (dispatch) => {
+    var IdUserRedux = localStorage.getItem("userId");
     dispatch({ type: GET_CART_LOADING });
     Axios.get(`${APIURL}product/getCart/${IdUserRedux}`)
-      .then(res => {
-        console.log("masuk axios get ");
-
+      .then((res) => {
         var dataTotalHarga = 0;
-        res.data.dataCart.forEach(val => {
+        res.data.dataCart.forEach((val) => {
           dataTotalHarga += val.totalHarga;
         });
-
         dispatch({ type: GET_CART_SUCCESS, payload: { dataCart: res.data.dataCart, dataTotalHarga } });
       })
-      .catch(err => {
-        console.log("error axios get", err);
+      .catch((err) => {
         dispatch({ type: GET_CART_ERROR });
       });
   };
 };
 export const DeleteCartAction = (idDelete, IdUserRedux) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: CART_DELETE_LOADING });
     Axios.delete(`${APIURL}product/deletecart/${idDelete}/${IdUserRedux}`)
-      .then(res => {
+      .then((res) => {
         Axios.get(`${APIURL}product/getCart/${IdUserRedux}`)
-          .then(res => {
+          .then((res) => {
             var dataTotalHarga = 0;
-            res.data.dataCart.forEach(val => {
+            res.data.dataCart.forEach((val) => {
               dataTotalHarga += val.totalHarga;
             });
-            dispatch({ type: GET_CART_SUCCESS, payload: { dataCart: res.data.dataCart,dataTotalHarga } });
+            dispatch({ type: GET_CART_SUCCESS, payload: { dataCart: res.data.dataCart, dataTotalHarga } });
           })
-          .catch(err => {
-            console.log("error axios get", err);
+          .catch((err) => {
             dispatch({ type: GET_CART_ERROR });
           });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({ type: CART_DELETE_ERROR });
       });
   };

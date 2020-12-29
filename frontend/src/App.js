@@ -24,26 +24,22 @@ import { onUserloginRepeat, CartGetProduct, GetUserDetails } from "./redux/Actio
 
 class App extends Component {
   state = {
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
     var id = localStorage.getItem("userId");
     if (id) {
       Axios.get(`${APIURL}auth/login/${id}`)
-        .then(res => {
-          // console.log(res.data)
-          this.props.onUserloginRepeat(res.data); //ini isinya array of object atau object ????
+        .then((res) => {
+          this.props.onUserloginRepeat(res.data);
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
     this.setState({ loading: false });
   }
 
   render() {
-    // var id = localStorage.getItem("userId");
     if (this.state.loading) {
       return <div>loading...</div>;
     }
@@ -52,10 +48,8 @@ class App extends Component {
       this.props.GetUserDetails();
     }
 
-    console.log(this.props.Login);
-
     return (
-      <div className='Appjs' >
+      <div className="Appjs">
         <Header />
         <Switch>
           <Route path={"/"} exact component={Home} />
@@ -78,9 +72,9 @@ class App extends Component {
   }
 }
 
-const MapStateToProps = state => {
+const MapStateToProps = (state) => {
   return {
-    Login: state.auth.login
+    Login: state.auth.login,
   };
 };
 

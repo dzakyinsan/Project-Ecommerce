@@ -7,20 +7,19 @@ import {
   GET_DETAILS_LOADING,
   PASS_CHANGE_SUCCESS,
   PASS_CHANGE_ERROR,
-  PASS_CHANGE_LOADING
+  PASS_CHANGE_LOADING,
 } from "./../Actions/types";
 
 const INITIAL_STATE = {
   dataUserDetailRedux: {},
   message: "",
   messagePass: "",
-  loading: false
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_DETAILS_SUCCESS:
-      //   console.log("reducers", typeof state.dataUserDetailRedux);
       return { ...state, dataUserDetailRedux: action.payload };
     case GET_DETAILS_ERROR:
       return { ...state, message: action.payload };

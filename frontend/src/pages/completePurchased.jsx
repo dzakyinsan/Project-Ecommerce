@@ -32,13 +32,11 @@ function OrderComplete() {
         setdataOrderComplete(res.data);
       })
       .catch(err => {
-        console.log("error get data");
       });
   }, []);
 
   const renderData = () => {
     return dataOrderComplete.map((val, index) => {
-      console.log("dataOrderComplete", dataOrderComplete);
       return (
         <TableRow key={val.id}>
           <TableCell>{index + 1}</TableCell>

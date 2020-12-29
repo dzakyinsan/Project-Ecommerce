@@ -7,7 +7,7 @@ import {
   // DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_ERROR,
   DELETE_PRODUCT_LOADING,
-  MODAL_DELETE
+  MODAL_DELETE,
   // MODAL_ADD
 } from "./types";
 import { APIURL } from "./../../helper/ApiUrl";
@@ -16,28 +16,27 @@ import Swal from "sweetalert2";
 
 // =============================== function get product =====================
 export const AdminGetProduct = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: GET_PRODUCT_LOADING });
     Axios.get(`${APIURL}product/getproduct`)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: GET_PRODUCT_SUCCESS, payload: res.data.dataProduct });
-        dispatch({ type: GET_CATEGORY_SUCCESS, payload: res.data.dataCategory });
         dispatch({ type: GET_DATAEDIT_SUCCESS, payload: res.data.ForDataEdit });
+        dispatch({ type: GET_CATEGORY_SUCCESS, payload: res.data.dataCategory });
       })
 
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
         dispatch({ type: GET_PRODUCT_ERROR });
       });
   };
 };
 
 // ===================================== function delete data ====================
-export const AdminDeleteProduct = idProduct => {
-  return dispatch => {
+export const AdminDeleteProduct = (idProduct) => {
+  return (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_LOADING });
     Axios.delete(`${APIURL}product/deletedata/${idProduct}`)
-      .then(res => {
+      .then((res) => {
         dispatch(AdminGetProduct());
         dispatch(OpenToggleDeleteRedux());
         let timerInterval;
@@ -60,18 +59,17 @@ export const AdminDeleteProduct = idProduct => {
           },
           onClose: () => {
             clearInterval(timerInterval);
-          }
+          },
         });
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
         dispatch({ type: DELETE_PRODUCT_ERROR });
       });
   };
 };
 
-export const OpenToggleDeleteRedux = index => {
-  return dispatch => {
+export const OpenToggleDeleteRedux = (index) => {
+  return (dispatch) => {
     dispatch({ type: MODAL_DELETE, payload: index });
   };
 };
